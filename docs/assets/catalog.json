@@ -1,0 +1,547 @@
+{
+  "conversionMatrix" : {
+    "7z" : [
+      "zip",
+      "tar",
+      "gz",
+      "bz2",
+      "xz"
+    ],
+    "aac" : [
+      "mp3",
+      "m4a",
+      "wav",
+      "flac",
+      "ogg",
+      "opus",
+      "aiff",
+      "wma"
+    ],
+    "aiff" : [
+      "mp3",
+      "m4a",
+      "wav",
+      "flac",
+      "ogg",
+      "opus",
+      "wma"
+    ],
+    "arw" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "avi" : [
+      "mp4",
+      "mov",
+      "mkv",
+      "webm",
+      "wmv",
+      "gif",
+      "mp3"
+    ],
+    "avif" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "bmp",
+      "pdf"
+    ],
+    "bmp" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "bz2" : [
+      "zip",
+      "tar",
+      "gz",
+      "xz",
+      "7z"
+    ],
+    "cr2" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "cr3" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "csv" : [
+      "xlsx",
+      "ods",
+      "tsv",
+      "pdf"
+    ],
+    "dng" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "doc" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "docx" : [
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "epub" : [
+      "pdf",
+      "docx",
+      "pages",
+      "txt",
+      "md",
+      "html"
+    ],
+    "flac" : [
+      "mp3",
+      "m4a",
+      "wav",
+      "ogg",
+      "opus",
+      "aiff",
+      "wma"
+    ],
+    "gif" : [
+      "mp4",
+      "mov",
+      "mkv",
+      "webm",
+      "avi",
+      "wmv"
+    ],
+    "gz" : [
+      "zip",
+      "tar",
+      "bz2",
+      "xz",
+      "7z"
+    ],
+    "heic" : [
+      "jpg",
+      "png",
+      "webp",
+      "tiff",
+      "avif",
+      "bmp",
+      "pdf"
+    ],
+    "html" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "jpg" : [
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "bmp",
+      "pdf"
+    ],
+    "m4a" : [
+      "mp3",
+      "wav",
+      "flac",
+      "ogg",
+      "opus",
+      "aiff",
+      "wma"
+    ],
+    "m4v" : [
+      "mp4",
+      "mov",
+      "mkv",
+      "webm",
+      "avi",
+      "wmv",
+      "gif",
+      "mp3"
+    ],
+    "md" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "mkv" : [
+      "mp4",
+      "mov",
+      "webm",
+      "avi",
+      "wmv",
+      "gif",
+      "mp3"
+    ],
+    "mov" : [
+      "mp4",
+      "mkv",
+      "webm",
+      "avi",
+      "wmv",
+      "gif",
+      "mp3"
+    ],
+    "mp3" : [
+      "m4a",
+      "wav",
+      "flac",
+      "ogg",
+      "opus",
+      "aiff",
+      "wma"
+    ],
+    "mp4" : [
+      "mov",
+      "mkv",
+      "webm",
+      "avi",
+      "wmv",
+      "gif",
+      "mp3"
+    ],
+    "nef" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "ods" : [
+      "xlsx",
+      "csv",
+      "tsv",
+      "pdf"
+    ],
+    "odt" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "ogg" : [
+      "mp3",
+      "m4a",
+      "wav",
+      "flac",
+      "opus",
+      "aiff",
+      "wma"
+    ],
+    "opus" : [
+      "mp3",
+      "m4a",
+      "wav",
+      "flac",
+      "ogg",
+      "aiff",
+      "wma"
+    ],
+    "orf" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "pages" : [
+      "docx",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "pdf" : [
+      "docx",
+      "pages",
+      "pptx",
+      "xlsx",
+      "jpg",
+      "png",
+      "epub",
+      "txt",
+      "md"
+    ],
+    "png" : [
+      "jpg",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "bmp",
+      "pdf"
+    ],
+    "ppt" : [
+      "pdf",
+      "jpg",
+      "png"
+    ],
+    "pptx" : [
+      "pdf",
+      "jpg",
+      "png"
+    ],
+    "rar" : [
+      "zip",
+      "tar",
+      "gz",
+      "bz2",
+      "xz",
+      "7z"
+    ],
+    "rtf" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "rtfd" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "rw2" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "pdf"
+    ],
+    "srt" : [
+      "vtt",
+      "txt"
+    ],
+    "svg" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "tiff",
+      "avif",
+      "bmp",
+      "pdf"
+    ],
+    "tar" : [
+      "zip",
+      "gz",
+      "bz2",
+      "xz",
+      "7z"
+    ],
+    "textclipping" : [
+      "docx",
+      "pages",
+      "pdf",
+      "txt",
+      "md",
+      "html",
+      "epub",
+      "png",
+      "jpg"
+    ],
+    "tiff" : [
+      "jpg",
+      "png",
+      "webp",
+      "heic",
+      "avif",
+      "bmp",
+      "pdf"
+    ],
+    "tsv" : [
+      "xlsx",
+      "ods",
+      "csv",
+      "pdf"
+    ],
+    "txt" : [
+      "docx",
+      "pages",
+      "pdf",
+      "md",
+      "html",
+      "epub",
+      "jpg",
+      "png"
+    ],
+    "vtt" : [
+      "srt",
+      "txt"
+    ],
+    "wav" : [
+      "mp3",
+      "m4a",
+      "flac",
+      "ogg",
+      "opus",
+      "aiff",
+      "wma"
+    ],
+    "webm" : [
+      "mp4",
+      "mov",
+      "mkv",
+      "avi",
+      "wmv",
+      "gif",
+      "mp3"
+    ],
+    "webp" : [
+      "jpg",
+      "png",
+      "heic",
+      "tiff",
+      "avif",
+      "bmp",
+      "pdf"
+    ],
+    "wma" : [
+      "mp3",
+      "m4a",
+      "wav",
+      "flac",
+      "ogg",
+      "opus",
+      "aiff"
+    ],
+    "wmv" : [
+      "mp4",
+      "mov",
+      "mkv",
+      "webm",
+      "avi",
+      "gif",
+      "mp3"
+    ],
+    "xls" : [
+      "xlsx",
+      "ods",
+      "csv",
+      "tsv",
+      "pdf"
+    ],
+    "xlsx" : [
+      "ods",
+      "csv",
+      "tsv",
+      "pdf"
+    ],
+    "xz" : [
+      "zip",
+      "tar",
+      "gz",
+      "bz2",
+      "7z"
+    ],
+    "zip" : [
+      "tar",
+      "gz",
+      "bz2",
+      "xz",
+      "7z"
+    ]
+  },
+  "tools" : [
+    "compress",
+    "removeMetadata",
+    "editImage",
+    "annotateImage",
+    "frameImage",
+    "cropImage",
+    "normalizeAudio",
+    "muteVideo",
+    "trimVideo",
+    "splitPDF",
+    "organizePDF",
+    "extractArchive",
+    "createPDF",
+    "mergePDF",
+    "cropVideo",
+    "changeVideoSpeed",
+    "joinVideos",
+    "videoSnapshots",
+    "splitVideo",
+    "audioToVideo",
+    "trimAudio",
+    "audioChannels",
+    "createCollage",
+    "redactImage",
+    "redactVideo",
+    "redactAudio",
+    "readQRCode",
+    "removeBackground"
+  ]
+}
