@@ -34,7 +34,9 @@ Ekran görüntüleri, üretilmiş örnek dosyalarla çalışan uygulamadan alın
 
 ## Başlarken
 
-Filevero’nun henüz yayımlanmış bir sürümü yok. Apple Silicon, macOS 13 veya üstü ve Xcode / Swift 6 ile kaynaktan derle:
+**Windows:** Taşınabilir x64 sürümünü [Releases](https://github.com/serdarvaran/Filevero/releases/latest) sayfasından indir, klasöre çıkar ve `Filevero.exe`’yi çalıştır.
+
+**macOS:** Notarize edilmiş indirmeler henüz yayımlanmadı. Filevero’yu Apple Silicon, macOS 13 veya üstü ve Xcode / Swift 6 ile kaynaktan derle:
 
 ```sh
 scripts/setup-exiftool.sh

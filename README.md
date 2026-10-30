@@ -34,7 +34,9 @@ The [website](https://serdarvaran.github.io/Filevero/#playground) includes a bro
 
 ## Get started
 
-Filevero has no published release yet. Build it from source on Apple Silicon with macOS 13 or later and Xcode / Swift 6:
+**Windows:** download the portable x64 build from [Releases](https://github.com/serdarvaran/Filevero/releases/latest), extract it and run `Filevero.exe`.
+
+**macOS:** notarized downloads are not published yet. Build Filevero from source on Apple Silicon with macOS 13 or later and Xcode / Swift 6:
 
 ```sh
 scripts/setup-exiftool.sh

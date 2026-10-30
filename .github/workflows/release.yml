@@ -1,0 +1,80 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag, for example v1.0.0
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    env:
+      # The tag reaches shell commands only through this variable and is checked against the app version first.
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          dotnet-version: '10.0.x'
+      - name: Check the tag matches the app version
+        shell: pwsh
+        run: |
+          [xml]$props = Get-Content windows/Directory.Build.props
+          $version = $props.Project.PropertyGroup.Version
+          if ($env:TAG -cne "v$version") { throw "Tag $env:TAG does not match app version $version" }
+          "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Publish Windows x64
+        shell: pwsh
+        run: |
+          dotnet restore windows/Filevero.Windows --locked-mode
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet publish windows/Filevero.Windows -c Release --no-restore -o build/windows/Filevero
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      # The full desktop and media suites run on every push to main; a release still rechecks the engines.
+      - name: Engine safety checks
+        shell: pwsh
+        run: |
+          dotnet run --project windows/Filevero.Verify -c Release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Package portable app
+        shell: pwsh
+        run: |
+          $archive = "build/Filevero-Windows-x64-$env:VERSION.zip"
+          Compress-Archive -Path build/windows/Filevero/* -DestinationPath $archive
+          $hash = (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $(Split-Path $archive -Leaf)" | Out-File -FilePath "$archive.sha256" -Encoding ascii -NoNewline
+          Write-Host "SHA-256 $hash"
+      - name: Publish GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $archive = "build/Filevero-Windows-x64-$env:VERSION.zip"
+          $notes = @(
+            "## Filevero $env:VERSION",
+            "",
+            "**Windows (x64):** download ``Filevero-Windows-x64-$env:VERSION.zip``, extract it into its own folder and run ``Filevero.exe``. The .NET runtime is included. The app is not Authenticode signed yet, so Windows SmartScreen may ask you to confirm the first launch. Compare the download with the ``.sha256`` file.",
+            "",
+            "**macOS:** build from source as described in the [README](https://github.com/$env:GITHUB_REPOSITORY#get-started). Notarized Mac downloads will follow."
+          ) -join "`n"
+          $notes | Out-File -FilePath build/release-notes.md -Encoding utf8
+          gh release view $env:TAG --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:TAG $archive "$archive.sha256" --repo $env:GITHUB_REPOSITORY --clobber
+          } else {
+            gh release create $env:TAG $archive "$archive.sha256" --repo $env:GITHUB_REPOSITORY --title "Filevero $env:VERSION" --notes-file build/release-notes.md --verify-tag
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
