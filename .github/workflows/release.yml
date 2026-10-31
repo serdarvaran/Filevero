@@ -72,6 +72,11 @@ jobs:
         with:
           ref: refs/tags/${{ env.TAG }}
           persist-credentials: false
+      - name: Use the newest installed Xcode
+        run: |
+          xcode=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+          sudo xcode-select -s "$xcode"
+          xcodebuild -version
       - name: Check the tag matches the app version
         run: |
           version=$(plutil -extract CFBundleShortVersionString raw Resources/Info.plist)

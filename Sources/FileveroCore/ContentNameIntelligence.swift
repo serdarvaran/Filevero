@@ -187,13 +187,16 @@ public enum ContentNameIntelligence {
                     """
             )
             
-            if #available(macOS 27, *), let imageURL, SystemLanguageModel.default.capabilities.contains(.vision) {
-                return try await session.respond(generating: PromptGeneratedName.self) {
-                    "Suggest a file name for this image."
-                    if !text.isEmpty { "Text visible in the image:\n\(text)" }
-                    Attachment<ImageAttachmentContent>(imageURL: imageURL)
-                }.content.name
-            }
+            // Image prompts need the macOS 27 SDK (Xcode 27); older toolchains name files from their text only.
+            #if compiler(>=6.4)
+                if #available(macOS 27, *), let imageURL, SystemLanguageModel.default.capabilities.contains(.vision) {
+                    return try await session.respond(generating: PromptGeneratedName.self) {
+                        "Suggest a file name for this image."
+                        if !text.isEmpty { "Text visible in the image:\n\(text)" }
+                        Attachment<ImageAttachmentContent>(imageURL: imageURL)
+                    }.content.name
+                }
+            #endif
             
             return try await session.respond(
                 to: "Suggest a file name for this content:\n\(text)",
