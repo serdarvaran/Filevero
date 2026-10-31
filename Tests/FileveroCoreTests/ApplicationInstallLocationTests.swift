@@ -3,7 +3,7 @@ import XCTest
 @testable import FileveroCore
 
 final class ApplicationInstallLocationTests: XCTestCase {
-    private let home = URL(fileURLWithPath: "/Users/someone", isDirectory: true)
+    private let home = URL(fileURLWithPath: "/home/tester", isDirectory: true)
 
     private func folder(_ path: String, writable: Bool = true) -> String? {
         ApplicationInstallLocation.installFolder(
@@ -14,25 +14,25 @@ final class ApplicationInstallLocationTests: XCTestCase {
     func testInstalledCopiesStayWhereTheyAre() {
         XCTAssertNil(folder("/Applications/Filevero.app"))
         XCTAssertNil(folder("/Applications/Utilities/Filevero.app"))
-        XCTAssertNil(folder("/Users/someone/Applications/Filevero.app"))
+        XCTAssertNil(folder("/home/tester/Applications/Filevero.app"))
     }
 
     func testDownloadsAndDiskImagesMoveToApplications() {
-        XCTAssertEqual(folder("/Users/someone/Downloads/Filevero.app"), "/Applications")
+        XCTAssertEqual(folder("/home/tester/Downloads/Filevero.app"), "/Applications")
         XCTAssertEqual(folder("/Volumes/Filevero/Filevero.app"), "/Applications")
     }
 
     func testUserApplicationsIsUsedWhenTheSystemFolderIsNotWritable() {
-        XCTAssertEqual(folder("/Users/someone/Desktop/Filevero.app", writable: false), "/Users/someone/Applications")
+        XCTAssertEqual(folder("/home/tester/Desktop/Filevero.app", writable: false), "/home/tester/Applications")
     }
 
     func testSimilarlyNamedFoldersAreNotTreatedAsApplications() {
         XCTAssertEqual(folder("/Applications Old/Filevero.app"), "/Applications")
-        XCTAssertEqual(folder("/Users/someone/ApplicationsBackup/Filevero.app"), "/Applications")
+        XCTAssertEqual(folder("/home/tester/ApplicationsBackup/Filevero.app"), "/Applications")
     }
 
     func testDevelopmentBinariesAreIgnored() {
-        XCTAssertNil(folder("/Users/someone/Filevero/.build/release"))
+        XCTAssertNil(folder("/home/tester/Filevero/.build/release"))
     }
 
     func testTranslocatedPathsAreDetected() {
