@@ -6,7 +6,6 @@ application = defines['app']
 format = 'ULFO'
 files = [application]
 symlinks = {'Applications': '/Applications'}
-hide_extensions = [os.path.basename(application)]
 icon = defines['icon']
 background = defines['background']
 window_rect = ((200, 120), (640, 500))
