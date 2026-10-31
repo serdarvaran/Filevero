@@ -92,6 +92,13 @@ jobs:
           scripts/setup-exiftool.sh
           FILEVERO_EXTERNAL_TOOLS=1 FILEVERO_SIGNING_MODE=ad-hoc scripts/build-app.sh release
           codesign --verify --deep --strict build/Filevero.app
+      # Users have no .build folder; SwiftPM's resource lookup on some toolchains silently depends on it.
+      - name: Launch the packaged app without the build folder
+        timeout-minutes: 5
+        run: |
+          mv .build "$RUNNER_TEMP/swiftpm-build"
+          trap 'mv "$RUNNER_TEMP/swiftpm-build" .build' EXIT
+          scripts/check-packaged-launch.sh build/Filevero.app
       # A disk image whose window shows where to drag the app; Filevero also offers the move itself when it runs
       # from Downloads or the disk image.
       - name: Package disk image

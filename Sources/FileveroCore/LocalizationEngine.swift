@@ -34,7 +34,7 @@ public enum LocalizationEngine {
     }
 
     public static let turkish: [String: String] = {
-        guard let url = Bundle.module.url(forResource: "Turkish", withExtension: "json", subdirectory: "Resources"),
+        guard let url = CoreResources.url(forResource: "Turkish", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let values = try? JSONDecoder().decode([String: String].self, from: data)
         else { return [:] }
@@ -43,7 +43,7 @@ public enum LocalizationEngine {
 
     /// Technical terms and modifier keys that retain Latin capitalization (e.g. SHIFT, not SHİFT).
     public static let latinWords: Set<String> = {
-        guard let url = Bundle.module.url(forResource: "LatinWords", withExtension: "json", subdirectory: "Resources"),
+        guard let url = CoreResources.url(forResource: "LatinWords", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let words = try? JSONDecoder().decode([String].self, from: data)
         else { return [] }
