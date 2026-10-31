@@ -36,7 +36,7 @@ Ekran görüntüleri, üretilmiş örnek dosyalarla çalışan uygulamadan alın
 
 Filevero’yu [Releases](https://github.com/serdarvaran/Filevero/releases/latest) sayfasından indir:
 
-- **macOS** (Apple Silicon, macOS 13 veya üstü): `Filevero-macOS-arm64-….zip` dosyasını aç ve **Filevero.app**’i Uygulamalar klasörüne taşı. Mac sürümü henüz Apple tarafından notarize edilmediği için macOS ilk açılışı engeller: uygulamayı bir kez aç, uyarıyı kapat, sonra **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünde Filevero için **Yine de Aç**’ı seç. Önce indirmeyi `.sha256` dosyasıyla karşılaştır. Bu sürümlerde otomatik güncelleme kapalıdır.
+- **macOS** (Apple Silicon, macOS 13 veya üstü): `Filevero-macOS-arm64-….dmg` dosyasını aç, penceresindeki **Filevero**’yu **Uygulamalar** klasörünün üzerine sürükle ve uygulamayı Uygulamalar’dan aç. Disk görüntüsünden ya da İndirilenler’den başlatırsan Filevero kendini oraya taşımayı önerir; Finder servisleri ve girişte açılma sabit bir konum gerektirir. Mac sürümü henüz Apple tarafından notarize edilmediği için macOS ilk açılışı engeller: uygulamayı bir kez aç, uyarıyı kapat, sonra **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünde Filevero için **Yine de Aç**’ı seç. Önce indirmeyi `.sha256` dosyasıyla karşılaştır. 1.0.2’den itibaren iki uygulama da kendini günceller: bu sürümleri denetler, indirmenin Ed25519 imzasını doğrular, kurar ve yeniden başlar.
 - **Windows** (x64): `Filevero-Windows-x64-….zip` dosyasını ayrı bir klasöre çıkar ve `Filevero.exe`’yi çalıştır. SmartScreen sorarsa **Ek bilgi → Yine de çalıştır**’ı seç.
 
 Mac uygulamasını Apple Silicon, macOS 13 veya üstü ve Xcode / Swift 6 ile kaynaktan derlemek için:
@@ -46,7 +46,7 @@ scripts/setup-exiftool.sh
 FILEVERO_EXTERNAL_TOOLS=1 scripts/build-app.sh release
 ```
 
-Uygulama `build/Filevero.app` konumuna yazılır. Kendi imza profilini vermezsen kaynak derlemeleri ad-hoc imza kullanır. FFmpeg, yt-dlp, Deno ve LibreOffice’i uygulamanın içine gömmek istersen önce `scripts/setup-tools.sh` ve `scripts/setup-web-download-tools.py` betiklerini çalıştır, sonra `FILEVERO_EXTERNAL_TOOLS=1` olmadan derle.
+Uygulama `build/Filevero.app` konumuna yazılır; `scripts/build-dmg.sh build/Filevero.app Filevero.dmg` onu sürümlerde kullanılan disk görüntüsüne paketler. Kendi imza profilini vermezsen kaynak derlemeleri ad-hoc imza kullanır. FFmpeg, yt-dlp, Deno ve LibreOffice’i uygulamanın içine gömmek istersen önce `scripts/setup-tools.sh` ve `scripts/setup-web-download-tools.py` betiklerini çalıştır, sonra `FILEVERO_EXTERNAL_TOOLS=1` olmadan derle.
 
 İlk açılışta **Kurulumu tamamla → Eksik araçları indir**, FFmpeg, yt-dlp ve LibreOffice’i kendi kaynaklarından sabitlenmiş SHA-256 özetleriyle kurar. Yerel görsel ve PDF özellikleri hemen çalışır. [Sürümler, özetler ve lisanslar](docs/dependencies.md).
 
@@ -66,7 +66,7 @@ Windows sürümü (WPF / .NET 10) aynı kataloğu paylaşır; orada arka plan ka
 
 ## Gizlilik
 
-Dönüştürme ve düzenleme Mac’inde çalışır. Web indirmeleri yalnızca seçtiğin siteye bağlanır. Analitik, bulut hesabı veya tarayıcı çerezi aktarımı yoktur. Otomatik güncellemeler, Filevero’nun sürüm kanalı ve imza anahtarı yapılandırılana kadar kapalıdır.
+Dönüştürme ve düzenleme Mac’inde çalışır. Web indirmeleri yalnızca seçtiğin siteye bağlanır. Analitik, bulut hesabı veya tarayıcı çerezi aktarımı yoktur. Güncelleme denetimi yalnızca bu deponun GitHub Releases sayfasına bağlanır; bir güncelleme ancak Ed25519 imzası uygulamadaki anahtarla eşleşirse kurulur.
 
 ## Geliştirme
 

@@ -102,7 +102,7 @@ try
     try{DocumentEngine.Unzip(unsafeZip,root);throw new Exception("Traversal archive succeeded");}catch(InvalidDataException){checks++;}
     Check(!File.Exists(Path.Combine(Path.GetDirectoryName(root)!,"outside.txt")),"Archive wrote outside destination");
     var fake=Path.Combine(root,"fake.zip");File.WriteAllText(fake,"untrusted");
-    var update=new WindowsUpdate("99.0.0.0","https://github.com/filevero/filevero/releases/download/test/Filevero.zip",new FileInfo(fake).Length,Convert.ToBase64String(new byte[64]));
+    var update=new WindowsUpdate("99.0.0.0","https://github.com/"+PublicUpdates.Repository+"/releases/download/test/Filevero.zip",new FileInfo(fake).Length,Convert.ToBase64String(new byte[64]));
     try{await PublicUpdates.VerifyAsync(fake,update);throw new Exception("Unsigned update accepted");}catch(InvalidDataException){checks++;}
     {
         // A real Ed25519 key pair: the valid update must pass, so the rejections below fail for the intended reason.

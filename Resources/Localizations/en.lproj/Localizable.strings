@@ -967,6 +967,7 @@
 "DISMISS" = "DISMISS";
 "DISMISS ERROR" = "DISMISS ERROR";
 "DISMISS PREVIEW ERROR" = "DISMISS PREVIEW ERROR";
+"DO NOT ASK AGAIN" = "DO NOT ASK AGAIN";
 "DOCUMENT XML IS TOO LARGE." = "DOCUMENT XML IS TOO LARGE.";
 "DOCUMENTS" = "DOCUMENTS";
 "DONE" = "DONE";
@@ -1050,6 +1051,7 @@
 "Dismiss" = "Dismiss";
 "Dismiss error" = "Dismiss error";
 "Dismiss preview error" = "Dismiss preview error";
+"Do not ask again" = "Do not ask again";
 "Document XML is too large." = "Document XML is too large.";
 "Documents" = "Documents";
 "Done" = "Done";
@@ -1221,6 +1223,7 @@
 "FILES, HANDLED." = "FILES, HANDLED.";
 "FILEVERO CANNOT FIND ITS OWN PROGRAM FILE." = "FILEVERO CANNOT FIND ITS OWN PROGRAM FILE.";
 "FILEVERO CHECKS ONCE AN HOUR WHILE IT’S RUNNING. YOU CHOOSE WHEN TO DOWNLOAD AND INSTALL." = "FILEVERO CHECKS ONCE AN HOUR WHILE IT’S RUNNING. YOU CHOOSE WHEN TO DOWNLOAD AND INSTALL.";
+"FILEVERO COULD NOT BE MOVED TO THE APPLICATIONS FOLDER" = "FILEVERO COULD NOT BE MOVED TO THE APPLICATIONS FOLDER";
 "FILEVERO IS ALREADY RUNNING BUT IS STILL STARTING. OPEN IT FROM THE SYSTEM TRAY OR TRY AGAIN IN A MOMENT." = "FILEVERO IS ALREADY RUNNING BUT IS STILL STARTING. OPEN IT FROM THE SYSTEM TRAY OR TRY AGAIN IN A MOMENT.";
 "FILEVERO IS READY FOR YOUR FILES." = "FILEVERO IS READY FOR YOUR FILES.";
 "FILEVERO IS STILL RUNNING." = "FILEVERO IS STILL RUNNING.";
@@ -1246,6 +1249,7 @@
 "FIND FILES WITH EXACTLY THE SAME CONTENTS." = "FIND FILES WITH EXACTLY THE SAME CONTENTS.";
 "FIND IN LIBRARY…" = "FIND IN LIBRARY…";
 "FIND MEDIA" = "FIND MEDIA";
+"FINDER SERVICES AND OPENING AT LOGIN ONLY KEEP WORKING WHEN FILEVERO RUNS FROM THE APPLICATIONS FOLDER. FILEVERO COPIES ITSELF THERE, REMOVES THIS COPY AND OPENS AGAIN." = "FINDER SERVICES AND OPENING AT LOGIN ONLY KEEP WORKING WHEN FILEVERO RUNS FROM THE APPLICATIONS FOLDER. FILEVERO COPIES ITSELF THERE, REMOVES THIS COPY AND OPENS AGAIN.";
 "FINDING THE MEDIA…" = "FINDING THE MEDIA…";
 "FINE-GRAINED ACCESS TOKEN" = "FINE-GRAINED ACCESS TOKEN";
 "FINE-TUNE" = "FINE-TUNE";
@@ -1328,6 +1332,7 @@
 "Filevero Update Connection" = "Filevero Update Connection";
 "Filevero cannot find its own program file." = "Filevero cannot find its own program file.";
 "Filevero checks once an hour while it’s running. You choose when to download and install." = "Filevero checks once an hour while it’s running. You choose when to download and install.";
+"Filevero could not be moved to the Applications folder" = "Filevero could not be moved to the Applications folder";
 "Filevero is already running but is still starting. Open it from the system tray or try again in a moment." = "Filevero is already running but is still starting. Open it from the system tray or try again in a moment.";
 "Filevero is ready for your files." = "Filevero is ready for your files.";
 "Filevero is still running." = "Filevero is still running.";
@@ -1353,6 +1358,7 @@
 "Find files with exactly the same contents." = "Find files with exactly the same contents.";
 "Find in Library…" = "Find in Library…";
 "Find media" = "Find media";
+"Finder services and opening at login only keep working when Filevero runs from the Applications folder. Filevero copies itself there, removes this copy and opens again." = "Finder services and opening at login only keep working when Filevero runs from the Applications folder. Filevero copies itself there, removes this copy and opens again.";
 "Finding the media…" = "Finding the media…";
 "Fine-grained access token" = "Fine-grained access token";
 "Fine-tune" = "Fine-tune";
@@ -1679,10 +1685,12 @@
 "MOVE COPIES TO TRASH…" = "MOVE COPIES TO TRASH…";
 "MOVE DOWN" = "MOVE DOWN";
 "MOVE FILES INTO FOLDERS NEXT TO THEM." = "MOVE FILES INTO FOLDERS NEXT TO THEM.";
+"MOVE FILEVERO TO THE APPLICATIONS FOLDER?" = "MOVE FILEVERO TO THE APPLICATIONS FOLDER?";
 "MOVE HERE" = "MOVE HERE";
 "MOVE LEFT" = "MOVE LEFT";
 "MOVE REGULAR FILES AND FOLDERS WITHOUT SYMBOLIC LINKS." = "MOVE REGULAR FILES AND FOLDERS WITHOUT SYMBOLIC LINKS.";
 "MOVE RIGHT" = "MOVE RIGHT";
+"MOVE TO APPLICATIONS" = "MOVE TO APPLICATIONS";
 "MOVE TO TRASH" = "MOVE TO TRASH";
 "MOVE UP" = "MOVE UP";
 "MOVED OR REMOVED" = "MOVED OR REMOVED";
@@ -1732,6 +1740,7 @@
 "Move %@ copies to the Trash?" = "Move %@ copies to the Trash?";
 "Move %lld copies to the Trash?" = "Move %lld copies to the Trash?";
 "Move & share" = "Move & share";
+"Move Filevero to the Applications folder?" = "Move Filevero to the Applications folder?";
 "Move Here" = "Move Here";
 "Move Left" = "Move Left";
 "Move Right" = "Move Right";
@@ -1741,6 +1750,7 @@
 "Move left" = "Move left";
 "Move regular files and folders without symbolic links." = "Move regular files and folders without symbolic links.";
 "Move right" = "Move right";
+"Move to Applications" = "Move to Applications";
 "Move to Trash" = "Move to Trash";
 "Move up" = "Move up";
 "Moved or removed" = "Moved or removed";
@@ -1789,6 +1799,7 @@
 "NORMALIZE AUDIO" = "NORMALIZE AUDIO";
 "NORMALIZE VOLUME" = "NORMALIZE VOLUME";
 "NOT AVAILABLE FOR THESE FILES" = "NOT AVAILABLE FOR THESE FILES";
+"NOT NOW" = "NOT NOW";
 "NOTHING HERE YET. PASTE SOMETHING OR MAKE YOUR FIRST FRESH COPY." = "NOTHING HERE YET. PASTE SOMETHING OR MAKE YOUR FIRST FRESH COPY.";
 "NOTHING WOULD CHANGE." = "NOTHING WOULD CHANGE.";
 "NUMBER" = "NUMBER";
@@ -1838,6 +1849,7 @@
 "None" = "None";
 "Normalize Audio" = "Normalize Audio";
 "Normalize Volume" = "Normalize Volume";
+"Not Now" = "Not Now";
 "Not available for these files" = "Not available for these files";
 "Nothing here yet. Paste something or make your first fresh copy." = "Nothing here yet. Paste something or make your first fresh copy.";
 "Nothing would change." = "Nothing would change.";
@@ -2136,6 +2148,7 @@
 "QUICK PICKS" = "QUICK PICKS";
 "QUIT ANYWAY" = "QUIT ANYWAY";
 "QUIT FILEVERO" = "QUIT FILEVERO";
+"QUIT FILEVERO AND DRAG IT TO THE APPLICATIONS FOLDER IN FINDER." = "QUIT FILEVERO AND DRAG IT TO THE APPLICATIONS FOLDER IN FINDER.";
 "QUITTING STOPS THE CURRENT OPERATION. UNFINISHED FILES ARE NOT SAVED." = "QUITTING STOPS THE CURRENT OPERATION. UNFINISHED FILES ARE NOT SAVED.";
 "Quality" = "Quality";
 "Quality (%)" = "Quality (%)";
@@ -2143,6 +2156,7 @@
 "Quick Look" = "Quick Look";
 "Quit Anyway" = "Quit Anyway";
 "Quit Filevero" = "Quit Filevero";
+"Quit Filevero and drag it to the Applications folder in Finder." = "Quit Filevero and drag it to the Applications folder in Finder.";
 "Quitting stops the current operation. Unfinished files are not saved." = "Quitting stops the current operation. Unfinished files are not saved.";
 "RANGE END" = "RANGE END";
 "RANGE START" = "RANGE START";

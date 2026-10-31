@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FeedURL</key>
+	<string>https://github.com/serdarvaran/Filevero/releases/latest/download/appcast.xml</string>
+	<key>PublicEDKey</key>
+	<string>Ouu2wPhtu4ywnI2nET5myTfAcBdsF2eIa2rMQJLkEO4=</string>
+	<key>PublicRepository</key>
+	<string>serdarvaran/Filevero</string>
+</dict>
+</plist>

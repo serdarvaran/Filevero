@@ -36,7 +36,7 @@ The [website](https://serdarvaran.github.io/Filevero/#playground) includes a bro
 
 Download Filevero from [Releases](https://github.com/serdarvaran/Filevero/releases/latest):
 
-- **macOS** (Apple Silicon, macOS 13 or later): unzip `Filevero-macOS-arm64-….zip` and move **Filevero.app** to Applications. The Mac build is not notarized by Apple yet, so macOS blocks the first launch: open the app once, close the warning, then choose **Open Anyway** for Filevero in **System Settings → Privacy & Security**. Compare the download with its `.sha256` file first. Automatic updates are off in these builds.
+- **macOS** (Apple Silicon, macOS 13 or later): open `Filevero-macOS-arm64-….dmg` and drag **Filevero** onto the **Applications** folder in its window, then open it from Applications. If you start it from the disk image or Downloads, Filevero offers to move itself there, because Finder services and opening at login need a fixed location. The Mac build is not notarized by Apple yet, so macOS blocks the first launch: open the app once, close the warning, then choose **Open Anyway** for Filevero in **System Settings → Privacy & Security**. Compare the download with its `.sha256` file first. From 1.0.2 on, both apps update themselves: they check these releases, verify the download's Ed25519 signature, install it and restart.
 - **Windows** (x64): extract `Filevero-Windows-x64-….zip` into its own folder and run `Filevero.exe`. If SmartScreen asks, choose **More info → Run anyway**.
 
 To build the Mac app from source on Apple Silicon with macOS 13 or later and Xcode / Swift 6:
@@ -46,7 +46,7 @@ scripts/setup-exiftool.sh
 FILEVERO_EXTERNAL_TOOLS=1 scripts/build-app.sh release
 ```
 
-The app is written to `build/Filevero.app`. Source builds use an ad-hoc signature unless you provide your own signing profile. To bundle FFmpeg, yt-dlp, Deno and LibreOffice inside the app instead, run `scripts/setup-tools.sh` and `scripts/setup-web-download-tools.py`, then build without `FILEVERO_EXTERNAL_TOOLS=1`.
+The app is written to `build/Filevero.app`; `scripts/build-dmg.sh build/Filevero.app Filevero.dmg` packages it as the disk image used for releases. Source builds use an ad-hoc signature unless you provide your own signing profile. To bundle FFmpeg, yt-dlp, Deno and LibreOffice inside the app instead, run `scripts/setup-tools.sh` and `scripts/setup-web-download-tools.py`, then build without `FILEVERO_EXTERNAL_TOOLS=1`.
 
 On first launch, **Finish setup → Download missing tools** installs FFmpeg, yt-dlp and LibreOffice from their upstream sources with pinned SHA-256 hashes. Native image and PDF features work right away. [Versions, hashes and licenses](docs/dependencies.md).
 
@@ -66,7 +66,7 @@ The [English](https://serdarvaran.github.io/Filevero/#shortcuts) and [Turkish](h
 
 ## Privacy
 
-Conversion and editing run on your Mac. Web downloads contact only the site you choose. There is no analytics, cloud account or browser-cookie import. Automatic updates stay off until Filevero's release channel and signing key are configured.
+Conversion and editing run on your Mac. Web downloads contact only the site you choose. There is no analytics, cloud account or browser-cookie import. Update checks contact only GitHub Releases of this repository, and an update is installed only after its Ed25519 signature matches the key built into the app.
 
 ## Development
 

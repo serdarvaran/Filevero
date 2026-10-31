@@ -8,10 +8,10 @@ namespace Filevero.Core;
 public sealed record WindowsUpdate(string Version,string Url,long Length,string EdSignature);
 public static class PublicUpdates
 {
-    // Empty until Filevero has its own release repository and signing key; never fall back to another project's releases.
-    public const string Repository="";
+    // The release workflow signs windows-update.json with the same Ed25519 key as the macOS appcast.
+    public const string Repository="serdarvaran/Filevero";
     public const string Feed="https://github.com/"+Repository+"/releases/latest/download/windows-update.json";
-    private const string PublicKey="";
+    private const string PublicKey="Ouu2wPhtu4ywnI2nET5myTfAcBdsF2eIa2rMQJLkEO4=";
     public static bool Configured=>Repository.Length>0&&PublicKey.Length>0;
     public static async Task<WindowsUpdate?> CheckAsync(Version current,CancellationToken token=default)
     {

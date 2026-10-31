@@ -967,6 +967,7 @@
 "DISMISS" = "KAPAT";
 "DISMISS ERROR" = "HATAYI KAPAT";
 "DISMISS PREVIEW ERROR" = "ÖNİZLEME HATASINI KAPAT";
+"DO NOT ASK AGAIN" = "BİR DAHA SORMA";
 "DOCUMENT XML IS TOO LARGE." = "BELGE XML'İ ÇOK BÜYÜK.";
 "DOCUMENTS" = "BELGELER";
 "DONE" = "BİTTİ";
@@ -1050,6 +1051,7 @@
 "Dismiss" = "Kapat";
 "Dismiss error" = "Hatayı kapat";
 "Dismiss preview error" = "Önizleme hatasını kapat";
+"Do not ask again" = "Bir daha sorma";
 "Document XML is too large." = "Belge XML'i çok büyük.";
 "Documents" = "Belgeler";
 "Done" = "Bitti";
@@ -1221,6 +1223,7 @@
 "FILES, HANDLED." = "DOSYALARIN KONTROL ALTINDA.";
 "FILEVERO CANNOT FIND ITS OWN PROGRAM FILE." = "FILEVERO KENDİ PROGRAM DOSYASINI BULAMIYOR.";
 "FILEVERO CHECKS ONCE AN HOUR WHILE IT’S RUNNING. YOU CHOOSE WHEN TO DOWNLOAD AND INSTALL." = "FILEVERO ÇALIŞIRKEN SAATTE BİR DENETLER. İNDİRME VE KURULUM ZAMANINI SEN SEÇERSİN.";
+"FILEVERO COULD NOT BE MOVED TO THE APPLICATIONS FOLDER" = "FILEVERO UYGULAMALAR KLASÖRÜNE TAŞINAMADI";
 "FILEVERO IS ALREADY RUNNING BUT IS STILL STARTING. OPEN IT FROM THE SYSTEM TRAY OR TRY AGAIN IN A MOMENT." = "FILEVERO ZATEN ÇALIŞIYOR AMA HÂLÂ AÇILIYOR. SİSTEM TEPSİSİNDEN AÇ VEYA BİRAZDAN TEKRAR DENE.";
 "FILEVERO IS READY FOR YOUR FILES." = "FILEVERO DOSYALARIN İÇİN HAZIR.";
 "FILEVERO IS STILL RUNNING." = "FILEVERO HÂLÂ ÇALIŞIYOR.";
@@ -1246,6 +1249,7 @@
 "FIND FILES WITH EXACTLY THE SAME CONTENTS." = "İÇERİĞİ TAMAMEN AYNI OLAN DOSYALARI BUL.";
 "FIND IN LIBRARY…" = "KİTAPLIKTA ARA…";
 "FIND MEDIA" = "MEDYAYI BUL";
+"FINDER SERVICES AND OPENING AT LOGIN ONLY KEEP WORKING WHEN FILEVERO RUNS FROM THE APPLICATIONS FOLDER. FILEVERO COPIES ITSELF THERE, REMOVES THIS COPY AND OPENS AGAIN." = "FINDER SERVİSLERİ VE GİRİŞTE AÇILMA YALNIZCA FILEVERO UYGULAMALAR KLASÖRÜNDEN ÇALIŞTIĞINDA DÜZGÜN ÇALIŞIR. FILEVERO KENDİNİ ORAYA KOPYALAR, BU KOPYAYI KALDIRIR VE YENİDEN AÇILIR.";
 "FINDING THE MEDIA…" = "MEDYA BULUNUYOR…";
 "FINE-GRAINED ACCESS TOKEN" = "AYRINTILI ERİŞİM TOKENI";
 "FINE-TUNE" = "İNCE AYAR";
@@ -1328,6 +1332,7 @@
 "Filevero Update Connection" = "Filevero Güncelleme Bağlantısı";
 "Filevero cannot find its own program file." = "Filevero kendi program dosyasını bulamıyor.";
 "Filevero checks once an hour while it’s running. You choose when to download and install." = "Filevero çalışırken saatte bir denetler. İndirme ve kurulum zamanını sen seçersin.";
+"Filevero could not be moved to the Applications folder" = "Filevero Uygulamalar klasörüne taşınamadı";
 "Filevero is already running but is still starting. Open it from the system tray or try again in a moment." = "Filevero zaten çalışıyor ama hâlâ açılıyor. Sistem tepsisinden aç veya birazdan tekrar dene.";
 "Filevero is ready for your files." = "Filevero dosyaların için hazır.";
 "Filevero is still running." = "Filevero hâlâ çalışıyor.";
@@ -1353,6 +1358,7 @@
 "Find files with exactly the same contents." = "İçeriği tamamen aynı olan dosyaları bul.";
 "Find in Library…" = "Kitaplıkta Ara…";
 "Find media" = "Medyayı bul";
+"Finder services and opening at login only keep working when Filevero runs from the Applications folder. Filevero copies itself there, removes this copy and opens again." = "Finder servisleri ve girişte açılma yalnızca Filevero Uygulamalar klasöründen çalıştığında düzgün çalışır. Filevero kendini oraya kopyalar, bu kopyayı kaldırır ve yeniden açılır.";
 "Finding the media…" = "Medya bulunuyor…";
 "Fine-grained access token" = "Ayrıntılı erişim tokenı";
 "Fine-tune" = "İnce ayar";
@@ -1679,10 +1685,12 @@
 "MOVE COPIES TO TRASH…" = "KOPYALARI ÇÖP SEPETİ'NE TAŞI…";
 "MOVE DOWN" = "AŞAĞI TAŞI";
 "MOVE FILES INTO FOLDERS NEXT TO THEM." = "DOSYALARI BULUNDUKLARI YERDEKİ KLASÖRLERE TAŞI.";
+"MOVE FILEVERO TO THE APPLICATIONS FOLDER?" = "FILEVERO UYGULAMALAR KLASÖRÜNE TAŞINSIN MI?";
 "MOVE HERE" = "BURAYA TAŞI";
 "MOVE LEFT" = "SOLA TAŞI";
 "MOVE REGULAR FILES AND FOLDERS WITHOUT SYMBOLIC LINKS." = "SEMBOLİK BAĞLANTI İÇERMEYEN NORMAL DOSYA VE KLASÖRLERİ TAŞI.";
 "MOVE RIGHT" = "SAĞA TAŞI";
+"MOVE TO APPLICATIONS" = "UYGULAMALAR'A TAŞI";
 "MOVE TO TRASH" = "ÇÖP SEPETİ'NE TAŞI";
 "MOVE UP" = "YUKARI TAŞI";
 "MOVED OR REMOVED" = "TAŞINMIŞ VEYA SİLİNMİŞ";
@@ -1732,6 +1740,7 @@
 "Move %@ copies to the Trash?" = "%@ kopya Çöp Sepeti'ne taşınsın mı?";
 "Move %lld copies to the Trash?" = "%lld kopya Çöp Sepeti'ne taşınsın mı?";
 "Move & share" = "Taşı ve paylaş";
+"Move Filevero to the Applications folder?" = "Filevero Uygulamalar klasörüne taşınsın mı?";
 "Move Here" = "Buraya Taşı";
 "Move Left" = "Sola Taşı";
 "Move Right" = "Sağa Taşı";
@@ -1741,6 +1750,7 @@
 "Move left" = "Sola taşı";
 "Move regular files and folders without symbolic links." = "Sembolik bağlantı içermeyen normal dosya ve klasörleri taşı.";
 "Move right" = "Sağa taşı";
+"Move to Applications" = "Uygulamalar'a taşı";
 "Move to Trash" = "Çöp Sepeti'ne taşı";
 "Move up" = "Yukarı taşı";
 "Moved or removed" = "Taşınmış veya silinmiş";
@@ -1789,6 +1799,7 @@
 "NORMALIZE AUDIO" = "SESİ NORMALİZE ET";
 "NORMALIZE VOLUME" = "SES DÜZEYİNİ EŞİTLE";
 "NOT AVAILABLE FOR THESE FILES" = "BU DOSYALAR İÇİN KULLANILAMAZ";
+"NOT NOW" = "ŞİMDİ DEĞİL";
 "NOTHING HERE YET. PASTE SOMETHING OR MAKE YOUR FIRST FRESH COPY." = "BURADA HENÜZ BİR ŞEY YOK. BİR DOSYA YAPIŞTIR VEYA İLK KOPYANI OLUŞTUR.";
 "NOTHING WOULD CHANGE." = "HİÇBİR ŞEY DEĞİŞMEYECEK.";
 "NUMBER" = "NUMARA";
@@ -1838,6 +1849,7 @@
 "None" = "Yok";
 "Normalize Audio" = "Sesi Normalize Et";
 "Normalize Volume" = "Ses Düzeyini Eşitle";
+"Not Now" = "Şimdi değil";
 "Not available for these files" = "Bu dosyalar için kullanılamaz";
 "Nothing here yet. Paste something or make your first fresh copy." = "Burada henüz bir şey yok. Bir dosya yapıştır veya ilk kopyanı oluştur.";
 "Nothing would change." = "Hiçbir şey değişmeyecek.";
@@ -2136,6 +2148,7 @@
 "QUICK PICKS" = "HIZLI SEÇİM";
 "QUIT ANYWAY" = "YİNE DE ÇIK";
 "QUIT FILEVERO" = "FILEVERO'DAN ÇIK";
+"QUIT FILEVERO AND DRAG IT TO THE APPLICATIONS FOLDER IN FINDER." = "FILEVERO'DAN ÇIK VE UYGULAMAYI FINDER'DA UYGULAMALAR KLASÖRÜNE SÜRÜKLE.";
 "QUITTING STOPS THE CURRENT OPERATION. UNFINISHED FILES ARE NOT SAVED." = "ÇIKARSAN MEVCUT İŞLEM DURUR. TAMAMLANMAMIŞ DOSYALAR KAYDEDİLMEZ.";
 "Quality" = "Kalite";
 "Quality (%)" = "Kalite (%)";
@@ -2143,6 +2156,7 @@
 "Quick Look" = "Hızlı Bakış";
 "Quit Anyway" = "Yine de Çık";
 "Quit Filevero" = "Filevero'dan Çık";
+"Quit Filevero and drag it to the Applications folder in Finder." = "Filevero'dan çık ve uygulamayı Finder'da Uygulamalar klasörüne sürükle.";
 "Quitting stops the current operation. Unfinished files are not saved." = "Çıkarsan mevcut işlem durur. Tamamlanmamış dosyalar kaydedilmez.";
 "RANGE END" = "ARALIK SONU";
 "RANGE START" = "ARALIK BAŞLANGICI";

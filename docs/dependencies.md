@@ -15,6 +15,8 @@ Media tools enable video/audio conversion, media previews, less common image enc
 
 Exact URLs, limits and hashes: [`ExternalToolInstaller.swift`](../Sources/FileveroCore/ExternalToolInstaller.swift). Other bundled library notices: [`Resources/THIRD-PARTY-NOTICES.txt`](../Resources/THIRD-PARTY-NOTICES.txt). ExifTool includes its complete Perl source; Sparkle includes its full license.
 
+Release disk images are laid out with [dmgbuild](https://github.com/dmgbuild/dmgbuild) (MIT), a build-time tool pinned by hash in [`scripts/requirements-dmg.txt`](../scripts/requirements-dmg.txt). It is not part of the app.
+
 ## Windows x64 preview
 
 The first foreground launch opens the same two-group setup as macOS. Choose **Download missing tools**; media tools and Office tools install in sequence. Reopening an unfinished setup retries only missing groups. Image, PDF and ZIP features work immediately. Setup uses these pinned upstream releases:

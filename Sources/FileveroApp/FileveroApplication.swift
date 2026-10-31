@@ -242,6 +242,11 @@ public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuD
             UserDefaults.standard.set(ColorTheme.resolve(storedTheme).rawValue, forKey: "colorTheme")
         }
         FileveroAppearanceTheme.apply()
+        // Before Services register, so they never record a Downloads or disk-image path.
+        if ApplicationsFolderMover.offerMoveIfNeeded() {
+            NSApp.terminate(nil)
+            return
+        }
         NSApp.servicesProvider = services
         NSUpdateDynamicServices()
 

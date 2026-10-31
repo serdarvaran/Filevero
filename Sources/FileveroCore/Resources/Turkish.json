@@ -1626,5 +1626,12 @@
   "Save a cropped copy (Return or ⌘S)": "Kırpılmış kopyayı kaydet (Return veya ⌘S)",
   "Save a fresh copy (⌘S)": "Yeni bir kopya kaydet (⌘S)",
   "Close": "Kapat",
-  "The preview could not be updated: {0}": "Önizleme güncellenemedi: {0}"
+  "The preview could not be updated: {0}": "Önizleme güncellenemedi: {0}",
+  "Move Filevero to the Applications folder?": "Filevero Uygulamalar klasörüne taşınsın mı?",
+  "Finder services and opening at login only keep working when Filevero runs from the Applications folder. Filevero copies itself there, removes this copy and opens again.": "Finder servisleri ve girişte açılma yalnızca Filevero Uygulamalar klasöründen çalıştığında düzgün çalışır. Filevero kendini oraya kopyalar, bu kopyayı kaldırır ve yeniden açılır.",
+  "Move to Applications": "Uygulamalar'a taşı",
+  "Not Now": "Şimdi değil",
+  "Do not ask again": "Bir daha sorma",
+  "Filevero could not be moved to the Applications folder": "Filevero Uygulamalar klasörüne taşınamadı",
+  "Quit Filevero and drag it to the Applications folder in Finder.": "Filevero'dan çık ve uygulamayı Finder'da Uygulamalar klasörüne sürükle."
 }
