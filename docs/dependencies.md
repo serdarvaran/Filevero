@@ -24,4 +24,4 @@ The first foreground launch opens the same two-group setup as macOS. Choose **Do
 
 Exact URLs and hashes: [`Toolchain.cs`](../windows/Filevero.Core/Toolchain.cs). [Windows availability and shortcuts](../windows/README.md). [Bundled Windows library notices](../windows/THIRD-PARTY-NOTICES.txt). The preview is self-contained and does not require .NET to be installed separately.
 
-We do not change operating-system security settings or request administrator access for this setup. OS publisher trust and Filevero’s pinned update-signature verification are separate: public Mac builds are Apple-notarized, while Windows builds are not yet Authenticode signed.
+We do not change operating-system security settings or request administrator access for this setup. OS publisher trust and Filevero’s pinned update-signature verification are separate: Mac downloads are not yet Apple-notarized and Windows builds are not yet Authenticode signed, so each asks for a one-time approval on first launch.

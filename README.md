@@ -34,9 +34,12 @@ The [website](https://serdarvaran.github.io/Filevero/#playground) includes a bro
 
 ## Get started
 
-**Windows:** download the portable x64 build from [Releases](https://github.com/serdarvaran/Filevero/releases/latest), extract it and run `Filevero.exe`.
+Download Filevero from [Releases](https://github.com/serdarvaran/Filevero/releases/latest):
 
-**macOS:** notarized downloads are not published yet. Build Filevero from source on Apple Silicon with macOS 13 or later and Xcode / Swift 6:
+- **macOS** (Apple Silicon, macOS 13 or later): unzip `Filevero-macOS-arm64-….zip` and move **Filevero.app** to Applications. The Mac build is not notarized by Apple yet, so macOS blocks the first launch: open the app once, close the warning, then choose **Open Anyway** for Filevero in **System Settings → Privacy & Security**. Compare the download with its `.sha256` file first. Automatic updates are off in these builds.
+- **Windows** (x64): extract `Filevero-Windows-x64-….zip` into its own folder and run `Filevero.exe`. If SmartScreen asks, choose **More info → Run anyway**.
+
+To build the Mac app from source on Apple Silicon with macOS 13 or later and Xcode / Swift 6:
 
 ```sh
 scripts/setup-exiftool.sh

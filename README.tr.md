@@ -34,9 +34,12 @@ Ekran görüntüleri, üretilmiş örnek dosyalarla çalışan uygulamadan alın
 
 ## Başlarken
 
-**Windows:** Taşınabilir x64 sürümünü [Releases](https://github.com/serdarvaran/Filevero/releases/latest) sayfasından indir, klasöre çıkar ve `Filevero.exe`’yi çalıştır.
+Filevero’yu [Releases](https://github.com/serdarvaran/Filevero/releases/latest) sayfasından indir:
 
-**macOS:** Notarize edilmiş indirmeler henüz yayımlanmadı. Filevero’yu Apple Silicon, macOS 13 veya üstü ve Xcode / Swift 6 ile kaynaktan derle:
+- **macOS** (Apple Silicon, macOS 13 veya üstü): `Filevero-macOS-arm64-….zip` dosyasını aç ve **Filevero.app**’i Uygulamalar klasörüne taşı. Mac sürümü henüz Apple tarafından notarize edilmediği için macOS ilk açılışı engeller: uygulamayı bir kez aç, uyarıyı kapat, sonra **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünde Filevero için **Yine de Aç**’ı seç. Önce indirmeyi `.sha256` dosyasıyla karşılaştır. Bu sürümlerde otomatik güncelleme kapalıdır.
+- **Windows** (x64): `Filevero-Windows-x64-….zip` dosyasını ayrı bir klasöre çıkar ve `Filevero.exe`’yi çalıştır. SmartScreen sorarsa **Ek bilgi → Yine de çalıştır**’ı seç.
+
+Mac uygulamasını Apple Silicon, macOS 13 veya üstü ve Xcode / Swift 6 ile kaynaktan derlemek için:
 
 ```sh
 scripts/setup-exiftool.sh

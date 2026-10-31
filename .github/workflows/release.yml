@@ -12,15 +12,13 @@ permissions:
 concurrency:
   group: release-${{ github.event.inputs.tag || github.ref_name }}
   cancel-in-progress: false
+env:
+  # The tag reaches shell commands only through this variable and is checked against the app version first.
+  TAG: ${{ github.event.inputs.tag || github.ref_name }}
 jobs:
   windows:
     runs-on: windows-2025
     timeout-minutes: 30
-    permissions:
-      contents: write
-    env:
-      # The tag reaches shell commands only through this variable and is checked against the app version first.
-      TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -52,29 +50,97 @@ jobs:
       - name: Package portable app
         shell: pwsh
         run: |
-          $archive = "build/Filevero-Windows-x64-$env:VERSION.zip"
+          New-Item -ItemType Directory -Force dist | Out-Null
+          $archive = "dist/Filevero-Windows-x64-$env:VERSION.zip"
           Compress-Archive -Path build/windows/Filevero/* -DestinationPath $archive
           $hash = (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  $(Split-Path $archive -Leaf)" | Out-File -FilePath "$archive.sha256" -Encoding ascii -NoNewline
           Write-Host "SHA-256 $hash"
-      - name: Publish GitHub release
-        shell: pwsh
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: windows-release
+          path: dist
+          retention-days: 3
+          if-no-files-found: error
+
+  macos:
+    # Xcode 26 builds the Liquid Glass interface; older SDKs fall back to plain materials.
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+      - name: Check the tag matches the app version
+        run: |
+          version=$(plutil -extract CFBundleShortVersionString raw Resources/Info.plist)
+          if [[ "$TAG" != "v$version" ]]; then echo "Tag $TAG does not match app version $version" >&2; exit 1; fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      # Without a Developer ID certificate the app is ad-hoc signed and not notarized; the release notes explain
+      # the one-time approval. FFmpeg, yt-dlp and LibreOffice are installed by the app on first launch.
+      - name: Build ad-hoc signed app
+        run: |
+          scripts/setup-exiftool.sh
+          FILEVERO_EXTERNAL_TOOLS=1 FILEVERO_SIGNING_MODE=ad-hoc scripts/build-app.sh release
+          codesign --verify --deep --strict build/Filevero.app
+      - name: Package app
+        run: |
+          mkdir -p dist
+          archive="dist/Filevero-macOS-arm64-$VERSION.zip"
+          ditto -c -k --sequesterRsrc --keepParent build/Filevero.app "$archive"
+          (cd dist && shasum -a 256 "$(basename "$archive")" > "$(basename "$archive").sha256")
+          cat "$archive.sha256"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: macos-release
+          path: dist
+          retention-days: 3
+          if-no-files-found: error
+
+  publish:
+    needs: [windows, macos]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Collect packages
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $archive = "build/Filevero-Windows-x64-$env:VERSION.zip"
-          $notes = @(
-            "## Filevero $env:VERSION",
-            "",
-            "**Windows (x64):** download ``Filevero-Windows-x64-$env:VERSION.zip``, extract it into its own folder and run ``Filevero.exe``. The .NET runtime is included. The app is not Authenticode signed yet, so Windows SmartScreen may ask you to confirm the first launch. Compare the download with the ``.sha256`` file.",
-            "",
-            "**macOS:** build from source as described in the [README](https://github.com/$env:GITHUB_REPOSITORY#get-started). Notarized Mac downloads will follow."
-          ) -join "`n"
-          $notes | Out-File -FilePath build/release-notes.md -Encoding utf8
-          gh release view $env:TAG --repo $env:GITHUB_REPOSITORY *> $null
-          if ($LASTEXITCODE -eq 0) {
-            gh release upload $env:TAG $archive "$archive.sha256" --repo $env:GITHUB_REPOSITORY --clobber
-          } else {
-            gh release create $env:TAG $archive "$archive.sha256" --repo $env:GITHUB_REPOSITORY --title "Filevero $env:VERSION" --notes-file build/release-notes.md --verify-tag
-          }
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name windows-release --dir dist
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name macos-release --dir dist
+          (cd dist && sha256sum --check ./*.sha256)
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${TAG#v}"
+          cat > notes.md <<EOF
+          ## Filevero $version
+
+          ### Windows (x64, Windows 10 or later)
+          Download \`Filevero-Windows-x64-$version.zip\`, extract it into its own folder and run \`Filevero.exe\`. The .NET runtime is included. The app is not Authenticode signed yet, so Windows SmartScreen may ask you to confirm the first launch: choose **More info → Run anyway**.
+
+          ### macOS (Apple Silicon, macOS 13 or later)
+          Download \`Filevero-macOS-arm64-$version.zip\`, open it and move **Filevero.app** to Applications.
+
+          This Mac build is **not notarized by Apple yet**, so macOS blocks the first launch with a warning. To open it once:
+          1. Open Filevero.app and close the warning.
+          2. Go to **System Settings → Privacy & Security**, scroll down and choose **Open Anyway** next to Filevero, then confirm.
+
+          Alternatively, run \`xattr -dr com.apple.quarantine /Applications/Filevero.app\` in Terminal. Only do this for a download whose SHA-256 matches the \`.sha256\` file. Automatic updates are off in this build; download new versions here. On first launch, Filevero offers to download FFmpeg, yt-dlp and LibreOffice from their official sources.
+
+          ### Türkçe
+          **Windows:** \`Filevero-Windows-x64-$version.zip\` dosyasını indir, ayrı bir klasöre çıkar ve \`Filevero.exe\`'yi çalıştır. Uygulama henüz Authenticode ile imzalı değil; SmartScreen sorarsa **Ek bilgi → Yine de çalıştır**'ı seç.
+
+          **macOS (Apple Silicon, macOS 13+):** \`Filevero-macOS-arm64-$version.zip\` dosyasını aç ve **Filevero.app**'i Uygulamalar klasörüne taşı. Bu Mac sürümü henüz Apple tarafından notarize edilmedi; ilk açılışta macOS uyarı verir. Uygulamayı bir kez açıp uyarıyı kapat, sonra **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünde Filevero'nun yanındaki **Yine de Aç**'ı seç. İndirmenin SHA-256 özeti \`.sha256\` dosyasıyla eşleşmeli. Bu sürümde otomatik güncelleme kapalıdır.
+          EOF
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --notes-file notes.md
+          else
+            gh release create "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --title "Filevero $version" --notes-file notes.md --verify-tag
+          fi
