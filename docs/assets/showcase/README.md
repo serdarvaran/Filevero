@@ -12,4 +12,4 @@ All images are on-screen captures of Filevero windows, taken with `screencapture
 | `mac-welcome.png` | `welcome.1`: first page of the introduction | Light, Aurora |
 | `mac-window-management-view.png` | `wheel.window`: window arrangement wheel | Dark, Aurora |
 
-Window captures were scaled to at most 1600 pixels wide and saved without metadata. To refresh them, build the app, run a scene with `--hold`, and capture its window by ID.
+The two wheel images (`mac-wheel.png`, `mac-window-management-view.png`) are the UI audit's own renders of the round wheel, with the area outside the circle made transparent. Window captures were scaled to at most 1600 pixels wide and saved without metadata. To refresh them, build the app, run a scene with `--hold`, and capture its window by ID.
