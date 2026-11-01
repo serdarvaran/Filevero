@@ -206,7 +206,7 @@ internal static class UIAudit
                 (Math.Abs(subject.ActualWidth - subject.MinWidth) <= 2 && Math.Abs(subject.ActualHeight - subject.MinHeight) <= 2);
             if (!capture.Checks["minimumSize"]) capture.Issues.Add("Window did not retain its supported minimum audit size.");
             ValidateLayout(subject, capture);
-            if (subject is WheelWindow wheel) ValidateWheel(wheel, capture);
+            if (subject is WheelWindow wheel) ValidateWheel(wheel, owner.UIAuditToolChoices.Count, capture);
             if (subject is ToolEditor editor) ValidateFooter(editor, capture);
             var image = Path.Combine(output, "captures", capture.Appearance, capture.Language, capture.Scene + ".png");
             Directory.CreateDirectory(Path.GetDirectoryName(image)!);
@@ -347,12 +347,12 @@ internal static class UIAudit
         if (!visible) capture.Issues.Add("Editor footer is clipped at the supported minimum window size.");
     }
 
-    private static void ValidateWheel(WheelWindow wheel, Capture capture)
+    private static void ValidateWheel(WheelWindow wheel, int expectedPetals, Capture capture)
     {
         var canvas = Descendants<Canvas>(wheel).FirstOrDefault();
         var petals = canvas?.Children.OfType<System.Windows.Shapes.Path>().Where(path => path.Data is StreamGeometry).ToArray() ?? [];
         var captions = canvas?.Children.OfType<Button>().Take(petals.Length).ToArray() ?? [];
-        var fits = petals.Length == 5 && captions.Length == petals.Length;
+        var fits = petals.Length == expectedPetals && captions.Length == petals.Length;
         if (canvas is not null)
         for (var index = 0; index < captions.Length; index++)
         {
