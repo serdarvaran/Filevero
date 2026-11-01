@@ -33,13 +33,13 @@ public sealed partial class MainWindow
         if(choice.Id=="convert")
         {
             var editor=new ToolEditor(this,"convert","Convert",selected[0],inputs:selected,outputFormats:FeatureCatalog.Formats(selected));editor.ConfigureProfiles(preferences,requestedFormat);if(editor.ShowDialog()!=true)return;
-            await RunAsync((destination,p,t)=>Task.Run(()=>new DocumentConversion(officeRuntime,tools).ConvertAsync(selected,editor.Format,destination,editor.DocumentOptions,p,t),t),"Convert to "+ArchiveEngine.Label(editor.Format));return;
+            await RunAsync((destination,p,t)=>Task.Run(()=>new DocumentConversion(officeRuntime,tools,WindowsOcr.Instance).ConvertAsync(selected,editor.Format,destination,editor.DocumentOptions,p,t),t),"Convert to "+ArchiveEngine.Label(editor.Format));return;
         }
         if(choice.Id=="organizePDF")
         {
             var organizer=await PdfOrganizer.CreateAsync(this,selected[0]);if(organizer is null)return;try{if(organizer.ShowDialog()!=true)return;var pages=organizer.OrganizedPages;await RunAsync((destination,p,t)=>Task.Run(()=>DocumentEngine.Organize(organizer.Documents,pages,destination,organizer.SelectionOnly,organizer.Password,organizer.UniformWidth,t),t),"Organize PDF");}finally{organizer.DeleteTemporaryFiles();}return;
         }
-        var dialog=new ToolEditor(this,choice.Id,choice.Title,selected[0],inputs:selected);if(dialog.ShowDialog()!=true)return;if(choice.Id=="compress"){await RunAsync((destination,p,t)=>Task.Run(()=>PdfCompression.RunAsync(selected,destination,dialog.ImageOptions,dialog.DocumentOptions.Password,p,t),t),"Compress PDF");return;}await RunAsync((destination,p,t)=>Task.Run(()=>DocumentEngine.Pdf(choice.Id,dialog.OrderedInputs,destination,null,t,pagesPerFile:dialog.PagesPerFile,password:dialog.DocumentOptions.Password,pageRanges:dialog.PageRanges),t),choice.Title);
+        var dialog=new ToolEditor(this,choice.Id,choice.Title,selected[0],inputs:selected);if(dialog.ShowDialog()!=true)return;if(choice.Id=="compress"){await RunAsync((destination,p,t)=>Task.Run(()=>PdfCompression.RunAsync(selected,destination,dialog.ImageOptions.Quality,dialog.ImageOptions.TargetBytes,dialog.ImageOptions.ReductionPercent,dialog.DocumentOptions.Password,p,t),t),"Compress PDF");return;}await RunAsync((destination,p,t)=>Task.Run(()=>DocumentEngine.Pdf(choice.Id,dialog.OrderedInputs,destination,null,t,pagesPerFile:dialog.PagesPerFile,password:dialog.DocumentOptions.Password,pageRanges:dialog.PageRanges),t),choice.Title);
     }
     private static async Task<List<(string File,string Value)>> ReadQrCodesAsync(IReadOnlyList<string> inputs,CancellationToken token)
     {

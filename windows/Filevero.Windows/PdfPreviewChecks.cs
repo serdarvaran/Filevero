@@ -1,3 +1,4 @@
+using Filevero.Core;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;

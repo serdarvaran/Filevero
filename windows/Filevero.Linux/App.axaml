@@ -1,0 +1,39 @@
+<Application xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Filevero.Linux.App" RequestedThemeVariant="Default">
+  <!-- The same palette, shapes and states as the Windows App.xaml; Theme.Apply swaps the brushes for light/dark. -->
+  <Application.Resources>
+    <SolidColorBrush x:Key="Ink" Color="#30344F"/><SolidColorBrush x:Key="Paper" Color="#F8F5FC"/>
+    <SolidColorBrush x:Key="Surface" Color="#FEFDFF"/><SolidColorBrush x:Key="Inset" Color="#F0EBF6"/>
+    <SolidColorBrush x:Key="Muted" Color="#5D6177"/><SolidColorBrush x:Key="Line" Color="#DADCE4"/>
+    <SolidColorBrush x:Key="Sand" Color="#EEE4FB"/><SolidColorBrush x:Key="Sage" Color="#E5E6F3"/><SolidColorBrush x:Key="Gold" Color="#D2B9F5"/>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme/>
+    <Style Selector="Window"><Setter Property="Background" Value="{DynamicResource Paper}"/><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="FontSize" Value="14"/></Style>
+    <Style Selector="TextBlock"><Setter Property="Foreground" Value="{DynamicResource Ink}"/></Style>
+    <Style Selector="Button">
+      <Setter Property="Padding" Value="15,10"/><Setter Property="Margin" Value="4"/><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="Background" Value="{DynamicResource Surface}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource Line}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="13"/><Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Center"/><Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{Binding $parent[Button].Background}"/><Setter Property="BorderBrush" Value="{Binding $parent[Button].BorderBrush}"/><Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}"/><Setter Property="Opacity" Value="0.85"/></Style>
+    <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{Binding $parent[Button].Background}"/><Setter Property="Opacity" Value="0.65"/></Style>
+    <Style Selector="Button:focus-visible /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="BorderBrush" Value="{DynamicResource Gold}"/><Setter Property="BorderThickness" Value="2"/></Style>
+    <Style Selector="Button:disabled"><Setter Property="Opacity" Value="0.4"/></Style>
+    <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{Binding $parent[Button].Background}"/><Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}"/></Style>
+    <Style Selector="Button.wheelLabel"><Setter Property="Background" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0"/></Style>
+    <Style Selector="TextBox"><Setter Property="Padding" Value="11,9"/><Setter Property="Margin" Value="4"/><Setter Property="BorderBrush" Value="{DynamicResource Line}"/><Setter Property="Background" Value="{DynamicResource Inset}"/><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="CaretBrush" Value="{DynamicResource Ink}"/><Setter Property="CornerRadius" Value="10"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement"><Setter Property="BorderBrush" Value="{DynamicResource Gold}"/><Setter Property="Background" Value="{DynamicResource Inset}"/></Style>
+    <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement"><Setter Property="Background" Value="{DynamicResource Inset}"/></Style>
+    <Style Selector="ComboBox"><Setter Property="BorderBrush" Value="{DynamicResource Line}"/><Setter Property="Padding" Value="10,9"/><Setter Property="Margin" Value="4"/><Setter Property="MinWidth" Value="110"/><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="Background" Value="{DynamicResource Surface}"/><Setter Property="CornerRadius" Value="10"/></Style>
+    <Style Selector="ComboBox:focus-within"><Setter Property="BorderBrush" Value="{DynamicResource Gold}"/></Style>
+    <Style Selector="ComboBoxItem"><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="Padding" Value="10,8"/><Setter Property="CornerRadius" Value="6"/></Style>
+    <Style Selector="ComboBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{DynamicResource Sage}"/></Style>
+    <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{DynamicResource Sage}"/></Style>
+    <Style Selector="ListBox"><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="Background" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/></Style>
+    <Style Selector="ListBoxItem"><Setter Property="Padding" Value="8"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="CornerRadius" Value="8"/></Style>
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{DynamicResource Sage}"/></Style>
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="{DynamicResource Sage}"/></Style>
+    <Style Selector="CheckBox"><Setter Property="Foreground" Value="{DynamicResource Ink}"/></Style>
+    <Style Selector="Expander"><Setter Property="Foreground" Value="{DynamicResource Ink}"/><Setter Property="Background" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/></Style>
+  </Application.Styles>
+</Application>

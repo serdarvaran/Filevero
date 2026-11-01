@@ -51,7 +51,7 @@ internal sealed class FilePreviewWindow:Window
             if(new[]{"docx","doc","rtf","rtfd","pages","xlsx","xls","ods","pptx","ppt","odp","epub"}.Contains(FeatureCatalog.Extension(path)))
             {
                 if(office.Executable is null){content.Content=L10n.Label(new TextBlock{Text="Set up office tools in Filevero to preview this document here, or use Open.",TextWrapping=TextWrapping.Wrap});return;}
-                Directory.CreateDirectory(temporary);path=(await new DocumentConversion(office,tools).ConvertAsync([path],"pdf",temporary,new(),null,token))[0];token.ThrowIfCancellationRequested();
+                Directory.CreateDirectory(temporary);path=(await new DocumentConversion(office,tools,WindowsOcr.Instance).ConvertAsync([path],"pdf",temporary,new(),null,token))[0];token.ThrowIfCancellationRequested();
             }
             if(FeatureCatalog.IsImage(path))content.Content=new Image{Source=ImageEngine.Load(path),Stretch=Stretch.Uniform};
             else if(FeatureCatalog.Extension(path)=="pdf")

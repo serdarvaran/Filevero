@@ -44,6 +44,9 @@ public static class AppLocalization
         if(Normalize(language)!="tr")return source;
         if(Turkish.TryGetValue(source,out var exact)||uppercase.TryGetValue(source,out exact))return exact;
         if(source.Length>=16_384)return source;
+        // Window titles are "<name> · Filevero"; the name translates like any other copy.
+        const string titleSuffix=" · Filevero";
+        if(source.EndsWith(titleSuffix,StringComparison.Ordinal)&&source.Length>titleSuffix.Length&&Text(source[..^titleSuffix.Length],language) is var name&&name!=source[..^titleSuffix.Length])return name+titleSuffix;
         foreach(var (pattern,target) in templates)
         {
             Match match;try{match=pattern.Match(source);}catch(RegexMatchTimeoutException){continue;}if(!match.Success)continue;

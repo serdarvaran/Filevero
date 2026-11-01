@@ -6,7 +6,7 @@ namespace Filevero.Windows;
 
 /// Extracts the official MSI as data. Does not install a product, run its custom
 /// actions, register COM servers or change Windows Installer/system settings.
-public sealed class OfficeRuntime(string root)
+public sealed class OfficeRuntime(string root):IOfficeRuntime
 {
     public string? Executable=>new[]{Path.Combine(root,"office-26.8.1","program","soffice.com"),Path.Combine(root,"office-26.8.1","program","soffice.exe"),Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"LibreOffice","program","soffice.com"),Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"LibreOffice","program","soffice.exe")}.FirstOrDefault(ToolInstallation.UsableFile);
     public async Task InstallAsync(IProgress<OperationProgress>? progress,CancellationToken token)

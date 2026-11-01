@@ -5,39 +5,43 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Signers;
 namespace Filevero.Core;
 
-public sealed record WindowsUpdate(string Version,string Url,long Length,string EdSignature);
+public sealed record UpdateManifest(string Version,string Url,long Length,string EdSignature);
 public static class PublicUpdates
 {
-    // The release workflow signs windows-update.json with the same Ed25519 key as the macOS appcast.
+    // The release workflow signs each platform's update manifest with the same Ed25519 key as the macOS appcast.
     public const string Repository="serdarvaran/Filevero";
-    public const string Feed="https://github.com/"+Repository+"/releases/latest/download/windows-update.json";
+    public static string FeedFor(ToolPlatform platform)=>"https://github.com/"+Repository+"/releases/latest/download/"+platform switch
+    {
+        ToolPlatform.WindowsX64=>"windows-update.json",ToolPlatform.LinuxX64=>"linux-x64-update.json",ToolPlatform.LinuxArm64=>"linux-arm64-update.json",
+        _=>throw new PlatformNotSupportedException()
+    };
     private const string PublicKey="Ouu2wPhtu4ywnI2nET5myTfAcBdsF2eIa2rMQJLkEO4=";
     public static bool Configured=>Repository.Length>0&&PublicKey.Length>0;
-    public static async Task<WindowsUpdate?> CheckAsync(Version current,CancellationToken token=default)
+    public static async Task<UpdateManifest?> CheckAsync(Version current,CancellationToken token=default)
     {
         if(!Configured)return null;
         using var client=new HttpClient{Timeout=TimeSpan.FromSeconds(30)};client.DefaultRequestHeaders.UserAgent.ParseAdd("Filevero/"+current.ToString());
-        using var response=await client.GetAsync(Feed,HttpCompletionOption.ResponseHeadersRead,token);
+        using var response=await client.GetAsync(FeedFor(ToolPlatforms.Current),HttpCompletionOption.ResponseHeadersRead,token);
         if(response.StatusCode==System.Net.HttpStatusCode.NotFound)return null;response.EnsureSuccessStatusCode();
         await using var stream=await response.Content.ReadAsStreamAsync(token);using var memory=new MemoryStream();var buffer=new byte[8192];int count;
         while((count=await stream.ReadAsync(buffer,token))>0){if(memory.Length+count>65536)throw new InvalidDataException("Update manifest is too large.");memory.Write(buffer,0,count);}
-        var update=JsonSerializer.Deserialize<WindowsUpdate>(memory.ToArray(),new JsonSerializerOptions{PropertyNameCaseInsensitive=true})??throw new InvalidDataException("Invalid update manifest.");
+        var update=JsonSerializer.Deserialize<UpdateManifest>(memory.ToArray(),new JsonSerializerOptions{PropertyNameCaseInsensitive=true})??throw new InvalidDataException("Invalid update manifest.");
         Validate(update);return Normalize(Version.Parse(update.Version))>Normalize(current)?update:null;
     }
     public static Version Normalize(Version value)=>new(value.Major,value.Minor,Math.Max(0,value.Build),Math.Max(0,value.Revision));
-    public static void Validate(WindowsUpdate update)=>Validate(update,Repository);
+    public static void Validate(UpdateManifest update)=>Validate(update,Repository);
     // The repository and key are parameters so Verify can exercise a real signed update before release keys exist.
-    internal static void Validate(WindowsUpdate update,string repository)
+    internal static void Validate(UpdateManifest update,string repository)
     {
         if(repository.Length==0||!Version.TryParse(update.Version,out _)||!Uri.TryCreate(update.Url,UriKind.Absolute,out var uri)||uri.Scheme!="https"||uri.Host!="github.com"||!uri.AbsolutePath.StartsWith("/"+repository+"/releases/download/",StringComparison.Ordinal)||!string.IsNullOrEmpty(uri.UserInfo)||uri.Query.Length>0||update.Length<1||update.Length>1024L*1024*1024)throw new InvalidDataException("Invalid public update location or size.");
         try{if(Convert.FromBase64String(update.EdSignature).Length!=64)throw new InvalidDataException("Invalid update signature length.");}catch(FormatException e){throw new InvalidDataException("Invalid update signature.",e);}
     }
-    public static async Task VerifyAsync(string archive,WindowsUpdate update,CancellationToken token=default)
+    public static async Task VerifyAsync(string archive,UpdateManifest update,CancellationToken token=default)
     {
         if(!Configured)throw new InvalidDataException("Updates are not configured for this build. Your existing app was kept.");
         await VerifyAsync(archive,update,Repository,PublicKey,token);
     }
-    internal static async Task VerifyAsync(string archive,WindowsUpdate update,string repository,string publicKey,CancellationToken token)
+    internal static async Task VerifyAsync(string archive,UpdateManifest update,string repository,string publicKey,CancellationToken token)
     {
         Validate(update,repository);if(new FileInfo(archive).Length!=update.Length)throw new InvalidDataException("Update size mismatch.");
         var verifier=new Ed25519Signer();verifier.Init(false,new Ed25519PublicKeyParameters(Convert.FromBase64String(publicKey),0));

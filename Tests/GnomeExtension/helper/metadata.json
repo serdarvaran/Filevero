@@ -1,0 +1,6 @@
+{
+  "uuid": "test-helper@filevero.test",
+  "name": "Filevero test helper",
+  "description": "Leaves the overview after startup so new windows get focus in headless tests.",
+  "shell-version": ["45", "46", "47", "48", "49", "50", "51"]
+}

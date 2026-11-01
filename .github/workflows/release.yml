@@ -63,6 +63,48 @@ jobs:
           retention-days: 3
           if-no-files-found: error
 
+  linux:
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    # The oldest supported distribution, so the bundled Tesseract and wl-clipboard run on every newer one.
+    container: ubuntu:22.04
+    timeout-minutes: 40
+    steps:
+      - name: Packaging tools
+        run: |
+          sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates curl git file dpkg-dev libicu70 \
+            tesseract-ocr tesseract-ocr-eng tesseract-ocr-tur wl-clipboard
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          dotnet-version: '10.0.x'
+      - name: Check the tag matches the app version
+        run: |
+          version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' windows/Directory.Build.props)
+          if [ "$TAG" != "v$version" ]; then echo "Tag $TAG does not match app version $version"; exit 1; fi
+      - name: Build AppImage and archive
+        run: scripts/build-linux-appimage.sh ${{ matrix.arch }} dist
+      # The packaged app proves its runtime, native libraries, OCR and clipboard helper load without a display.
+      - name: Packaged self-test
+        run: APPIMAGE_EXTRACT_AND_RUN=1 dist/Filevero-Linux-${{ matrix.arch }}-*.AppImage --self-test
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: linux-${{ matrix.arch }}-release
+          path: dist
+          retention-days: 3
+          if-no-files-found: error
+
   macos:
     # Xcode 26 builds the Liquid Glass interface; older SDKs fall back to plain materials.
     runs-on: macos-26
@@ -134,7 +176,7 @@ jobs:
           if-no-files-found: error
 
   publish:
-    needs: [windows, macos]
+    needs: [windows, macos, linux]
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -151,6 +193,8 @@ jobs:
         run: |
           gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name windows-release --dir dist
           gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name macos-release --dir dist
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name linux-x64-release --dir dist
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name linux-arm64-release --dir dist
           (cd dist && sha256sum --check ./*.sha256)
       # Installed Windows copies read windows-update.json from the latest release and verify the ZIP's Ed25519 signature.
       - name: Sign the Windows update manifest
@@ -161,6 +205,17 @@ jobs:
           archive="Filevero-Windows-x64-$version.zip"
           python3 scripts/sign-windows-update.py "dist/$archive" "$version" \
             "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$archive" dist/windows-update.json
+      # AppImage copies read linux-<arch>-update.json and verify the new AppImage before replacing themselves.
+      - name: Sign the Linux update manifests
+        env:
+          FILEVERO_UPDATE_ED_KEY: ${{ secrets.FILEVERO_UPDATE_ED_KEY }}
+        run: |
+          version="${TAG#v}"
+          for arch in x64 arm64; do
+            image="Filevero-Linux-$arch-$version.AppImage"
+            python3 scripts/sign-windows-update.py "dist/$image" "$version" \
+              "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$image" "dist/linux-$arch-update.json"
+          done
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -181,8 +236,13 @@ jobs:
 
           Alternatively, run \`xattr -dr com.apple.quarantine /Applications/Filevero.app\` in Terminal. Only do this for a download whose SHA-256 matches the \`.sha256\` file. From 1.0.3 on, Filevero updates itself from this page: when a new version is published, **Check for Updates…** downloads it, verifies its signature, installs it and restarts the app. Earlier versions need this download once. On first launch, Filevero offers to download FFmpeg, yt-dlp and LibreOffice from their official sources.
 
+          ### Linux (x64 or arm64; Ubuntu 22.04+, Debian 13, Fedora 43+ and other glibc 2.35+ distributions)
+          Download \`Filevero-Linux-x64-$version.AppImage\` (or \`-arm64-\` for ARM computers), make it executable (**Properties → Allow executing as program**, or \`chmod +x\`) and open it. No installation or administrator password is needed; Settings → Desktop adds Filevero to the applications menu, login and file managers when you turn them on. On GNOME, the optional Filevero Shell extension adds the drag wheels, window arranging and background clipboard history everywhere. The AppImage updates itself from inside the app after verifying the signature. The \`.tar.gz\` contains the same app as a folder for systems without FUSE; it is updated by downloading a new copy. Bundled Tesseract and wl-clipboard sources are in \`Filevero-Linux-tool-sources-…\`.
+
           ### Türkçe
           **Windows:** \`Filevero-Windows-x64-$version.zip\` dosyasını indir, ayrı bir klasöre çıkar ve \`Filevero.exe\`'yi çalıştır. Uygulama henüz Authenticode ile imzalı değil; SmartScreen sorarsa **Ek bilgi → Yine de çalıştır**'ı seç. Sonraki sürümler uygulamanın içinden kurulur ve uygulamayı yeniden başlatır.
+
+          **Linux (x64 veya arm64; Ubuntu 22.04+, Debian 13, Fedora 43+ ve glibc 2.35+ kullanan diğer dağıtımlar):** \`Filevero-Linux-x64-$version.AppImage\` dosyasını (ARM bilgisayarlarda \`-arm64-\`) indir, çalıştırılabilir yap (**Özellikler → Program olarak çalıştırmaya izin ver** veya \`chmod +x\`) ve aç. Kurulum veya yönetici parolası gerekmez; Ayarlar → Masaüstü bölümünden uygulama menüsüne, oturum açılışına ve dosya yöneticilerine eklenebilir. GNOME'da isteğe bağlı Filevero Shell eklentisi sürükleme çarklarını, pencere yerleştirmeyi ve arka planda pano geçmişini her yerde açar. AppImage, imzayı doğruladıktan sonra kendini uygulamanın içinden günceller. \`.tar.gz\` aynı uygulamayı FUSE olmayan sistemler için klasör olarak içerir; yeni kopya indirilerek güncellenir.
 
           **macOS (Apple Silicon, macOS 13+):** \`Filevero-macOS-arm64-$version.dmg\` dosyasını aç ve açılan pencerede **Filevero**'yu **Uygulamalar** klasörünün üzerine sürükle. Ardından disk görüntüsünü çıkar ve Filevero'yu Uygulamalar'dan aç. Filevero disk görüntüsünden ya da İndirilenler'den açılırsa kendini Uygulamalar'a taşımayı önerir; Finder servisleri ve girişte açılma bunu gerektirir. Bu Mac sürümü henüz Apple tarafından notarize edilmedi; ilk açılışta macOS uyarı verir. Uygulamayı bir kez açıp uyarıyı kapat, sonra **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünde Filevero'nun yanındaki **Yine de Aç**'ı seç. İndirmenin SHA-256 özeti \`.sha256\` dosyasıyla eşleşmeli. 1.0.3'ten itibaren Filevero kendini bu sayfadan günceller: yeni sürüm yayımlandığında **Güncellemeleri Denetle…** sürümü indirir, imzasını doğrular, kurar ve uygulamayı yeniden başlatır. Daha eski sürümlerde bu indirmeyi bir kez elle yapman gerekir.
           EOF

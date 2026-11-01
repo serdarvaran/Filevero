@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><AssemblyName>Filevero</AssemblyName><RootNamespace>Filevero.Linux</RootNamespace>
+    <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
+    <!-- Publish with -p:FileveroRid=linux-x64 (not -r) so the RID does not flow into Filevero.Core's lock file. -->
+    <RuntimeIdentifier Condition="'$(FileveroRid)'!=''">$(FileveroRid)</RuntimeIdentifier>
+    <SelfContained Condition="'$(FileveroRid)'!=''">true</SelfContained>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <DebugType>none</DebugType><DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../Filevero.Core/Filevero.Core.csproj" /></ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="bblanchon.PDFium.Linux" Version="155.0.8044" />
+    <PackageReference Include="Tmds.DBus.Protocol" Version="0.94.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="../../Resources/Brand/FileveroIcon.png" Link="Assets/FileveroIcon.png" />
+    <Content Include="../../Resources/Sounds/WheelSelection.wav" Link="WheelSelection.wav" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../Resources/PagesInterop.js" Link="PagesInterop.js" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../scripts/pages-windows.js" Link="pages-windows.js" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../Resources/licenses/cupertino-files/**" Link="licenses/cupertino-files/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../licenses/**" Link="licenses/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="gnome-extension/**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../LICENSE" Link="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="THIRD-PARTY-NOTICES.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

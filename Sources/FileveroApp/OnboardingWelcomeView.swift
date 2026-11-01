@@ -27,7 +27,6 @@ public struct OnboardingWelcomeView: View {
     @State private var folderError: String?
     @State private var launchAtLogin = false
     @State private var launchNeedsApproval = false
-    @State private var launchUnavailable = false
     @State private var launchError: String?
     @Environment(\.fileveroTheme) private var theme
 
@@ -244,14 +243,10 @@ public struct OnboardingWelcomeView: View {
             Toggle("Open at login", isOn: Binding(get: { launchAtLogin }, set: updateLaunch))
                 .toggleStyle(.switch)
                 .font(.system(size: 12))
-                .disabled(launchUnavailable)
 
             if launchNeedsApproval {
                 Button("Open Login Items") { SMAppService.openSystemSettingsLoginItems() }
                     .buttonStyle(FileveroButtonStyle(.secondary, compact: true))
-            }
-            if launchUnavailable {
-                Text("Launch at login is unavailable for this copy.").font(.caption).foregroundStyle(.secondary)
             }
             if let launchError {
                 Text(launchError).font(.caption).foregroundStyle(.orange).lineLimit(2)
@@ -285,7 +280,6 @@ public struct OnboardingWelcomeView: View {
         let status = SMAppService.mainApp.status
         launchAtLogin = status == .enabled || status == .requiresApproval
         launchNeedsApproval = status == .requiresApproval
-        launchUnavailable = status == .notFound
     }
 
     private func updateLaunch(_ value: Bool) {

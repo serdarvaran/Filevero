@@ -1,4 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
   <ItemGroup><ProjectReference Include="../Filevero.Core/Filevero.Core.csproj" /></ItemGroup>
+  <!-- Supplies libpdfium for the Linux PDF rendering checks; the Windows app ships its own PDFium. -->
+  <ItemGroup><PackageReference Include="bblanchon.PDFium.Linux" Version="155.0.8044" /></ItemGroup>
 </Project>

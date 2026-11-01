@@ -42,6 +42,7 @@ Filevero’yu [Releases](https://github.com/serdarvaran/Filevero/releases/latest
 
 - **macOS** (Apple Silicon, macOS 13 veya üstü): `Filevero-macOS-arm64-….dmg` dosyasını aç, penceresindeki **Filevero**’yu **Uygulamalar** klasörünün üzerine sürükle ve uygulamayı Uygulamalar’dan aç. Disk görüntüsünden ya da İndirilenler’den başlatırsan Filevero kendini oraya taşımayı önerir; Finder servisleri ve girişte açılma sabit bir konum gerektirir. Mac sürümü henüz Apple tarafından notarize edilmediği için macOS ilk açılışı engeller: uygulamayı bir kez aç, uyarıyı kapat, sonra **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünde Filevero için **Yine de Aç**’ı seç. Önce indirmeyi `.sha256` dosyasıyla karşılaştır. 1.0.3’ten itibaren iki uygulama da kendini günceller: bu sürümleri denetler, indirmenin Ed25519 imzasını doğrular, kurar ve yeniden başlar.
 - **Windows** (x64): `Filevero-Windows-x64-….zip` dosyasını ayrı bir klasöre çıkar ve `Filevero.exe`’yi çalıştır. SmartScreen sorarsa **Ek bilgi → Yine de çalıştır**’ı seç.
+- **Linux** (x64 veya arm64; Ubuntu 22.04+, Debian 13, Fedora 43+): `Filevero-Linux-x64-….AppImage` (ya da `-arm64-`) dosyasını çalıştırılabilir yap ve aç. İmzayı doğruladıktan sonra kendini günceller. GNOME'da Ayarlar → Masaüstü, sürükleme çarklarını ve pencere yerleştirmeyi her yerde açan isteğe bağlı Filevero Shell eklentisini ekleyebilir.
 
 Mac uygulamasını Apple Silicon, macOS 13 veya üstü ve Xcode / Swift 6 ile kaynaktan derlemek için:
 
@@ -54,7 +55,7 @@ Uygulama `build/Filevero.app` konumuna yazılır; `scripts/build-dmg.sh build/Fi
 
 İlk açılışta **Kurulumu tamamla → Eksik araçları indir**, FFmpeg, yt-dlp ve LibreOffice’i kendi kaynaklarından sabitlenmiş SHA-256 özetleriyle kurar. Yerel görsel ve PDF özellikleri hemen çalışır. [Sürümler, özetler ve lisanslar](docs/dependencies.md).
 
-Windows sürümü (WPF / .NET 10) aynı kataloğu paylaşır; orada arka plan kaldırma açık kaynaklı ISNet modeliyle bilgisayarında çalışır. Bkz. [Windows için Filevero](windows/README.md).
+Windows sürümü (WPF / .NET 10) aynı kataloğu paylaşır; orada arka plan kaldırma açık kaynaklı ISNet modeliyle bilgisayarında çalışır. Bkz. [Windows için Filevero](windows/README.md). Linux sürümü (Avalonia / .NET 10) Windows motorlarını paylaşır; bkz. [Linux için Filevero](windows/Filevero.Linux/README.md).
 
 ## Kısayollar
 

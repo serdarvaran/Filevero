@@ -1,0 +1,96 @@
+using Avalonia.Automation;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media;
+using Filevero.Core;
+namespace Filevero.Linux;
+
+public sealed class ToolSetupWindow : Window
+{
+    private readonly Func<ToolSetupStatus> probe;
+    private readonly Func<ToolGroup, IProgress<OperationProgress>, CancellationToken, Task> install;
+    private readonly Action<bool> workingChanged;
+    private readonly LinuxOfficeRuntime? office;private readonly MetadataService? metadata;
+    private readonly StackPanel groups = new();
+    private readonly TextBlock status = Label("Download the missing tools to enable all conversions, previews and web downloads. Tools already found on your computer are kept.");
+    private readonly ProgressBar progress = new() { Minimum = 0, Maximum = 1, Height = 6, IsVisible = false, Margin = new(0, 12, 0, 12) };
+    private readonly Button next, cancel;
+    private CancellationTokenSource? cancellation;
+    internal bool Working { get; private set; }
+    private bool previouslyReady;
+    internal ToolSetupStatus Status => probe();
+    internal Button ContinueButton => next;
+    public ToolSetupWindow(Window owner, Toolchain media, LinuxOfficeRuntime office, MetadataService metadata, BackgroundModel background, Action<bool> workingChanged)
+        : this(owner, () => new(media.Ready, office.Executable is not null, metadata.Executable is not null, background.ModelPath is not null),
+            (group, report, token) => Task.Run(() => group switch { ToolGroup.Media => media.InstallAsync(report, token), ToolGroup.Office => office.InstallAsync(report, token), ToolGroup.Metadata => metadata.InstallAsync(report, token), _ => background.InstallAsync(report, token) },token), workingChanged)
+    { this.office = office; this.metadata = metadata; Refresh(); }
+    internal ToolSetupWindow(Window owner, Func<ToolSetupStatus> probe,
+        Func<ToolGroup, IProgress<OperationProgress>, CancellationToken, Task> install, Action<bool>? workingChanged = null)
+    {
+        this.probe = probe; this.install = install; this.workingChanged = workingChanged ?? (_ => { });
+        UiTheme.Attach(this); Title = "Set up Filevero tools"; Width = 646; Height = 690; MinWidth = 590; MinHeight = 560; WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                var root = new DockPanel(); Content = root;
+        var footer = new StackPanel { Margin = new(24) }; DockPanel.SetDock(footer, Dock.Bottom); root.Children.Add(footer);
+        footer.Children.Add(status); footer.Children.Add(progress);
+        var actions = new DockPanel { Margin = new(0, 14, 0, 0) }; footer.Children.Add(actions);
+        next = MainWindow.Primary("Download missing tools", async () => { if (Status.Ready) Close(); else await StartSetupAsync(); }); next.IsDefault = true;
+        AutomationProperties.SetAutomationId(next, "SetupContinue"); DockPanel.SetDock(next, Dock.Right); actions.Children.Add(next);
+        cancel = MainWindow.Button("Cancel setup", () => cancellation?.Cancel()); AutomationProperties.SetAutomationId(cancel, "SetupCancel"); actions.Children.Add(cancel);
+        var content = new StackPanel { Margin = new(28) }; root.Children.Add(new ScrollViewer { Content = content, VerticalScrollBarVisibility = ScrollBarVisibility.Auto });
+        content.Children.Add(Label("FIRST-TIME SETUP", 11)); content.Children.Add(Label("A few tools. More possibilities.", 28));
+        content.Children.Add(Label("One download per tool group. No account or GitHub token.", 14)); content.Children.Add(groups);
+        var licenses = MainWindow.Button("Upstream versions, licenses and source links", () => _ = new ToolLicensesWindow(this).ShowDialog(this)); AutomationProperties.SetAutomationId(licenses, "SetupLicenses"); content.Children.Add(licenses);
+        Closing += (_, e) => { if (Working) { e.Cancel = true; cancellation?.Cancel(); } };
+        Activated += (_, _) => { if (!Working) Refresh(); };
+        AddHandler(KeyDownEvent, (_, e) => { if (e.Key == Key.Escape) { if (Working) cancellation?.Cancel(); else Close(); e.Handled = true; } }, RoutingStrategies.Tunnel);
+        Refresh();
+    }
+    private static TextBlock Label(string text, double size = 13) => L10n.Label(new TextBlock { Text = text, FontSize = size, FontWeight = size >= 18 ? FontWeight.SemiBold : FontWeight.Normal, TextWrapping = TextWrapping.Wrap, Margin = new(0, 6, 0, 8) });
+    private void Refresh()
+    {
+        var ready = Status; groups.Children.Clear();
+        Group("Media tools", "FFmpeg, ffprobe, yt-dlp and Deno enable media conversion, previews and web downloads. Approximately 180 MB. FFmpeg and yt-dlp use GPL licenses; Deno uses MIT.", ready.MediaReady, ToolGroup.Media);
+        Group("Office tools", office?.UsesSystemCopy == true ? "LibreOffice installed on this computer is used for Office document conversions." : "LibreOffice 26.8.1 enables Office document conversions. Approximately 220 MB to download. MPL 2.0 and its included third-party licenses.", ready.OfficeReady, ToolGroup.Office);
+        Group("Metadata tools", metadata?.PerlMissing == true ? "ExifTool needs Perl. Install it once (for example: sudo apt install perl, or sudo dnf install perl), then return here." : "ExifTool 13.59 reads and edits photo, document and media metadata. Approximately 8 MB. Distributed under the same terms as Perl (Artistic License or GPL).", ready.MetadataReady, ToolGroup.Metadata);
+        Group("Background removal (optional)", "The ISNet model removes image backgrounds on this computer. Approximately 179 MB. If you skip it, Filevero downloads it the first time you remove a background. Apache-2.0 model in rembg's MIT-licensed export.", ready.BackgroundReady, ToolGroup.Background);
+        L10n.SetContent(next, ready.Ready ? "Continue to Filevero" : "Download missing tools"); next.IsEnabled = !Working;
+        cancel.IsVisible = Working; progress.IsVisible = Working;
+        if (ready.Ready && !Working) L10n.SetText(status, "Ready. You can go back to your files.");
+        else if(previouslyReady&&!Working)L10n.SetText(status,"Download the missing tools to enable all conversions, previews and web downloads. Tools already found on your computer are kept.");
+        previouslyReady=ready.Ready;
+    }
+    private void Group(string title, string detail, bool ready, ToolGroup group)
+    {
+        var row = new StackPanel { Margin = new(14) }; row.Children.Add(Label(title, 18)); row.Children.Add(Label(detail));
+        if (ready) row.Children.Add(Label("Already available on your computer"));
+        else
+        {
+            var download = MainWindow.Button(group switch { ToolGroup.Media => "Download media tools", ToolGroup.Office => "Download office tools", ToolGroup.Metadata => "Download metadata tools", _ => "Download background removal" }, async () => await StartSetupAsync(group));
+            download.IsEnabled = !Working; AutomationProperties.SetAutomationId(download, "Setup" + group); row.Children.Add(download);
+        }
+        var card = new Border { Child = row, CornerRadius = new(16), BorderThickness = new(1), Margin = new(0, 12, 0, 8) };
+        card.SetResourceReference(Border.BackgroundProperty, "Surface"); card.SetResourceReference(Border.BorderBrushProperty, "Line"); groups.Children.Add(card);
+    }
+    internal async Task StartSetupAsync(ToolGroup? selected = null)
+    {
+        if (Working) return;
+        var pending = selected is {} group ? (Status.IsReady(group) ? [] : new[] { group }) : Status.Missing; if (pending.Length == 0) { Refresh(); return; }
+        Working = true; cancellation = new(); workingChanged(true); Refresh(); progress.IsIndeterminate = true;
+        var token = cancellation.Token;
+        try
+        {
+            for (var i = 0; i < pending.Length; i++)
+            {
+                token.ThrowIfCancellationRequested(); var index = i;
+                var report = new Progress<OperationProgress>(p => { if (!Working || token.IsCancellationRequested) return; progress.IsIndeterminate = p.Fraction is null; if (p.Fraction is {} value) progress.Value = (index + value) / pending.Length; L10n.SetText(status, p.Label); });
+                await install(pending[i], report, token); Refresh();
+            }
+            if (pending.Any(g => !Status.IsReady(g))) throw new InvalidDataException("The downloaded tools are incomplete. Please try setup again.");
+            L10n.SetText(status, Status.Ready ? "Ready. You can go back to your files." : "One tool group is ready. Download the remaining tools to finish setup.");
+        }
+        catch (OperationCanceledException) { L10n.SetText(status, "Setup cancelled. Existing tools were kept."); }
+        catch (Exception error) { L10n.SetText(status, error.Message); }
+        finally { Working = false; cancellation.Dispose(); cancellation = null; workingChanged(false); Refresh(); }
+    }
+}

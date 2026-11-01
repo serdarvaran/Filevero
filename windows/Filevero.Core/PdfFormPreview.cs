@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-namespace Filevero.Windows;
+namespace Filevero.Core;
 
 // Read-only AcroForm appearance rendering. No JavaScript platform, URI actions,
 // focus events or timers are supplied to a preview document.

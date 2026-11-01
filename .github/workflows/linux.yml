@@ -1,0 +1,203 @@
+name: Linux preview
+on:
+  push:
+    branches: [main]
+  pull_request:
+  repository_dispatch:
+    types: [owner-pr-merged]
+permissions:
+  contents: read
+concurrency:
+  group: linux-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux-core:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          dotnet-version: '10.0.x'
+      # Libraries every GNOME/KDE desktop already has; LibreOffice needs them to start.
+      - name: Desktop runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libnss3 libcairo2 libcups2t64 libxinerama1 libdbus-1-3 libx11-xcb1 libxext6 libxrender1 libsm6 libfontconfig1
+      - name: Install verified Linux tools and exercise real exports
+        env:
+          FILEVERO_VERIFY_DOWNLOAD_TOOLS: '1'
+          FILEVERO_VERIFY_TOOLS_DIRECTORY: '${{ runner.temp }}/Filevero-Test-Tools/v1'
+          FILEVERO_VERIFY_OFFICE: '1'
+          FILEVERO_VERIFY_OFFICE_DIRECTORY: '${{ runner.temp }}/Filevero-Test-Office'
+        run: dotnet run --project windows/Filevero.Verify -c Release
+
+  linux-package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    container: ubuntu:22.04
+    timeout-minutes: 40
+    steps:
+      - name: Packaging tools
+        run: |
+          sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates curl git file dpkg-dev libicu70 \
+            tesseract-ocr tesseract-ocr-eng tesseract-ocr-tur wl-clipboard
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build AppImage and archive
+        run: scripts/build-linux-appimage.sh ${{ matrix.arch }} dist
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: linux-appimage-${{ matrix.arch }}
+          path: dist/*.AppImage
+          retention-days: 3
+          if-no-files-found: error
+
+  # The same AppImage on every supported distribution, with only what a stock desktop already has.
+  linux-distros:
+    needs: linux-package
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ['ubuntu:22.04', 'ubuntu:24.04', 'ubuntu:26.04', 'debian:13', 'fedora:43', 'fedora:44']
+        arch: [x64, arm64]
+    runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    container: ${{ matrix.image }}
+    timeout-minutes: 15
+    steps:
+      - name: Stock desktop libraries
+        run: |
+          if command -v apt-get > /dev/null; then
+            apt-get update
+            icu=$(apt-cache search --names-only '^libicu[0-9]+$' | cut -d' ' -f1 | head -n1)
+            DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libfontconfig1 "$icu"
+          else
+            dnf install -y fontconfig libicu
+          fi
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: linux-appimage-${{ matrix.arch }}
+      - name: Packaged self-test
+        run: |
+          chmod +x ./*.AppImage
+          APPIMAGE_EXTRACT_AND_RUN=1 ./*.AppImage --self-test
+
+  # Opens the real windows on an X display and drives them.
+  linux-smoke:
+    needs: linux-package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - name: X display and window manager
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends xvfb openbox dbus-x11 fonts-dejavu-core fonts-noto-core libfontconfig1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: linux-appimage-${{ matrix.arch }}
+      - name: Desktop smoke test
+        env:
+          FILEVERO_SMOKE_DIRECTORY: ${{ runner.temp }}/smoke
+          APPIMAGE_EXTRACT_AND_RUN: '1'
+        run: |
+          chmod +x ./*.AppImage
+          xvfb-run -a -s '-screen 0 1600x1000x24' dbus-run-session -- sh -c 'openbox & sleep 1; ./*.AppImage --smoke-test'
+      - if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: linux-smoke-${{ matrix.arch }}
+          path: ${{ runner.temp }}/smoke/*.png
+          retention-days: 7
+          if-no-files-found: warn
+
+  # Filevero's GNOME Shell extension in a real, headless GNOME Shell of each supported generation.
+  gnome-extension:
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ['ubuntu:24.04', 'debian:13', 'fedora:44']
+    runs-on: ubuntu-24.04
+    container: ${{ matrix.image }}
+    timeout-minutes: 20
+    steps:
+      - name: GNOME Shell
+        run: |
+          if command -v apt-get > /dev/null; then
+            apt-get update
+            DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gnome-shell python3-gi gir1.2-gtk-4.0 \
+              dbus-daemon dconf-service dconf-cli libglib2.0-bin xwayland
+          else
+            dnf install -y gnome-shell python3-gobject gtk4 dbus-daemon glib2 mesa-dri-drivers
+          fi
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Drive the extension as Filevero
+        run: Tests/GnomeExtension/run.sh
+
+  # The packaged app inside KDE Plasma and GNOME sessions, so their bridges (KWin script, Shell extension) are used.
+  linux-desktops:
+    needs: linux-package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - desktop: kde
+            packages: kwin-wayland xorg-x11-server-Xwayland dbus-daemon fontconfig google-noto-sans-fonts libicu mesa-dri-drivers
+          - desktop: gnome
+            packages: gnome-shell python3-gobject gtk4 dbus-daemon glib2 fontconfig google-noto-sans-fonts libicu mesa-dri-drivers
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:44
+      # KWin raises its own scheduling priority and refuses to start without the capability.
+      options: --cap-add SYS_NICE
+    timeout-minutes: 20
+    steps:
+      - name: Desktop session
+        run: dnf install -y ${{ matrix.packages }}
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: linux-appimage-x64
+          path: package
+      - name: Smoke test in the desktop session
+        run: |
+          chmod +x package/*.AppImage
+          (cd package && ./*.AppImage --appimage-extract > /dev/null)
+          Tests/LinuxDesktop/${{ matrix.desktop }}-smoke.sh "$PWD/package/squashfs-root/AppRun" "$RUNNER_TEMP/smoke"
+      - if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: linux-${{ matrix.desktop }}-smoke
+          path: ${{ runner.temp }}/smoke/*.png
+          retention-days: 7
+          if-no-files-found: warn

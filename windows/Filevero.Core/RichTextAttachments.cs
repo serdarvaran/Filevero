@@ -1,7 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using Filevero.Core;
-namespace Filevero.Windows;
+namespace Filevero.Core;
 internal static class RichTextAttachments
 {
     internal static async Task<string> Materialize(string folder,string work,CancellationToken token)

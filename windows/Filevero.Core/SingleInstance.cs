@@ -2,16 +2,18 @@ using System.Buffers.Binary;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Text.Json;
-namespace Filevero.Windows;
-internal sealed class SingleInstance:IDisposable
+namespace Filevero.Core;
+/// One Filevero per user session: later launches hand their arguments to the first over a user-only pipe.
+public sealed class SingleInstance:IDisposable
 {
     private readonly Mutex mutex;private readonly string pipe;private readonly CancellationTokenSource lifetime=new();private NamedPipeServerStream? server;
-    internal bool Primary{get;}
-    internal SingleInstance(string? testName=null)
+    public bool Primary{get;}
+    public SingleInstance(string? testName=null)
     {
-        var name=testName??"Filevero.Desktop.v1."+Process.GetCurrentProcess().SessionId;pipe=name;mutex=new(false,"Local\\"+name);try{Primary=mutex.WaitOne(0);}catch(AbandonedMutexException){Primary=true;}
+        // Linux sessions of different users can share an id, so the user name is part of the name there.
+        var name=testName??"Filevero.Desktop.v1."+Process.GetCurrentProcess().SessionId+(OperatingSystem.IsWindows()?"":"."+Environment.UserName);pipe=name;mutex=new(false,"Local\\"+name);try{Primary=mutex.WaitOne(0);}catch(AbandonedMutexException){Primary=true;}
     }
-    internal void Start(Action<string[]> receive)
+    public void Start(Action<string[]> receive)
     {
         if(!Primary)throw new InvalidOperationException("Only the primary instance can listen.");_ = Task.Run(async()=>
         {
@@ -26,7 +28,7 @@ internal sealed class SingleInstance:IDisposable
             }
         });
     }
-    internal async Task Notify(string[] paths)
+    public async Task Notify(string[] paths)
     {
         using var timeout=new CancellationTokenSource(TimeSpan.FromSeconds(4));using var client=new NamedPipeClientStream(".",pipe,PipeDirection.InOut,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);await client.ConnectAsync(timeout.Token);var data=JsonSerializer.SerializeToUtf8Bytes(paths.Take(256));if(data.Length>131072)throw new IOException("Choose fewer files to open.");var prefix=new byte[4];BinaryPrimitives.WriteInt32LittleEndian(prefix,data.Length);await client.WriteAsync(prefix,timeout.Token);await client.WriteAsync(data,timeout.Token);var ack=new byte[1];await client.ReadExactlyAsync(ack,timeout.Token);
     }

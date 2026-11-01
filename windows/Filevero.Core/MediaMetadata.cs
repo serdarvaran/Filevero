@@ -1,12 +1,11 @@
 using System.Text.Json;
-using Filevero.Core;
-namespace Filevero.Windows;
-internal static class MediaMetadata
+namespace Filevero.Core;
+public static class MediaMetadata
 {
-    internal static readonly string[] Editable=["title","artist","album","date","genre","comment","copyright","composer","description","creation_time","track","disc","publisher"];
-    internal static string Label(string key){var parts=key.Split(':');return parts.Length==3&&parts[0] is "stream" or "chapter"&&int.TryParse(parts[1],out var index)?(parts[0]=="stream"?"Stream ":"Chapter ")+(index+1)+" · "+Caption(parts[2]):Caption(key);}
+    public static readonly string[] Editable=["title","artist","album","date","genre","comment","copyright","composer","description","creation_time","track","disc","publisher"];
+    public static string Label(string key){var parts=key.Split(':');return parts.Length==3&&parts[0] is "stream" or "chapter"&&int.TryParse(parts[1],out var index)?(parts[0]=="stream"?"Stream ":"Chapter ")+(index+1)+" · "+Caption(parts[2]):Caption(key);}
     private static string Caption(string value)=>value switch{""=>"","creation_time"=>"Created","handler_name"=>"Track name",_=>char.ToUpper(value[0])+value[1..]};
-    internal static async Task<IReadOnlyDictionary<string,string>> Read(Toolchain tools,string input,CancellationToken token=default)
+    public static async Task<IReadOnlyDictionary<string,string>> Read(Toolchain tools,string input,CancellationToken token=default)
     {
         var result=await ProcessRunner.RunAsync(tools.Executable("ffprobe"),["-v","error","-show_format","-show_streams","-show_chapters","-of","json",input],token);using var json=JsonDocument.Parse(result.Output);var root=json.RootElement;var values=new Dictionary<string,string>{{"SourceFile",input}};
         if(root.TryGetProperty("format",out var format)&&format.TryGetProperty("tags",out var tags))foreach(var tag in tags.EnumerateObject())values[tag.Name.ToLowerInvariant()]=tag.Value.ToString();

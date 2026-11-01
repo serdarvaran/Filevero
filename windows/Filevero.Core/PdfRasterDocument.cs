@@ -1,17 +1,16 @@
 using System.Runtime.InteropServices;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-namespace Filevero.Windows;
+using ImageMagick;
+namespace Filevero.Core;
 
 // CPU-only PDF rasterization. Keep native PDF objects and their pinned source
 // bytes together, and serialize PDFium (its public API is not thread-safe).
-internal sealed class PdfRasterDocument:IDisposable
+public sealed class PdfRasterDocument:IDisposable
 {
     private static readonly object gate=new();private static bool initialized;private static int documents;
     private nint document;private GCHandle source;private PdfFormPreview? form;
-    internal int PageCount{get;}
-    internal const string PasswordError="The PDF password is missing or incorrect.";
-    internal static int OpenDocuments{get{lock(gate)return documents;}}
+    public int PageCount{get;}
+    public const string PasswordError="The PDF password is missing or incorrect.";
+    public static int OpenDocuments{get{lock(gate)return documents;}}
     private PdfRasterDocument(string path,string password)
     {
         using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read);var length=input.Length;if(length<1||length>200_000_000)throw new InvalidDataException("Choose a PDF smaller than 200 MB.");
@@ -32,8 +31,8 @@ internal sealed class PdfRasterDocument:IDisposable
             catch{form?.Dispose();if(document!=0){Native.FPDF_CloseDocument(document);document=0;}if(source.IsAllocated)source.Free();throw;}
         }
     }
-    internal static PdfRasterDocument Open(string path,string password="")=>new(path,password);
-    internal byte[] RenderPage(int index,int dpi,CancellationToken token)
+    public static PdfRasterDocument Open(string path,string password="")=>new(path,password);
+    public byte[] RenderPage(int index,int dpi,CancellationToken token)
     {
         token.ThrowIfCancellationRequested();if(dpi<36||dpi>600)throw new ArgumentOutOfRangeException(nameof(dpi));
         lock(gate)
@@ -54,7 +53,9 @@ internal sealed class PdfRasterDocument:IDisposable
                     if(bitmap==0)throw new InvalidDataException("PDF preview bitmap could not be allocated.");
                     if(Native.FPDFBitmap_FillRect(bitmap,0,0,width,height,0xffffffff)==0)throw new InvalidDataException("PDF preview background could not be prepared.");
                     Native.FPDF_RenderPageBitmap(bitmap,page,0,0,width,height,0,1);form?.Draw(bitmap,width,height);token.ThrowIfCancellationRequested();
-                    return ImageEngine.PngBytes(BitmapSource.Create(width,height,dpi,dpi,PixelFormats.Bgra32,null,pixels,stride));
+                    // The PNG keeps the render DPI (pHYs) so viewers size pages as before.
+                    using var image=new MagickImage(pixels,new PixelReadSettings((uint)width,(uint)height,StorageType.Char,PixelMapping.BGRA)){Density=new Density(dpi,dpi,DensityUnit.PixelsPerInch)};
+                    return image.ToByteArray(MagickFormat.Png32);
                 }
                 finally{if(bitmap!=0)Native.FPDFBitmap_Destroy(bitmap);pinned.Free();}
             }
@@ -63,7 +64,7 @@ internal sealed class PdfRasterDocument:IDisposable
     }
     public void Dispose(){lock(gate){if(document==0)return;form?.Dispose();form=null;Native.FPDF_CloseDocument(document);document=0;documents--;if(source.IsAllocated)source.Free();}GC.SuppressFinalize(this);}
     ~PdfRasterDocument(){Dispose();}
-    internal static void Shutdown(){lock(gate){if(initialized&&documents==0){Native.FPDF_DestroyLibrary();initialized=false;}}}
+    public static void Shutdown(){lock(gate){if(initialized&&documents==0){Native.FPDF_DestroyLibrary();initialized=false;}}}
     private static class Native
     {
         [DllImport("pdfium",CallingConvention=CallingConvention.Winapi)]internal static extern void FPDF_InitLibrary();

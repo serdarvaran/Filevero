@@ -1,6 +1,6 @@
-# Mac and Windows desktop parity
+# Mac, Windows and Linux desktop parity
 
-Both implementations use the same 50 input-format / 29-tool shared catalog; camera RAW is macOS-only. Background removal uses Apple Vision on macOS and a locally run ISNet model (ONNX Runtime) on Windows. `scripts/check-feature-parity.py` checks conversion destinations, tool names and single/multi-file eligibility against the app's `filevero-cli catalog` export; it is not a substitute for running the tools.
+Both implementations use the same 50 input-format / 29-tool shared catalog; camera RAW is macOS-only. Background removal uses Apple Vision on macOS and a locally run ISNet model (ONNX Runtime) on Windows and Linux. Linux shares the Windows engines and follows its windows line by line ([Filevero for Linux](../windows/Filevero.Linux/README.md)); the same parity script also fails when a Windows source has no Linux counterpart. `scripts/check-feature-parity.py` checks conversion destinations, tool names and single/multi-file eligibility against the app's `filevero-cli catalog` export; it is not a substitute for running the tools.
 
 | Workflow | Shared behavior |
 | --- | --- |
@@ -23,22 +23,22 @@ Both implementations use the same 50 input-format / 29-tool shared catalog; came
 
 ## Shortcut mapping
 
-| Action | macOS | Windows |
-| --- | --- | --- |
-| Home / Library | Command+1 / Command+2 | Ctrl+1 / Ctrl+2 |
-| Find in Library | Command+F | Ctrl+F |
-| Choose files | Command+O | Ctrl+O |
-| Paste content | Command+V | Ctrl+V |
-| Open selected-file tools | Return / Command+Return | Enter / Ctrl+Enter; Ctrl+Space remains supported |
-| Library result | Up/Down, Space preview, Return reuse | Up/Down, Space preview, Enter reuse |
-| Download copied link | Control+Shift+D | Ctrl+Shift+D |
-| Clipboard history (when on) | Control+Command+V | Ctrl+Shift+Alt+V |
-| Clipboard history: pin / delete unpinned | Command+P / Command+Delete | Ctrl+P / Ctrl+Delete |
-| Clipboard history: item actions | Command+T | Ctrl+T |
-| Drag: convert / tools / actions | Shift / Command / Control | Shift / Ctrl / Alt |
-| Arrange a dragged window | Shift or Command | Shift or Alt |
-| Preview batch / media | Arrows navigate files; for media arrows seek, Option+arrows change files | Arrows navigate files; for media arrows seek, Alt+arrows change files |
-| Settings / updates | Command+, / Command+U | Ctrl+, / Ctrl+U |
+| Action | macOS | Windows | Linux |
+| --- | --- | --- | --- |
+| Home / Library | Command+1 / Command+2 | Ctrl+1 / Ctrl+2 | Ctrl+1 / Ctrl+2 |
+| Find in Library | Command+F | Ctrl+F | Ctrl+F |
+| Choose files | Command+O | Ctrl+O | Ctrl+O |
+| Paste content | Command+V | Ctrl+V | Ctrl+V |
+| Open selected-file tools | Return / Command+Return | Enter / Ctrl+Enter; Ctrl+Space remains supported | Enter / Ctrl+Enter; Ctrl+Space remains supported |
+| Library result | Up/Down, Space preview, Return reuse | Up/Down, Space preview, Enter reuse | Up/Down, Space preview, Enter reuse |
+| Download copied link | Control+Shift+D | Ctrl+Shift+D | Ctrl+Shift+D |
+| Clipboard history (when on) | Control+Command+V | Ctrl+Shift+Alt+V | Ctrl+Shift+Alt+V |
+| Clipboard history: pin / delete unpinned | Command+P / Command+Delete | Ctrl+P / Ctrl+Delete | Ctrl+P / Ctrl+Delete |
+| Clipboard history: item actions | Command+T | Ctrl+T | Ctrl+T |
+| Drag: convert / tools / actions | Shift / Command / Control | Shift / Ctrl / Alt | Shift / Ctrl / Alt |
+| Arrange a dragged window | Shift or Command | Shift or Alt | Shift or Alt (KDE without input access: pause while dragging) |
+| Preview batch / media | Arrows navigate files; for media arrows seek, Option+arrows change files | Arrows navigate files; for media arrows seek, Alt+arrows change files | Arrows navigate files; for media arrows seek, Alt+arrows change files |
+| Settings / updates | Command+, / Command+U | Ctrl+, / Ctrl+U | Ctrl+, / Ctrl+U |
 
 Drag chords are configurable. Text entry keeps normal editing shortcuts; tool shortcuts are scoped to their own active editor. Library search Down moves focus into its matching results.
 
@@ -48,7 +48,8 @@ Drag chords are configurable. Text entry keeps normal editing shortcuts; tool sh
 - Mac uses Quick Look/AVFoundation and Sparkle; Windows uses WPF, a pinned CPU PDFium renderer, Windows media APIs, local conversion previews and an Ed25519-verified update helper. PDF form appearances remain visible in read-only previews; previews do not execute document scripts or open link actions. Unsupported Windows media codecs use a local FFmpeg preview proxy. Office previews require the same optional private office runtime as Windows document conversion; originals stay unchanged.
 - macOS window control needs the user's system permission. Windows normally uses WinEvent/window APIs, but elevated/protected applications can reject resizing. Both platforms report refused placements.
 - Native fonts, title-bar controls, file pickers and system sharing dialogs follow the operating system. App page structure, palette, actions and keyboard behavior are shared.
-- Authenticated/protected web media and upstream service availability are not guaranteed by either version.
+- Linux uses Avalonia with the same pages and keyboard behavior. Wayland keeps global input and other apps' windows from ordinary apps, so GNOME gets them through Filevero's optional Shell extension, KDE Plasma through a KWin script (plus, for the drag wheels outside Filevero, the `input` group the user may allow in Settings) and X11 directly; without them the screen-edge strip opens the drag wheels. Sharing uses the system's mail, KDE Connect/Bluetooth and file-manager handoffs instead of the Windows Share dialog. Text recognition uses the bundled Tesseract and redaction face help an open UltraFace model.
+- Authenticated/protected web media and upstream service availability are not guaranteed by any version.
 
 ## Reproducible verification
 
@@ -58,5 +59,7 @@ Drag chords are configurable. Text entry keeps normal editing shortcuts; tool sh
 - Installed Mac app: `--window-management-smoke <manager-pid> <output-directory>` tests real window drags against the bounded cross-process fixture described in [WINDOW-MANAGEMENT.md](WINDOW-MANAGEMENT.md).
 - `dotnet run --project windows/Filevero.Verify -c Release` checks engine safety, file transactions, formats, source FPS and real FFmpeg operations when tools are configured.
 - Windows executable: `--smoke-test` runs native SendInput/OLE/WPF checks, real OS clipboard imports, Library restart/search/reuse, preview navigation, crop/annotation/export, media controls and processed playback, original-file integrity, Explorer gestures and all eight window layouts. GitHub's Windows runner uploads screenshots, errors and JSON results.
+
+- Linux: `Filevero --self-test` runs from the AppImage on Ubuntu 22.04/24.04/26.04, Debian 13 and Fedora 43/44 (x64 and arm64); `Filevero --smoke-test` runs under Xvfb, a virtual KWin session and a headless GNOME Shell with the extension; `Tests/GnomeExtension/run.sh` drives the extension on GNOME 46, 48 and 50.
 
 Windows native verification runs on an isolated Windows runner. This is not a claim of a physical Windows Computer Use session or listening to audio on every hardware configuration. Regression tests cover additional display geometries; not every display/codec/share-provider configuration has been exercised on physical hardware.

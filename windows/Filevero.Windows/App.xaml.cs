@@ -1,3 +1,4 @@
+using Filevero.Core;
 using System.Windows;
 namespace Filevero.Windows;
 public partial class App:Application

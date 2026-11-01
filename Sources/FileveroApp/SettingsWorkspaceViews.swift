@@ -25,7 +25,6 @@ public struct SettingsWorkspaceViews: View {
     @State private var shortcutsRevision = 0
     @State private var launch = false
     @State private var launchNeedsApproval = false
-    @State private var launchUnavailable = false
     @State private var launchError: String?
     @AppStorage("reduceAnimations") private var reduceAnimations = false
     @AppStorage("appAppearance") private var appAppearance = "system"
@@ -204,16 +203,12 @@ public struct SettingsWorkspaceViews: View {
                         }
                         Divider()
                         Toggle("Launch at login", isOn: Binding(get: { launch }, set: updateLaunch))
-                            .disabled(launchUnavailable)
                         if launchNeedsApproval {
                             HStack {
                                 Text("Allow Filevero in macOS Login Items.").font(.caption).foregroundStyle(.secondary)
                                 Spacer()
                                 Button("Open Login Items") { SMAppService.openSystemSettingsLoginItems() }
                             }
-                        }
-                        if launchUnavailable {
-                            Text("Launch at login is unavailable for this copy.").font(.caption).foregroundStyle(.secondary)
                         }
                         if let launchError {
                             Text(launchError).font(.caption).foregroundStyle(.secondary)
@@ -390,7 +385,6 @@ public struct SettingsWorkspaceViews: View {
         let status = SMAppService.mainApp.status
         launch = status == .enabled || status == .requiresApproval
         launchNeedsApproval = status == .requiresApproval
-        launchUnavailable = status == .notFound
     }
 
     private func updateLaunch(_ value: Bool) {

@@ -1,0 +1,8 @@
+{
+  "uuid": "filevero@serdarvaran.github.io",
+  "name": "Filevero",
+  "description": "Desktop integration for the Filevero app: drag wheels, arranging dragged windows, clipboard history and pasting from it, global shortcuts and a panel icon. Reads the clipboard only to notify Filevero that it changed, and only while Filevero is running and its clipboard history is on.",
+  "shell-version": ["45", "46", "47", "48", "49", "50", "51"],
+  "url": "https://github.com/serdarvaran/Filevero",
+  "version": 1
+}

@@ -79,7 +79,7 @@ internal static class Elevation
         using var tx=new ExportTransaction(destination);var staged=new List<string>();
         foreach(var item in Directory.EnumerateFileSystemEntries(source).Where(i=>!Path.GetFileName(i).StartsWith(".filevero-",StringComparison.Ordinal)).Order(StringComparer.Ordinal))
         {
-            var target=Path.Combine(tx.StagingDirectory,Path.GetFileName(item));await FileActions.CopyTree(item,target,CancellationToken.None);staged.Add(target);
+            var target=Path.Combine(tx.StagingDirectory,Path.GetFileName(item));await FileTransfers.CopyTree(item,target,CancellationToken.None);staged.Add(target);
         }
         return tx.Publish(staged,CancellationToken.None);
     }

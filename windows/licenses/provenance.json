@@ -44,5 +44,37 @@
     "file": "rembg-MIT.txt",
     "url": "https://raw.githubusercontent.com/danielgatis/rembg/c5b48b0417a0254df7d461efa14573597f369a83/LICENSE.txt",
     "sha256": "90a3215072968fd304669c5389f04f1274a587abdd0507d99dead0f5511f8999"
+  },
+  {
+    "file": "Avalonia-MIT.txt",
+    "url": "https://raw.githubusercontent.com/AvaloniaUI/Avalonia/12.1.4/licence.md",
+    "sha256": "213814d306090074d234d760239ff0f67eb9b8d20eefb4d5631bb39dbe0b769b"
+  },
+  {
+    "file": "Tmds.DBus-MIT.txt",
+    "url": "https://raw.githubusercontent.com/tmds/Tmds.DBus/rel/0.94.1/COPYING",
+    "sha256": "aca3b49277abcc7886ccb2f115603a9f5b15fc3f96019a10c00f2974098b210c"
+  },
+  {
+    "file": "SkiaSharp-MIT.txt",
+    "url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.linux/3.119.4/skiasharp.nativeassets.linux.3.119.4.nupkg",
+    "member": "LICENSE.txt",
+    "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+  },
+  {
+    "file": "SkiaSharp-THIRD-PARTY-NOTICES.txt",
+    "url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.linux/3.119.4/skiasharp.nativeassets.linux.3.119.4.nupkg",
+    "member": "THIRD-PARTY-NOTICES.txt",
+    "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+  },
+  {
+    "file": "AppImage-type2-runtime-MIT.txt",
+    "url": "https://raw.githubusercontent.com/AppImage/type2-runtime/20251108/LICENSE",
+    "sha256": "aa154fc9070614bbe7921f89db11efd1dba7a1f3a41685958110e2230f9c0ca1"
+  },
+  {
+    "file": "UltraFace-MIT.txt",
+    "url": "https://raw.githubusercontent.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB/0f9ca4a9fc80170fd505168fd1132b837141f7df/LICENSE",
+    "sha256": "21f0df2b54c9fef1b4f4061dd0b153bc72f071b5ce9fc04234f13ebfd093b44c"
   }
 ]

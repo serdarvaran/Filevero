@@ -42,6 +42,7 @@ Download Filevero from [Releases](https://github.com/serdarvaran/Filevero/releas
 
 - **macOS** (Apple Silicon, macOS 13 or later): open `Filevero-macOS-arm64-….dmg` and drag **Filevero** onto the **Applications** folder in its window, then open it from Applications. If you start it from the disk image or Downloads, Filevero offers to move itself there, because Finder services and opening at login need a fixed location. The Mac build is not notarized by Apple yet, so macOS blocks the first launch: open the app once, close the warning, then choose **Open Anyway** for Filevero in **System Settings → Privacy & Security**. Compare the download with its `.sha256` file first. From 1.0.3 on, both apps update themselves: they check these releases, verify the download's Ed25519 signature, install it and restart.
 - **Windows** (x64): extract `Filevero-Windows-x64-….zip` into its own folder and run `Filevero.exe`. If SmartScreen asks, choose **More info → Run anyway**.
+- **Linux** (x64 or arm64; Ubuntu 22.04+, Debian 13, Fedora 43+): make `Filevero-Linux-x64-….AppImage` (or `-arm64-`) executable and open it. It updates itself after verifying the signature. On GNOME, Settings → Desktop can add the optional Filevero Shell extension for the drag wheels and window arranging everywhere.
 
 To build the Mac app from source on Apple Silicon with macOS 13 or later and Xcode / Swift 6:
 
@@ -54,7 +55,7 @@ The app is written to `build/Filevero.app`; `scripts/build-dmg.sh build/Filevero
 
 On first launch, **Finish setup → Download missing tools** installs FFmpeg, yt-dlp and LibreOffice from their upstream sources with pinned SHA-256 hashes. Native image and PDF features work right away. [Versions, hashes and licenses](docs/dependencies.md).
 
-A Windows edition (WPF / .NET 10) shares the same catalog; there, background removal runs the open ISNet model locally. See [Filevero for Windows](windows/README.md).
+A Windows edition (WPF / .NET 10) shares the same catalog; there, background removal runs the open ISNet model locally. See [Filevero for Windows](windows/README.md). A Linux edition (Avalonia / .NET 10) shares the Windows engines; see [Filevero for Linux](windows/Filevero.Linux/README.md).
 
 ## Shortcuts
 

@@ -17,6 +17,13 @@ try
     try{LocalizationChecks.Run(Check,languageRoot);}finally{Directory.Delete(languageRoot,true);}
     await DownloadChecks.Run(Check,root);
     ToolSetupChecks.Run(Check,root);
+    LinuxToolChecks.Run(Check,root);
+    await LinuxToolChecks.RunInstalledAsync(Check,root);
+    LinuxOfficeChecks.Run(Check,root);
+    RasterChecks.Run(Check,root);
+    await PdfRasterChecks.RunAsync(Check,root);
+    await PortableWorkflowChecks.RunAsync(Check,root);
+    await LinuxOfficeChecks.RunInstalledAsync(Check,root);
     ClipboardHistoryChecks.Run(Check,root);
     ClipboardActionChecks.Run(Check);
     var workflowRoot=Path.Combine(root,"Workflows");Directory.CreateDirectory(workflowRoot);try{WorkflowChecks.Run(Check,workflowRoot);}finally{Directory.Delete(workflowRoot,true);}
@@ -92,6 +99,7 @@ try
     Check(Directory.GetFiles(libraryDirectory,"*.recovered-*").Length==1&&File.ReadAllText(Directory.GetFiles(libraryDirectory,"*.recovered-*")[0])=="{broken","Corrupt Library recovery copy missing");
     recovered.Record("Recovered",[Path.Combine(root,"Output.txt")]);Check(new LibraryStore(libraryDirectory).Entries.Count==1,"Library did not recover after corrupt data");Check(Directory.GetFiles(libraryDirectory,"*.recovered-*").Length==1&&new LibraryStore(libraryDirectory).RecoveryNotice is null,"Library kept recovering the same damaged file");
     Directory.Delete(libraryDirectory,true);
+    Check(PublicUpdates.FeedFor(ToolPlatform.WindowsX64).EndsWith("/releases/latest/download/windows-update.json",StringComparison.Ordinal)&&PublicUpdates.FeedFor(ToolPlatform.LinuxX64).EndsWith("/linux-x64-update.json",StringComparison.Ordinal)&&PublicUpdates.FeedFor(ToolPlatform.LinuxArm64).EndsWith("/linux-arm64-update.json",StringComparison.Ordinal),"Each platform must read its own signed update manifest");
     Check(PublicUpdates.Normalize(new Version("1.0.4"))==PublicUpdates.Normalize(new Version("1.0.4.0")),"Equivalent update versions compared differently");
     var updates = new List<double?>(); var parser = new FFmpegProgress(10, p => updates.Add(p.Fraction), "Encoding");
     foreach (var line in new[] { "out_time_us=N/A", "out_time_us=nan", "out_time_us=-1", "out_time_us=1000000", "out_time_us=5000000", "out_time_us=2000000", "out_time_us=20000000" }) parser.ReadLine(line);
@@ -105,7 +113,7 @@ try
     try{DocumentEngine.Unzip(unsafeZip,root);throw new Exception("Traversal archive succeeded");}catch(InvalidDataException){checks++;}
     Check(!File.Exists(Path.Combine(Path.GetDirectoryName(root)!,"outside.txt")),"Archive wrote outside destination");
     var fake=Path.Combine(root,"fake.zip");File.WriteAllText(fake,"untrusted");
-    var update=new WindowsUpdate("99.0.0.0","https://github.com/filevero/filevero/releases/download/test/Filevero.zip",new FileInfo(fake).Length,Convert.ToBase64String(new byte[64]));
+    var update=new UpdateManifest("99.0.0.0","https://github.com/filevero/filevero/releases/download/test/Filevero.zip",new FileInfo(fake).Length,Convert.ToBase64String(new byte[64]));
     try{await PublicUpdates.VerifyAsync(fake,update);throw new Exception("Unsigned update accepted");}catch(InvalidDataException){checks++;}
     {
         // A real Ed25519 key pair: the valid update must pass, so the rejections below fail for the intended reason.
@@ -187,7 +195,7 @@ if(Environment.GetEnvironmentVariable("FILEVERO_VERIFY_FFMPEG") is {} encoder &&
 
 if(Environment.GetEnvironmentVariable("FILEVERO_VERIFY_UPDATE_MANIFEST") is {} manifestPath&&Environment.GetEnvironmentVariable("FILEVERO_VERIFY_UPDATE_ARCHIVE") is {} archivePath)
 {
-    var update=JsonSerializer.Deserialize<WindowsUpdate>(await File.ReadAllTextAsync(manifestPath),new JsonSerializerOptions{PropertyNameCaseInsensitive=true})??throw new Exception("Missing update manifest.");
+    var update=JsonSerializer.Deserialize<UpdateManifest>(await File.ReadAllTextAsync(manifestPath),new JsonSerializerOptions{PropertyNameCaseInsensitive=true})??throw new Exception("Missing update manifest.");
     await PublicUpdates.VerifyAsync(archivePath,update);
     var extracted=Path.Combine(Path.GetTempPath(),"Filevero-Update-Verify-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(extracted);
     try{PublicUpdates.ExtractVerified(archivePath,extracted);Console.WriteLine("PASS signed public Windows archive and safe extraction");}finally{Directory.Delete(extracted,true);}

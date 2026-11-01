@@ -10,11 +10,7 @@ using Filevero.Core;
 namespace Filevero.Windows;
 public static class NativePdf
 {
-    public static Task<byte[][]> RenderAsync(string path,int dpi=144,CancellationToken token=default,string password="")=>Task.Run(()=>
-    {
-        using var pdf=PdfRasterDocument.Open(path,password);var images=new List<byte[]>();long total=0;
-        for(var i=0;i<pdf.PageCount;i++){token.ThrowIfCancellationRequested();var image=pdf.RenderPage(i,dpi,token);total+=image.LongLength;if(total>512_000_000)throw new InvalidDataException("Rendered pages exceed 512 MB. Choose a lower DPI or split the PDF first.");images.Add(image);}return images.ToArray();
-    },token);
+    public static Task<byte[][]> RenderAsync(string path,int dpi=144,CancellationToken token=default,string password="")=>PdfRaster.RenderAsync(path,dpi,token,password);
     public static async Task<Rect[]> DetectAsync(BitmapSource image,bool text,bool faces)
     {
         using var stream=new InMemoryRandomAccessStream();using(var writer=new DataWriter(stream.GetOutputStreamAt(0))){writer.WriteBytes(ImageEngine.PngBytes(image));await writer.StoreAsync();}stream.Seek(0);var decoder=await global::Windows.Graphics.Imaging.BitmapDecoder.CreateAsync(stream);using var bitmap=await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8,BitmapAlphaMode.Premultiplied);var regions=new List<Rect>();

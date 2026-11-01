@@ -1,0 +1,38 @@
+Filevero for Linux. Copyright 2026 Filevero contributors. MIT.
+Independent app inspired by Tangerine; not affiliated with LEAP STUDIO.
+
+.NET 10, Microsoft and contributors, MIT.
+https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+Avalonia 12.1.4, AvaloniaUI OÜ and contributors, MIT. licenses/Avalonia-MIT.txt
+SkiaSharp 3.119.4 and HarfBuzzSharp 8.3.1.3, Microsoft Corporation, MIT; native Skia (BSD-3-Clause), HarfBuzz and
+their bundled dependencies are listed in licenses/SkiaSharp-THIRD-PARTY-NOTICES.txt (the same file ships in both packages).
+Tmds.DBus.Protocol 0.94.1, Tom Deseyn and contributors, MIT. licenses/Tmds.DBus-MIT.txt
+PDFsharp 6.2.4, empira and contributors, MIT. licenses/PDFsharp-MIT.txt
+BouncyCastle.Cryptography 2.7.0, The Legion of the Bouncy Castle Inc., MIT. licenses/BouncyCastle-MIT.txt
+Exact NuGet packages and transitive dependency licenses are recorded in the committed packages.lock.json files.
+
+Shared engine libraries (also in Filevero for Windows):
+- PDFium 155.0.8044.0 via bblanchon.PDFium.Linux 155.0.8044: Apache-2.0 packaging, PDFium BSD-style and bundled
+  dependency notices in licenses/PDFium-THIRD-PARTY-NOTICES.txt.
+- Magick.NET 15.0.0: Apache-2.0; native dependency licenses in licenses/Magick.NET-THIRD-PARTY-NOTICES.txt.
+- ZXing.Net 0.16.11 (Apache-2.0), SharpCompress 0.50.5 (MIT), PdfPig 0.1.16 (Apache-2.0).
+- ONNX Runtime 1.31.0: MIT; native notices in licenses/ONNXRuntime-THIRD-PARTY-NOTICES.txt. Filevero turns its
+  telemetry events off before loading a model.
+- Cupertino Files Pages interoperability: MIT with its BSD/LZFSE and PicoDocs notices; see licenses/cupertino-files.
+
+Bundled in the AppImage and archive (built from Ubuntu 22.04 packages):
+- Tesseract OCR with English, Turkish and script-detection data (Apache-2.0), Leptonica (BSD-2-Clause) and their
+  libraries; wl-clipboard's wl-paste (GPL-3.0-or-later). Each package's copyright file and exact version are in
+  licenses/linux-tools. The corresponding sources of the copyleft packages are published next to each release as
+  Filevero-Linux-tool-sources-<arch>-<version>.tar.gz.
+- AppImage type2 runtime 20251108 (MIT, licenses/AppImage-type2-runtime-MIT.txt), which statically links libfuse
+  (LGPL-2.1) and squashfuse; source: https://github.com/AppImage/type2-runtime/tree/20251108.
+
+Downloaded only after the user agrees, with pinned SHA-256 checks:
+- FFmpeg (BtbN builds, GPL), yt-dlp (Unlicense) and Deno (MIT); ExifTool 13.59 (Artistic/GPL, runs on the system's
+  Perl); LibreOffice 26.8.1 (MPL-2.0 and upstream notices) when the system has none. Their license files remain in
+  the user tools folders.
+- The ISNet general-use background removal model (Apache-2.0, licenses/DIS-ISNet-Apache-2.0.txt) in rembg's ONNX
+  export (MIT, licenses/rembg-MIT.txt).
+- The Ultra-Light-Fast-Generic-Face-Detector RFB-320 model for redaction help (MIT, licenses/UltraFace-MIT.txt).
+No external server receives file content.

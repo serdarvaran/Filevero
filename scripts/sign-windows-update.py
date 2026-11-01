@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sign the Windows release archive and write windows-update.json for PublicUpdates.cs.
+"""Sign a Windows or Linux release file and write its update manifest (windows-update.json, linux-*-update.json).
 
 The private key arrives in FILEVERO_UPDATE_ED_KEY exactly as `generate_keys -x` exports it (a base64 Ed25519
 seed). It is checked against the public key baked into both apps, so a wrong secret fails the release instead of

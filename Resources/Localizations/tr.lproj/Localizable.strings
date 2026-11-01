@@ -236,6 +236,7 @@
 "ADD TO AN EXISTING FLOAT" = "MEVCUT YÜZEN PENCEREYE EKLE";
 "ADD TO FLOAT" = "YÜZEN PENCEREYE EKLE";
 "ADD WATERMARK" = "FİLİGRAN EKLE";
+"ADD “OPEN IN FILEVERO” TO FILES, DOLPHIN AND NEMO" = "DOSYALAR, DOLPHİN VE NEMO'YA “FILEVERO'DA AÇ” EKLE";
 "ADDED TO FLOAT." = "YÜZEN PENCEREYE EKLENDİ.";
 "ADDITIONAL OPTIONS" = "DİĞER SEÇENEKLER";
 "ADDITIONAL TOOLS, WHEN YOU NEED THEM." = "İHTİYACIN OLAN EK ARAÇLAR.";
@@ -243,6 +244,7 @@
 "ADJUST YOUR SETTINGS AND SAVE A COPY." = "AYARLARI DÜZENLE VE BİR KOPYA KAYDET.";
 "ADMINISTRATOR PERMISSION" = "YÖNETİCİ İZNİ";
 "ADMINISTRATOR PERMISSION COULD NOT BE REQUESTED." = "YÖNETİCİ İZNİ İSTENEMEDİ.";
+"ADMINISTRATOR PERMISSION NEEDS POLKIT (PKEXEC), WHICH IS NOT INSTALLED." = "YÖNETİCİ İZNİ İÇİN POLKİT (PKEXEC) GEREKİYOR AMA KURULU DEĞİL.";
 "AI SUBJECT ISOLATION" = "YAPAY ZEKA İLE NESNE AYIKLAMA";
 "AI Subject Isolation" = "Yapay Zeka ile Nesne Ayıklama";
 "AIRDROP IS UNAVAILABLE ON THIS MAC." = "AİRDROP BU MAC'TE KULLANILAMIYOR.";
@@ -260,6 +262,7 @@
 "ALLOW FOLDER…" = "KLASÖRE İZİN VER…";
 "ALLOW HOME FOLDER ACCESS" = "KLASÖR ERİŞİMİNE İZİN VER";
 "ALLOW HOME FOLDER ACCESS…" = "ANA KLASÖRE ERİŞİM İZNİ VER…";
+"ALLOW THE DRAG WHEELS EVERYWHERE" = "SÜRÜKLEME ÇARKLARINA HER YERDE İZİN VER";
 "ALREADY AVAILABLE ON YOUR COMPUTER" = "BİLGİSAYARINDA ZATEN HAZIR";
 "ALREADY OPTIMIZED. ORIGINAL QUALITY RETAINED." = "ZATEN OPTİMİZE EDİLMİŞ. ORİJİNAL KALİTE KORUNDU.";
 "AMBER" = "KEHRİBAR";
@@ -274,6 +277,7 @@
 "ANNOTATE PHOTO · FILEVERO" = "FOTOĞRAFI İŞARETLE · FILEVERO";
 "ANNOTATE · FILEVERO" = "İŞARETLE · FILEVERO";
 "ANNOTATION TEXT" = "İŞARET METNİ";
+"ANOTHER APP ALREADY USES THIS SHORTCUT. CHOOSE A DIFFERENT SHORTCUT." = "BU KISAYOLU BAŞKA BİR UYGULAMA KULLANIYOR. FARKLI BİR KISAYOL SEÇ.";
 "ANOTHER FILE GETS THIS NAME." = "BU AD BAŞKA BİR DOSYAYA DA VERİLİYOR.";
 "ANOTHER SELECTED FILE USES THIS NAME FIRST." = "BU ADI ÖNCE BAŞKA BİR SEÇİLİ DOSYA ALIYOR.";
 "ANOTHER TASK IS RUNNING. YOUR LINK IS READY WHEN IT FINISHES." = "BAŞKA BİR İŞLEM SÜRÜYOR. İŞLEM BİTTİĞİNDE BAĞLANTIN HAZIR OLACAK.";
@@ -301,6 +305,8 @@
 "ARROW" = "OK";
 "ASK EACH TIME" = "HER SEFERİNDE SOR";
 "ASPECT RATIO" = "EN BOY ORANI";
+"AT HOME ON YOUR DESKTOP." = "MASAÜSTÜNDE KENDİ EVİNDE.";
+"ATTACH TO A NEW MESSAGE" = "YENİ BİR İLETİYE EKLE";
 "ATTACH TO EDGE" = "KENARA SABİTLE";
 "AUDIO" = "SES";
 "AUDIO BITRATE" = "SES BİT HIZI";
@@ -354,6 +360,7 @@
 "Add text or a logo to every file." = "Her dosyaya yazı veya logo ekle.";
 "Add to Float" = "Yüzen Pencereye Ekle";
 "Add to an existing Float" = "Mevcut yüzen pencereye ekle";
+"Add “Open in Filevero” to Files, Dolphin and Nemo" = "Dosyalar, Dolphin ve Nemo'ya “Filevero'da aç” ekle";
 "Added to Float." = "Yüzen pencereye eklendi.";
 "Additional options" = "Diğer seçenekler";
 "Additional tools, when you need them." = "İhtiyacın olan ek araçlar.";
@@ -361,6 +368,7 @@
 "Adjust your settings and save a copy." = "Ayarları düzenle ve bir kopya kaydet.";
 "Administrator permission" = "Yönetici izni";
 "Administrator permission could not be requested." = "Yönetici izni istenemedi.";
+"Administrator permission needs polkit (pkexec), which is not installed." = "Yönetici izni için polkit (pkexec) gerekiyor ama kurulu değil.";
 "AirDrop is unavailable on this Mac." = "AirDrop bu Mac'te kullanılamıyor.";
 "All" = "Tümü";
 "All metadata" = "Tüm meta veriler";
@@ -378,6 +386,7 @@
 "Allow Home Folder Access" = "Klasör erişimine izin ver";
 "Allow Home Folder Access…" = "Ana Klasöre Erişim İzni Ver…";
 "Allow access to a folder where you save files. By default, results are saved beside the originals." = "Dosya kaydettiğin bir klasöre erişim izni ver. Sonuçlar varsayılan olarak orijinallerin yanına kaydedilir.";
+"Allow the drag wheels everywhere" = "Sürükleme çarklarına her yerde izin ver";
 "Already available on your computer" = "Bilgisayarında zaten hazır";
 "Already optimized. Original quality retained." = "Zaten optimize edilmiş. Orijinal kalite korundu.";
 "Amber" = "Kehribar";
@@ -396,6 +405,7 @@
 "Annotation text" = "İşaret metni";
 "Another app already uses %@. Choose a different shortcut." = "%@ kısayolunu başka bir uygulama kullanıyor. Farklı bir kısayol seç.";
 "Another app already uses %lld. Choose a different shortcut." = "%lld kısayolunu başka bir uygulama kullanıyor. Farklı bir kısayol seç.";
+"Another app already uses this shortcut. Choose a different shortcut." = "Bu kısayolu başka bir uygulama kullanıyor. Farklı bir kısayol seç.";
 "Another file gets this name." = "Bu ad başka bir dosyaya da veriliyor.";
 "Another selected file uses this name first." = "Bu adı önce başka bir seçili dosya alıyor.";
 "Another task is running. Your link is ready when it finishes." = "Başka bir işlem sürüyor. İşlem bittiğinde bağlantın hazır olacak.";
@@ -429,7 +439,9 @@
 "Arrow" = "Ok";
 "Ask each time" = "Her seferinde sor";
 "Aspect ratio" = "En boy oranı";
+"At home on your desktop." = "Masaüstünde kendi evinde.";
 "Attach to Edge" = "Kenara Sabitle";
+"Attach to a new message" = "Yeni bir iletiye ekle";
 "Audio" = "Ses";
 "Audio Channels" = "Ses Kanalları";
 "Audio MP3…" = "MP3 ses…";
@@ -564,6 +576,7 @@
 "CHOOSE A FRAME SIZE BETWEEN 64 AND 4096 PIXELS." = "KARE BOYUTUNU 64 İLE 4096 PİKSEL ARASINDA SEÇ.";
 "CHOOSE A HEX BACKGROUND COLOR, SUCH AS #FFFFFF OR #00FFFFFF." = "#FFFFFF VEYA #00FFFFFF GİBİ ONALTILIK BİR ARKA PLAN RENGİ SEÇ.";
 "CHOOSE A LARGER TARGET SIZE." = "DAHA BÜYÜK BİR HEDEF BOYUT SEÇ.";
+"CHOOSE A NEARBY DEVICE" = "YAKINDAKİ BİR CİHAZI SEÇ";
 "CHOOSE A NONEMPTY IMAGE." = "BOŞ OLMAYAN BİR GÖRSEL SEÇ.";
 "CHOOSE A PDF SMALLER THAN 200 MB." = "200 MB'TAN KÜÇÜK BİR PDF SEÇ.";
 "CHOOSE A PDF WITH 1 TO 1,000 PAGES." = "1 İLE 1.000 SAYFA ARASINDA BİR PDF SEÇ.";
@@ -712,6 +725,7 @@
 "COPY A VIDEO SHARE LINK OR AN IMAGE ADDRESS FIRST." = "ÖNCE BİR VİDEO PAYLAŞIM BAĞLANTISI VEYA GÖRSEL ADRESİ KOPYALA.";
 "COPY ALL" = "TÜMÜNÜ KOPYALA";
 "COPY AS QR CODE" = "QR KODU OLARAK KOPYALA";
+"COPY FILES" = "DOSYALARI KOPYALA";
 "COPY LINK" = "BAĞLANTIYI KOPYALA";
 "COPY ONLY" = "YALNIZCA KOPYALA";
 "COPY PATH" = "YOLU KOPYALA";
@@ -814,6 +828,7 @@
 "Choose a frame size between 64 and 4096 pixels." = "Kare boyutunu 64 ile 4096 piksel arasında seç.";
 "Choose a hex background color, such as #FFFFFF or #00FFFFFF." = "#FFFFFF veya #00FFFFFF gibi onaltılık bir arka plan rengi seç.";
 "Choose a larger target size." = "Daha büyük bir hedef boyut seç.";
+"Choose a nearby device" = "Yakındaki bir cihazı seç";
 "Choose a nonempty image." = "Boş olmayan bir görsel seç.";
 "Choose a plain output filename." = "Sade bir çıktı dosya adı seç.";
 "Choose a position between 0% and 100%." = "%0 ile %100 arasında bir konum seç.";
@@ -965,6 +980,7 @@
 "Copy a video share link or an image address first." = "Önce bir video paylaşım bağlantısı veya görsel adresi kopyala.";
 "Copy all" = "Tümünü kopyala";
 "Copy as QR Code" = "QR Kodu Olarak Kopyala";
+"Copy files" = "Dosyaları kopyala";
 "Copy link" = "Bağlantıyı kopyala";
 "Copy only" = "Yalnızca kopyala";
 "Copy path" = "Yolu kopyala";
@@ -1016,6 +1032,7 @@
 "DATE CREATED" = "OLUŞTURULMA TARİHİ";
 "DATE MODIFIED" = "DEĞİŞTİRİLME TARİHİ";
 "DATE TAKEN" = "ÇEKİM TARİHİ";
+"DEFAULTS APPLY WHENEVER YOU CHOOSE AN OUTPUT FORMAT." = "VARSAYILANLAR, BİR ÇIKTI BİÇİMİ SEÇTİĞİNDE UYGULANIR.";
 "DEFAULTS COULD NOT BE RESTORED" = "VARSAYILANLARA DÖNÜLEMEDİ";
 "DEGREES" = "DERECE";
 "DEHAZE" = "PUS GİDERME";
@@ -1029,6 +1046,7 @@
 "DELETE WORKFLOW" = "AKIŞI SİL";
 "DELETE…" = "SİL…";
 "DESIGNED FOR THE WAY YOU WORK." = "ÇALIŞMA BİÇİMİNE UYUM SAĞLAR.";
+"DESKTOP" = "MASAÜSTÜ";
 "DETACH" = "AYIR";
 "DETAIL" = "AYRINTI";
 "DETECT FACES" = "YÜZLERİ ALGILA";
@@ -1044,7 +1062,9 @@
 "DOCUMENT XML IS TOO LARGE." = "BELGE XML'İ ÇOK BÜYÜK.";
 "DOCUMENTS" = "BELGELER";
 "DONE" = "BİTTİ";
+"DONE. LOG OUT AND BACK IN TO FINISH." = "TAMAM. BİTİRMEK İÇİN OTURUMU KAPATIP YENİDEN AÇ.";
 "DOWNLOAD" = "İNDİR";
+"DOWNLOAD A COPIED LINK WITH FILEVERO" = "KOPYALANAN BAĞLANTIYI FILEVERO İLE İNDİR";
 "DOWNLOAD A LINK" = "BAĞLANTIDAN İNDİR";
 "DOWNLOAD AUDIO" = "SESİ İNDİR";
 "DOWNLOAD BACKGROUND REMOVAL" = "ARKA PLAN KALDIRMAYI İNDİR";
@@ -1053,10 +1073,12 @@
 "DOWNLOAD ENDED EARLY." = "İNDİRME ERKEN SONA ERDİ.";
 "DOWNLOAD EXCEEDED ITS LIMIT." = "İNDİRME İZİN VERİLEN SINIRI AŞTI.";
 "DOWNLOAD EXIFTOOL (~11 MB) FROM ITS OFFICIAL SOURCEFORGE DISTRIBUTION? THE SHA-256 IS CHECKED AND IT RUNS LOCALLY WITHOUT AN ADMINISTRATOR PASSWORD. UPSTREAM LICENSES ARE RETAINED." = "EXİFTOOL (~11 MB) RESMİ SOURCEFORGE DAĞITIMINDAN İNDİRİLSİN Mİ? SHA-256 ÖZETİ KONTROL EDİLİR; YÖNETİCİ PAROLASI GEREKMEDEN BİLGİSAYARINDA ÇALIŞIR. KENDİ LİSANSLARI KORUNUR.";
+"DOWNLOAD EXIFTOOL (~8 MB) FROM ITS OFFICIAL SOURCEFORGE DISTRIBUTION? THE SHA-256 IS CHECKED AND IT RUNS LOCALLY WITHOUT AN ADMINISTRATOR PASSWORD. UPSTREAM LICENSES ARE RETAINED." = "EXİFTOOL (~8 MB) RESMİ SOURCEFORGE DAĞITIMINDAN İNDİRİLSİN Mİ? SHA-256 ÖZETİ KONTROL EDİLİR; YÖNETİCİ PAROLASI GEREKMEDEN BİLGİSAYARINDA ÇALIŞIR. KENDİ LİSANSLARI KORUNUR.";
 "DOWNLOAD FFMPEG (~180 MB), YT-DLP AND DENO DIRECTLY FROM THEIR OFFICIAL GITHUB RELEASES? SHA-256 HASHES ARE VERIFIED BEFORE USE. FFMPEG IS GPL; THE OTHER UPSTREAM LICENSES AND SOURCE LINKS ARE LISTED ON OUR FEATURES PAGE. NO ADMINISTRATOR PASSWORD IS NEEDED." = "FFMPEG (~180 MB), YT-DLP VE DENO RESMİ GITHUB SÜRÜMLERİNDEN İNDİRİLSİN Mİ? SHA-256 ÖZETLERİ KULLANILMADAN ÖNCE DOĞRULANIR. FFMPEG GPL LİSANSLIDIR; DİĞER LİSANSLAR VE KAYNAK BAĞLANTILARI ÖZELLİKLER SAYFAMIZDA YER ALIR. YÖNETİCİ PAROLASI GEREKMEZ.";
 "DOWNLOAD FROM A LINK" = "BAĞLANTIDAN İNDİR";
 "DOWNLOAD FROM THE WEB" = "WEB'DEN İNDİR";
 "DOWNLOAD IS LARGER THAN THE SUPPORTED LIMIT." = "İNDİRİLECEK DOSYA DESTEKLENEN SINIRDAN BÜYÜK.";
+"DOWNLOAD LIBREOFFICE 26.8.1 (~220 MB) FROM THE DOCUMENT FOUNDATION? ITS SHA-256 IS CHECKED, THEN THE OFFICIAL PACKAGES ARE UNPACKED INTO FILEVERO’S USER TOOLS FOLDER. NO ADMINISTRATOR PASSWORD OR OFFICE SUBSCRIPTION IS NEEDED. LIBREOFFICE RETAINS ITS UPSTREAM LICENSES." = "LIBREOFFICE 26.8.1 (~220 MB) THE DOCUMENT FOUNDATİON'DAN İNDİRİLSİN Mİ? SHA-256 ÖZETİ KONTROL EDİLİR, ARDINDAN RESMİ PAKETLER FILEVERO'NUN KULLANICI ARAÇLARI KLASÖRÜNE AÇILIR. YÖNETİCİ PAROLASI VEYA OFFICE ABONELİĞİ GEREKMEZ. LIBREOFFICE KENDİ LİSANSLARINI KORUR.";
 "DOWNLOAD LIBREOFFICE 26.8.1 (~360 MB) FROM THE DOCUMENT FOUNDATION? ITS SHA-256 IS CHECKED, THEN THE PACKAGE IS EXTRACTED INTO FILEVERO’S USER TOOLS FOLDER. NO ADMINISTRATOR PASSWORD OR OFFICE SUBSCRIPTION IS NEEDED. LIBREOFFICE RETAINS ITS UPSTREAM LICENSES." = "LIBREOFFICE 26.8.1 (~360 MB) THE DOCUMENT FOUNDATİON'DAN İNDİRİLSİN Mİ? SHA-256 ÖZETİ KONTROL EDİLİR, ARDINDAN PAKET FILEVERO'NUN ARAÇ KLASÖRÜNE AÇILIR. YÖNETİCİ PAROLASI VEYA OFFICE ABONELİĞİ GEREKMEZ. LIBREOFFICE KENDİ LİSANSLARINI KORUR.";
 "DOWNLOAD LINK…" = "BAĞLANTIDAN İNDİR…";
 "DOWNLOAD MEDIA TOOLS" = "MEDYA ARAÇLARINI İNDİR";
@@ -1065,6 +1087,7 @@
 "DOWNLOAD OFFICE TOOLS" = "OFFICE ARAÇLARINI İNDİR";
 "DOWNLOAD PHOTOS" = "FOTOĞRAFLARI İNDİR";
 "DOWNLOAD SUPPORTED MEDIA TO YOUR MAC." = "DESTEKLENEN MEDYAYI MAC’İNE İNDİR.";
+"DOWNLOAD THE BACKGROUND REMOVAL MODEL (~179 MB) ONCE? IT IS THE OPEN ISNET MODEL (APACHE-2.0). ITS SHA-256 IS CHECKED, AND YOUR PHOTOS ARE PROCESSED ONLY ON THIS COMPUTER. NO ADMINISTRATOR PASSWORD IS NEEDED." = "ARKA PLAN KALDIRMA MODELİ (~179 MB) BİR KEZ İNDİRİLSİN Mİ? AÇIK ISNET MODELİDİR (APACHE-2.0). SHA-256 ÖZETİ KONTROL EDİLİR VE FOTOĞRAFLARIN YALNIZCA BU BİLGİSAYARDA İŞLENİR. YÖNETİCİ PAROLASI GEREKMEZ.";
 "DOWNLOAD THE BACKGROUND REMOVAL MODEL (~179 MB) ONCE? IT IS THE OPEN ISNET MODEL (APACHE-2.0). ITS SHA-256 IS CHECKED, AND YOUR PHOTOS ARE PROCESSED ONLY ON THIS PC. NO ADMINISTRATOR PASSWORD IS NEEDED." = "ARKA PLAN KALDIRMA MODELİ (~179 MB) BİR KEZ İNDİRİLSİN Mİ? AÇIK KAYNAKLI ISNET MODELİDİR (APACHE-2.0). SHA-256 ÖZETİ KONTROL EDİLİR VE FOTOĞRAFLARIN YALNIZCA BU BİLGİSAYARDA İŞLENİR. YÖNETİCİ PAROLASI GEREKMEZ.";
 "DOWNLOAD THE MISSING TOOLS TO ENABLE ALL CONVERSIONS, PREVIEWS AND WEB DOWNLOADS. TOOLS ALREADY FOUND ON YOUR COMPUTER ARE KEPT." = "TÜM DÖNÜŞTÜRMELERİ, ÖNİZLEMELERİ VE WEB İNDİRMELERİNİ AÇMAK İÇİN EKSİK ARAÇLARI İNDİR. BİLGİSAYARINDA BULUNAN ARAÇLAR KORUNUR.";
 "DOWNLOAD THUMBNAIL" = "KÜÇÜK RESMİ İNDİR";
@@ -1084,6 +1107,7 @@
 "DRAG AN AREA FIRST." = "ÖNCE BİR ALAN SÜRÜKLE.";
 "DRAG AN EXISTING ANNOTATION TO MOVE IT; DRAG ITS HANDLES TO RESIZE. TURN OFF SELECT / MOVE TO DRAW." = "BİR İŞARETİ TAŞIMAK İÇİN İÇİNİ, BOYUTLANDIRMAK İÇİN TUTAMAĞINI SÜRÜKLE. ÇİZMEK İÇİN SEÇ / TAŞI'YI KAPAT.";
 "DRAG EITHER EDGE TO RESIZE THE RANGE, OR DRAG ITS MIDDLE TO MOVE IT." = "ARALIĞI YENİDEN BOYUTLANDIRMAK İÇİN KENARLARINDAN BİRİNİ, TAŞIMAK İÇİN ORTASINI SÜRÜKLE.";
+"DRAG FROM YOUR FILE MANAGER" = "DOSYA YÖNETİCİNDEN SÜRÜKLE";
 "DRAG INSIDE TO MOVE. DRAG NEAR A CORNER TO RESIZE. DRAG OUTSIDE TO START A NEW SELECTION." = "TAŞIMAK İÇİN ALANIN İÇİNİ, BOYUTLANDIRMAK İÇİN KÖŞEYİ SÜRÜKLE. YENİ SEÇİM İÇİN ALANIN DIŞINDA SÜRÜKLE.";
 "DRAG ON THE PREVIEW TO ADD AN AREA. EACH AREA IS SAVED INTO THE NEW COPY." = "ALAN EKLEMEK İÇİN ÖNİZLEMEDE SÜRÜKLE. HER ALAN YENİ KOPYAYA İŞLENİR.";
 "DRAG SHORTCUTS" = "SÜRÜKLEME KISAYOLLARI";
@@ -1096,6 +1120,7 @@
 "DROP FILES HERE" = "DOSYALARI BURAYA BIRAKIN";
 "DROP FILES HERE · SPACE FOR QUICK LOOK" = "DOSYALARI BURAYA BIRAK · HIZLI BAKIŞ İÇİN SPACE";
 "DROP FILES INTO YOUR WORKSPACE" = "DOSYALARI ÇALIŞMA ALANINA BIRAK";
+"DROP FILES ON FILEVERO OR ITS FLOAT SHELF TO OPEN THE WHEEL. DESKTOP INTEGRATION CAN ADD THE GLOBAL DRAG WHEELS, WINDOW ARRANGING AND BACKGROUND CLIPBOARD HISTORY." = "ÇARKI AÇMAK İÇİN DOSYALARI FILEVERO'YA VEYA YÜZEN PENCERE'YE BIRAK. MASAÜSTÜ ENTEGRASYONU HER YERDE SÜRÜKLEME ÇARKLARINI, PENCERE YERLEŞTİRMEYİ VE ARKA PLANDA PANO GEÇMİŞİNİ EKLEYEBİLİR.";
 "DROP FILES OR FOLDERS HERE" = "DOSYALARI VEYA KLASÖRLERİ BURAYA BIRAK";
 "DROP IT IN, SHAPE IT, MOVE ON." = "BIRAK, BİÇİMLENDİR, DEVAM ET.";
 "DROP IT LIKE IT’S… A FILE." = "DOSYANI BURAYA BIRAK.";
@@ -1106,6 +1131,7 @@
 "Date created" = "Oluşturulma tarihi";
 "Date modified" = "Değiştirilme tarihi";
 "Date taken" = "Çekim tarihi";
+"Defaults apply whenever you choose an output format." = "Varsayılanlar, bir çıktı biçimi seçtiğinde uygulanır.";
 "Defaults could not be restored" = "Varsayılanlara dönülemedi";
 "Degrees" = "Derece";
 "Dehaze" = "Pus giderme";
@@ -1119,6 +1145,7 @@
 "Delete workflow" = "Akışı sil";
 "Delete…" = "Sil…";
 "Designed for the way you work." = "Çalışma biçimine uyum sağlar.";
+"Desktop" = "Masaüstü";
 "Detach" = "Ayır";
 "Detail" = "Ayrıntı";
 "Detect Faces" = "Yüzleri Algıla";
@@ -1136,11 +1163,15 @@
 "Document XML is too large." = "Belge XML'i çok büyük.";
 "Documents" = "Belgeler";
 "Done" = "Bitti";
+"Done. Log out and back in to finish." = "Tamam. Bitirmek için oturumu kapatıp yeniden aç.";
 "Download" = "İndir";
 "Download ExifTool (~11 MB) from its official SourceForge distribution? The SHA-256 is checked and it runs locally without an administrator password. Upstream licenses are retained." = "ExifTool (~11 MB) resmi SourceForge dağıtımından indirilsin mi? SHA-256 özeti kontrol edilir; yönetici parolası gerekmeden bilgisayarında çalışır. Kendi lisansları korunur.";
+"Download ExifTool (~8 MB) from its official SourceForge distribution? The SHA-256 is checked and it runs locally without an administrator password. Upstream licenses are retained." = "ExifTool (~8 MB) resmi SourceForge dağıtımından indirilsin mi? SHA-256 özeti kontrol edilir; yönetici parolası gerekmeden bilgisayarında çalışır. Kendi lisansları korunur.";
 "Download FFmpeg (~180 MB), yt-dlp and Deno directly from their official GitHub releases? SHA-256 hashes are verified before use. FFmpeg is GPL; the other upstream licenses and source links are listed on our Features page. No administrator password is needed." = "FFmpeg (~180 MB), yt-dlp ve Deno resmi GitHub sürümlerinden indirilsin mi? SHA-256 özetleri kullanılmadan önce doğrulanır. FFmpeg GPL lisanslıdır; diğer lisanslar ve kaynak bağlantıları Özellikler sayfamızda yer alır. Yönetici parolası gerekmez.";
+"Download LibreOffice 26.8.1 (~220 MB) from The Document Foundation? Its SHA-256 is checked, then the official packages are unpacked into Filevero’s user tools folder. No administrator password or Office subscription is needed. LibreOffice retains its upstream licenses." = "LibreOffice 26.8.1 (~220 MB) The Document Foundation'dan indirilsin mi? SHA-256 özeti kontrol edilir, ardından resmi paketler Filevero'nun kullanıcı araçları klasörüne açılır. Yönetici parolası veya Office aboneliği gerekmez. LibreOffice kendi lisanslarını korur.";
 "Download LibreOffice 26.8.1 (~360 MB) from The Document Foundation? Its SHA-256 is checked, then the package is extracted into Filevero’s user tools folder. No administrator password or Office subscription is needed. LibreOffice retains its upstream licenses." = "LibreOffice 26.8.1 (~360 MB) The Document Foundation'dan indirilsin mi? SHA-256 özeti kontrol edilir, ardından paket Filevero'nun araç klasörüne açılır. Yönetici parolası veya Office aboneliği gerekmez. LibreOffice kendi lisanslarını korur.";
 "Download Link…" = "Bağlantıdan İndir…";
+"Download a copied link with Filevero" = "Kopyalanan bağlantıyı Filevero ile indir";
 "Download a link" = "Bağlantıdan indir";
 "Download audio" = "Sesi indir";
 "Download background removal" = "Arka plan kaldırmayı indir";
@@ -1158,6 +1189,7 @@
 "Download photos" = "Fotoğrafları indir";
 "Download supported media to your Mac." = "Desteklenen medyayı Mac’ine indir.";
 "Download the background removal model (~179 MB) once? It is the open ISNet model (Apache-2.0). Its SHA-256 is checked, and your photos are processed only on this PC. No administrator password is needed." = "Arka plan kaldırma modeli (~179 MB) bir kez indirilsin mi? Açık kaynaklı ISNet modelidir (Apache-2.0). SHA-256 özeti kontrol edilir ve fotoğrafların yalnızca bu bilgisayarda işlenir. Yönetici parolası gerekmez.";
+"Download the background removal model (~179 MB) once? It is the open ISNet model (Apache-2.0). Its SHA-256 is checked, and your photos are processed only on this computer. No administrator password is needed." = "Arka plan kaldırma modeli (~179 MB) bir kez indirilsin mi? Açık ISNet modelidir (Apache-2.0). SHA-256 özeti kontrol edilir ve fotoğrafların yalnızca bu bilgisayarda işlenir. Yönetici parolası gerekmez.";
 "Download the missing tools to enable all conversions, previews and web downloads. Tools already found on your computer are kept." = "Tüm dönüştürmeleri, önizlemeleri ve web indirmelerini açmak için eksik araçları indir. Bilgisayarında bulunan araçlar korunur.";
 "Download thumbnail" = "Küçük resmi indir";
 "Download thumbnail…" = "Küçük resmi indir…";
@@ -1180,6 +1212,7 @@
 "Drag an area first." = "Önce bir alan sürükle.";
 "Drag an existing annotation to move it; drag its handles to resize. Turn off Select / Move to draw." = "Bir işareti taşımak için içini, boyutlandırmak için tutamağını sürükle. Çizmek için Seç / Taşı'yı kapat.";
 "Drag either edge to resize the range, or drag its middle to move it." = "Aralığı yeniden boyutlandırmak için kenarlarından birini, taşımak için ortasını sürükle.";
+"Drag from your file manager" = "Dosya yöneticinden sürükle";
 "Drag inside to move. Drag near a corner to resize. Drag outside to start a new selection." = "Taşımak için alanın içini, boyutlandırmak için köşeyi sürükle. Yeni seçim için alanın dışında sürükle.";
 "Drag on the preview to add an area. Each area is saved into the new copy." = "Alan eklemek için önizlemede sürükle. Her alan yeni kopyaya işlenir.";
 "Drag shortcuts" = "Sürükleme kısayolları";
@@ -1192,11 +1225,14 @@
 "Drop files here" = "Dosyaları buraya bırakın";
 "Drop files here · Space for Quick Look" = "Dosyaları buraya bırak · Hızlı Bakış için Space";
 "Drop files into your workspace" = "Dosyaları çalışma alanına bırak";
+"Drop files on Filevero or its Float shelf to open the wheel. Desktop integration can add the global drag wheels, window arranging and background clipboard history." = "Çarkı açmak için dosyaları Filevero'ya veya Yüzen Pencere'ye bırak. Masaüstü entegrasyonu her yerde sürükleme çarklarını, pencere yerleştirmeyi ve arka planda pano geçmişini ekleyebilir.";
 "Drop files or folders here" = "Dosyaları veya klasörleri buraya bırak";
 "Drop it in, shape it, move on." = "Bırak, biçimlendir, devam et.";
 "Drop it like it’s… a file." = "Dosyanı buraya bırak.";
 "Drop something good." = "Bir dosya bırak.";
 "Duplicate" = "Çoğalt";
+"E-MAIL" = "E-POSTA";
+"E-mail" = "E-posta";
 "EACH FILE RUNS EVERY STEP IN ORDER. ONLY THE FINAL RESULT IS SAVED." = "HER DOSYA ADIMLARI SIRAYLA GEÇER. YALNIZCA SON SONUÇ KAYDEDİLİR.";
 "EDIT" = "DÜZENLE";
 "EDIT FIELDS OR REMOVE METADATA. ENCODED AUDIO AND VIDEO STAY UNTOUCHED." = "ALANLARI DÜZENLE VEYA META VERİLERİ KALDIR. KODLANMIŞ SES VE VİDEO OLDUĞU GİBİ KALIR.";
@@ -1233,6 +1269,9 @@
 "EVERYTHING YOU COPY, CLOSE AT HAND." = "KOPYALADIĞIN HER ŞEY ELİNİN ALTINDA.";
 "EXCLUDED APPS" = "HARİÇ TUTULAN UYGULAMALAR";
 "EXIFTOOL 13.59 READS AND EDITS PHOTO, DOCUMENT AND MEDIA METADATA. APPROXIMATELY 11 MB. DISTRIBUTED UNDER THE SAME TERMS AS PERL (ARTISTIC LICENSE OR GPL)." = "EXİFTOOL 13.59 FOTOĞRAF, BELGE VE MEDYA META VERİLERİNİ OKUR VE DÜZENLER. YAKLAŞIK 11 MB. PERL İLE AYNI KOŞULLARLA DAĞITILIR (ARTİSTİC LİCENSE VEYA GPL).";
+"EXIFTOOL 13.59 READS AND EDITS PHOTO, DOCUMENT AND MEDIA METADATA. APPROXIMATELY 8 MB. DISTRIBUTED UNDER THE SAME TERMS AS PERL (ARTISTIC LICENSE OR GPL)." = "EXİFTOOL 13.59 FOTOĞRAF, BELGE VE MEDYA META VERİLERİNİ OKUR VE DÜZENLER. YAKLAŞIK 8 MB. PERL İLE AYNI KOŞULLARLA DAĞITILIR (ARTİSTİC LİCENSE VEYA GPL).";
+"EXIFTOOL NEEDS PERL. INSTALL IT ONCE (FOR EXAMPLE: SUDO APT INSTALL PERL, OR SUDO DNF INSTALL PERL), THEN RETURN HERE." = "EXİFTOOL İÇİN PERL GEREKİYOR. BİR KEZ KUR (ÖRNEĞİN: SUDO APT İNSTALL PERL VEYA SUDO DNF İNSTALL PERL), SONRA BURAYA DÖN.";
+"EXIFTOOL NEEDS PERL. INSTALL IT ONCE (FOR EXAMPLE: SUDO APT INSTALL PERL, OR SUDO DNF INSTALL PERL), THEN TRY AGAIN." = "EXİFTOOL İÇİN PERL GEREKİYOR. BİR KEZ KUR (ÖRNEĞİN: SUDO APT İNSTALL PERL VEYA SUDO DNF İNSTALL PERL), SONRA YENİDEN DENE.";
 "EXPAND FLOAT" = "FLOAT’I GENİŞLET";
 "EXPANDED" = "AÇIK";
 "EXPANDED UPDATE IS TOO LARGE." = "AÇILAN GÜNCELLEME ÇOK BÜYÜK.";
@@ -1281,6 +1320,9 @@
 "Example: %lld" = "Örnek: %lld";
 "Excluded apps" = "Hariç tutulan uygulamalar";
 "ExifTool 13.59 reads and edits photo, document and media metadata. Approximately 11 MB. Distributed under the same terms as Perl (Artistic License or GPL)." = "ExifTool 13.59 fotoğraf, belge ve medya meta verilerini okur ve düzenler. Yaklaşık 11 MB. Perl ile aynı koşullarla dağıtılır (Artistic License veya GPL).";
+"ExifTool 13.59 reads and edits photo, document and media metadata. Approximately 8 MB. Distributed under the same terms as Perl (Artistic License or GPL)." = "ExifTool 13.59 fotoğraf, belge ve medya meta verilerini okur ve düzenler. Yaklaşık 8 MB. Perl ile aynı koşullarla dağıtılır (Artistic License veya GPL).";
+"ExifTool needs Perl. Install it once (for example: sudo apt install perl, or sudo dnf install perl), then return here." = "ExifTool için Perl gerekiyor. Bir kez kur (örneğin: sudo apt install perl veya sudo dnf install perl), sonra buraya dön.";
+"ExifTool needs Perl. Install it once (for example: sudo apt install perl, or sudo dnf install perl), then try again." = "ExifTool için Perl gerekiyor. Bir kez kur (örneğin: sudo apt install perl veya sudo dnf install perl), sonra yeniden dene.";
 "Expand Float" = "Float’ı genişlet";
 "Expanded" = "Açık";
 "Expanded update is too large." = "Açılan güncelleme çok büyük.";
@@ -1312,23 +1354,29 @@
 "FILES" = "DOSYALAR";
 "FILES ARE PROCESSED LOCALLY ON YOUR MAC." = "DOSYALAR MAC'İNDE İŞLENİR.";
 "FILES COPIED." = "DOSYALAR KOPYALANDI.";
+"FILES FROM FILEVERO" = "FILEVERO'DAN DOSYALAR";
 "FILES IN FLOAT" = "FLOAT’TAKİ DOSYALAR";
 "FILES MISSING" = "DOSYALAR BULUNAMIYOR";
 "FILES MOVED." = "DOSYALAR TAŞINDI.";
 "FILES STAY ON YOUR COMPUTER." = "DOSYALARIN BİLGİSAYARINDA KALIR.";
 "FILES, HANDLED." = "DOSYALARIN KONTROL ALTINDA.";
+"FILEVERO ADDS ITSELF TO YOUR DESKTOP ONLY WHERE YOU TURN IT ON HERE." = "FILEVERO MASAÜSTÜNE YALNIZCA BURADA AÇTIĞIN YERLERDE EKLENİR.";
 "FILEVERO CANNOT FIND ITS OWN PROGRAM FILE." = "FILEVERO KENDİ PROGRAM DOSYASINI BULAMIYOR.";
 "FILEVERO CHECKS ONCE AN HOUR WHILE IT’S RUNNING AND ASKS BEFORE INSTALLING AN UPDATE." = "FILEVERO ÇALIŞIRKEN SAATTE BİR DENETLER VE BİR GÜNCELLEMEYİ KURMADAN ÖNCE SORAR.";
 "FILEVERO CHECKS ONCE AN HOUR WHILE IT’S RUNNING. YOU CHOOSE WHEN TO DOWNLOAD AND INSTALL." = "FILEVERO ÇALIŞIRKEN SAATTE BİR DENETLER. İNDİRME VE KURULUM ZAMANINI SEN SEÇERSİN.";
 "FILEVERO COULD NOT BE MOVED TO THE APPLICATIONS FOLDER" = "FILEVERO UYGULAMALAR KLASÖRÜNE TAŞINAMADI";
 "FILEVERO DOWNLOADS THESE TOOLS FROM THEIR OFFICIAL SOURCES AND CHECKS EACH DOWNLOAD’S SHA-256." = "FILEVERO BU ARAÇLARI RESMİ KAYNAKLARINDAN İNDİRİR VE HER İNDİRMENİN SHA-256 ÖZETİNİ DENETLER.";
+"FILEVERO DROP STRIP" = "FILEVERO BIRAKMA ŞERİDİ";
 "FILEVERO IS ALREADY RUNNING BUT IS STILL STARTING. OPEN IT FROM THE SYSTEM TRAY OR TRY AGAIN IN A MOMENT." = "FILEVERO ZATEN ÇALIŞIYOR AMA HÂLÂ AÇILIYOR. SİSTEM TEPSİSİNDEN AÇ VEYA BİRAZDAN TEKRAR DENE.";
+"FILEVERO IS ALREADY RUNNING BUT IS STILL STARTING. TRY AGAIN IN A MOMENT." = "FILEVERO ZATEN ÇALIŞIYOR AMA HÂLÂ AÇILIYOR. BİRAZDAN YENİDEN DENE.";
 "FILEVERO IS READY FOR YOUR FILES." = "FILEVERO DOSYALARIN İÇİN HAZIR.";
 "FILEVERO IS STILL RUNNING." = "FILEVERO HÂLÂ ÇALIŞIYOR.";
 "FILEVERO IS STILL WORKING" = "FILEVERO HÂLÂ ÇALIŞIYOR";
+"FILEVERO KEEPS WHAT YOU COPY ON THIS COMPUTER AND PASTES IT BACK WITH A SHORTCUT. NOTHING LEAVES YOUR COMPUTER." = "FILEVERO KOPYALADIKLARINI BU BİLGİSAYARDA SAKLAR VE BİR KISAYOLLA GERİ YAPIŞTIRIR. HİÇBİR ŞEY BİLGİSAYARINDAN ÇIKMAZ.";
 "FILEVERO KEEPS WHAT YOU COPY ON THIS MAC AND PASTES IT BACK WITH A SHORTCUT. NOTHING LEAVES YOUR COMPUTER." = "FILEVERO KOPYALADIKLARINI BU MAC'TE SAKLAR VE BİR KISAYOLLA GERİ YAPIŞTIRIR. HİÇBİR ŞEY BİLGİSAYARINDAN ÇIKMAZ.";
 "FILEVERO KEEPS WHAT YOU COPY ON THIS PC AND PASTES IT BACK WITH A SHORTCUT. NOTHING LEAVES YOUR COMPUTER." = "FILEVERO KOPYALADIKLARINI BU BİLGİSAYARDA SAKLAR VE BİR KISAYOLLA GERİ YAPIŞTIRIR. HİÇBİR ŞEY BİLGİSAYARINDAN ÇIKMAZ.";
 "FILEVERO RAN INTO AN UNEXPECTED PROBLEM." = "FILEVERO BEKLENMEDİK BİR SORUNLA KARŞILAŞTI.";
+"FILEVERO READS ONLY THE MODIFIER KEYS AND THE MOUSE BUTTON FOR THE DRAG WHEELS." = "FILEVERO SÜRÜKLEME ÇARKLARI İÇİN YALNIZCA DEĞİŞTİRİCİ TUŞLARI VE FARE TUŞUNU OKUR.";
 "FILEVERO SAVES RESULTS BESIDE THE ORIGINALS. ALLOW A FOLDER ONCE TO INCLUDE EVERY FOLDER INSIDE IT." = "FILEVERO SONUÇLARI ORİJİNALLERİN YANINA KAYDEDER. BİR KLASÖRE VERİLEN İZİN, İÇİNDEKİ KLASÖRLERİ DE KAPSAR.";
 "FILEVERO SETTINGS" = "FILEVERO AYARLARI";
 "FILEVERO UPDATE" = "FILEVERO GÜNCELLEMESİ";
@@ -1336,6 +1384,8 @@
 "FILEVERO UPDATE COULD NOT FINISH" = "FILEVERO GÜNCELLEMESİ TAMAMLANAMADI";
 "FILEVERO · FEATURES & SHORTCUTS" = "FILEVERO · ÖZELLİKLER VE KISAYOLLAR";
 "FILEVERO, READY WHEN YOU ARE." = "FILEVERO İLE DOSYALARIN HAZIR.";
+"FILEVERO’S GNOME SHELL EXTENSION IS ON." = "FILEVERO'NUN GNOME SHELL EKLENTİSİ AÇIK.";
+"FILEVERO’S GNOME SHELL EXTENSION IS ON: DRAG WHEELS, WINDOW ARRANGING, CLIPBOARD HISTORY AND PASTING WORK EVERYWHERE." = "FILEVERO'NUN GNOME SHELL EKLENTİSİ AÇIK: SÜRÜKLEME ÇARKLARI, PENCERE YERLEŞTİRME, PANO GEÇMİŞİ VE YAPIŞTIRMA HER YERDE ÇALIŞIR.";
 "FILL AND CROP" = "DOLDUR VE KIRP";
 "FILL CELLS (CROP EDGES)" = "HÜCRELERİ DOLDUR (KENARLARI KIRP)";
 "FILL CELLS (CROP TO FIT)" = "HÜCRELERİ DOLDUR (SIĞACAK ŞEKİLDE KIRP)";
@@ -1418,6 +1468,7 @@
 "Files" = "Dosyalar";
 "Files are processed locally on your Mac." = "Dosyalar Mac'inde işlenir.";
 "Files copied." = "Dosyalar kopyalandı.";
+"Files from Filevero" = "Filevero'dan dosyalar";
 "Files in Float" = "Float’taki dosyalar";
 "Files missing" = "Dosyalar bulunamıyor";
 "Files moved." = "Dosyalar taşındı.";
@@ -1431,25 +1482,32 @@
 "Filevero %lld · Build %lld" = "Filevero %lld · Derleme %lld";
 "Filevero Settings" = "Filevero Ayarları";
 "Filevero Update Connection" = "Filevero Güncelleme Bağlantısı";
+"Filevero adds itself to your desktop only where you turn it on here." = "Filevero masaüstüne yalnızca burada açtığın yerlerde eklenir.";
 "Filevero cannot find its own program file." = "Filevero kendi program dosyasını bulamıyor.";
 "Filevero checks once an hour while it’s running and asks before installing an update." = "Filevero çalışırken saatte bir denetler ve bir güncellemeyi kurmadan önce sorar.";
 "Filevero checks once an hour while it’s running. You choose when to download and install." = "Filevero çalışırken saatte bir denetler. İndirme ve kurulum zamanını sen seçersin.";
 "Filevero could not be moved to the Applications folder" = "Filevero Uygulamalar klasörüne taşınamadı";
 "Filevero downloads these tools from their official sources and checks each download’s SHA-256." = "Filevero bu araçları resmi kaynaklarından indirir ve her indirmenin SHA-256 özetini denetler.";
+"Filevero drop strip" = "Filevero bırakma şeridi";
 "Filevero is already running but is still starting. Open it from the system tray or try again in a moment." = "Filevero zaten çalışıyor ama hâlâ açılıyor. Sistem tepsisinden aç veya birazdan tekrar dene.";
+"Filevero is already running but is still starting. Try again in a moment." = "Filevero zaten çalışıyor ama hâlâ açılıyor. Birazdan yeniden dene.";
 "Filevero is ready for your files." = "Filevero dosyaların için hazır.";
 "Filevero is still running." = "Filevero hâlâ çalışıyor.";
 "Filevero is still working" = "Filevero hâlâ çalışıyor";
 "Filevero keeps what you copy on this Mac and pastes it back with a shortcut. Nothing leaves your computer." = "Filevero kopyaladıklarını bu Mac'te saklar ve bir kısayolla geri yapıştırır. Hiçbir şey bilgisayarından çıkmaz.";
 "Filevero keeps what you copy on this PC and pastes it back with a shortcut. Nothing leaves your computer." = "Filevero kopyaladıklarını bu bilgisayarda saklar ve bir kısayolla geri yapıştırır. Hiçbir şey bilgisayarından çıkmaz.";
+"Filevero keeps what you copy on this computer and pastes it back with a shortcut. Nothing leaves your computer." = "Filevero kopyaladıklarını bu bilgisayarda saklar ve bir kısayolla geri yapıştırır. Hiçbir şey bilgisayarından çıkmaz.";
 "Filevero ran into an unexpected problem." = "Filevero beklenmedik bir sorunla karşılaştı.";
 "Filevero ran into an unexpected problem. Details were saved to %@." = "Filevero beklenmedik bir sorunla karşılaştı. Ayrıntılar şuraya kaydedildi: %@.";
 "Filevero ran into an unexpected problem. Details were saved to %lld." = "Filevero beklenmedik bir sorunla karşılaştı. Ayrıntılar şuraya kaydedildi: %lld.";
+"Filevero reads only the modifier keys and the mouse button for the drag wheels." = "Filevero sürükleme çarkları için yalnızca değiştirici tuşları ve fare tuşunu okur.";
 "Filevero saves results beside the originals. Allow a folder once to include every folder inside it." = "Filevero sonuçları orijinallerin yanına kaydeder. Bir klasöre verilen izin, içindeki klasörleri de kapsar.";
 "Filevero update" = "Filevero güncellemesi";
 "Filevero update could not finish" = "Filevero güncellemesi tamamlanamadı";
 "Filevero · Features & shortcuts" = "Filevero · Özellikler ve kısayollar";
 "Filevero, ready when you are." = "Filevero ile dosyaların hazır.";
+"Filevero’s GNOME Shell extension is on." = "Filevero'nun GNOME Shell eklentisi açık.";
+"Filevero’s GNOME Shell extension is on: drag wheels, window arranging, clipboard history and pasting work everywhere." = "Filevero'nun GNOME Shell eklentisi açık: sürükleme çarkları, pencere yerleştirme, pano geçmişi ve yapıştırma her yerde çalışır.";
 "Fill and crop" = "Doldur ve kırp";
 "Fill cells (crop edges)" = "Hücreleri doldur (kenarları kırp)";
 "Fill cells (crop to fit)" = "Hücreleri doldur (sığacak şekilde kırp)";
@@ -1489,7 +1547,9 @@
 "Float action unavailable" = "Float işlemi kullanılamıyor";
 "Float behavior" = "Yüzen pencere davranışı";
 "Float options" = "Float seçenekleri";
+"Float · %@" = "Yüzen Pencere · %@";
 "Float · %@ files" = "Yüzen Pencere · %@ dosya";
+"Float · %lld" = "Yüzen Pencere · %lld";
 "Float · %lld files" = "Yüzen Pencere · %lld dosya";
 "Float · 1 file" = "Yüzen Pencere · 1 dosya";
 "Folder access ready" = "Klasör erişimi hazır";
@@ -1598,7 +1658,10 @@
 "INSTAGRAM PHOTO POSTS OPEN A PHOTO SELECTION. REEL LINKS OFFER VIDEO AND AUDIO. PUBLIC DOWNLOADABLE MEDIA ONLY." = "INSTAGRAM FOTOĞRAF GÖNDERİLERİNDE FOTOĞRAF SEÇİMİ AÇILIR. REELS BAĞLANTILARINDA VİDEO VE SES SEÇENEKLERİ SUNULUR. YALNIZCA HERKESE AÇIK, İNDİRİLEBİLİR MEDYA DESTEKLENİR.";
 "INSTALL AN OCR LANGUAGE IN WINDOWS LANGUAGE SETTINGS TO DETECT TEXT." = "METİN ALGILAMAK İÇİN WINDOWS DİL AYARLARINDAN BİR OCR DİLİ YÜKLE.";
 "INSTALL AN OCR LANGUAGE IN WINDOWS LANGUAGE SETTINGS TO RECOGNIZE SCANNED PDF TEXT." = "TARANMIŞ PDF METNİNİ TANIMAK İÇİN WINDOWS DİL AYARLARINDAN BİR OCR DİLİ YÜKLE.";
+"INSTALL FILEVERO’S GNOME SHELL EXTENSION TO USE THE DRAG WHEELS, WINDOW ARRANGING AND BACKGROUND CLIPBOARD HISTORY EVERYWHERE." = "SÜRÜKLEME ÇARKLARINI, PENCERE YERLEŞTİRMEYİ VE ARKA PLANDA PANO GEÇMİŞİNİ HER YERDE KULLANMAK İÇİN FILEVERO'NUN GNOME SHELL EKLENTİSİNİ KUR.";
 "INSTALL ONLY THE MISSING TOOL GROUPS. NO ACCOUNT IS REQUIRED." = "YALNIZCA EKSİK ARAÇ GRUPLARINI YÜKLE. HESAP AÇMAN GEREKMEZ.";
+"INSTALL THE GNOME SHELL EXTENSION" = "GNOME SHELL EKLENTİSİNİ KUR";
+"INSTALLED. LOG OUT AND BACK IN ONCE TO TURN ON FILEVERO’S GNOME SHELL EXTENSION." = "KURULDU. FILEVERO'NUN GNOME SHELL EKLENTİSİNİ AÇMAK İÇİN BİR KEZ OTURUMU KAPATIP YENİDEN AÇ.";
 "INVALID EPUB CHAPTER PATH." = "EPUB BÖLÜM YOLU GEÇERSİZ.";
 "INVALID EPUB IMAGE PATH." = "EPUB GÖRSEL YOLU GEÇERSİZ.";
 "INVALID METADATA FIELD." = "META VERİ ALANI GEÇERSİZ.";
@@ -1634,9 +1697,12 @@
 "Input-only format." = "Yalnızca girdi biçimi.";
 "Instagram photo posts open a photo selection. For videos, use the share link; for other photos, drag the image or use Copy Image Address. Public media only; login-required and protected items may be unavailable." = "Instagram fotoğraf gönderilerinde fotoğraf seçimi açılır. Videolar için paylaşım bağlantısını kullan; diğer fotoğrafları sürükle veya görsel adresini kopyala. Yalnızca herkese açık medya desteklenir; giriş gerektiren veya korumalı içerikler kullanılamayabilir.";
 "Instagram photo posts open a photo selection. Reel links offer video and audio. Public downloadable media only." = "Instagram fotoğraf gönderilerinde fotoğraf seçimi açılır. Reels bağlantılarında video ve ses seçenekleri sunulur. Yalnızca herkese açık, indirilebilir medya desteklenir.";
+"Install Filevero’s GNOME Shell extension to use the drag wheels, window arranging and background clipboard history everywhere." = "Sürükleme çarklarını, pencere yerleştirmeyi ve arka planda pano geçmişini her yerde kullanmak için Filevero'nun GNOME Shell eklentisini kur.";
 "Install an OCR language in Windows Language settings to detect text." = "Metin algılamak için Windows dil ayarlarından bir OCR dili yükle.";
 "Install an OCR language in Windows Language settings to recognize scanned PDF text." = "Taranmış PDF metnini tanımak için Windows dil ayarlarından bir OCR dili yükle.";
 "Install only the missing tool groups. No account is required." = "Yalnızca eksik araç gruplarını yükle. Hesap açman gerekmez.";
+"Install the GNOME Shell extension" = "GNOME Shell eklentisini kur";
+"Installed. Log out and back in once to turn on Filevero’s GNOME Shell extension." = "Kuruldu. Filevero'nun GNOME Shell eklentisini açmak için bir kez oturumu kapatıp yeniden aç.";
 "Invalid EPUB chapter path." = "EPUB bölüm yolu geçersiz.";
 "Invalid EPUB image path." = "EPUB görsel yolu geçersiz.";
 "Invalid YouTube video ID." = "YouTube video kimliği geçersiz.";
@@ -1676,6 +1742,12 @@
 "KEEP THEM TOGETHER, OR GIVE EACH ONE A FRESH START." = "İSTERSEN BİRLİKTE İŞLE, İSTERSEN TEK TEK.";
 "KEEP THINGS\nMOVING." = "AKIŞINI\nKORU.";
 "KEEP UP TO" = "EN FAZLA SAKLA";
+"KWIN INTEGRATION IS ON: WINDOW ARRANGING WORKS EVERYWHERE AND CLIPBOARD HISTORY RECORDS IN THE BACKGROUND." = "KWİN ENTEGRASYONU AÇIK: PENCERE YERLEŞTİRME HER YERDE ÇALIŞIR VE PANO GEÇMİŞİ ARKA PLANDA KAYDEDİLİR.";
+"KWIN INTEGRATION IS ON: WINDOW ARRANGING WORKS EVERYWHERE. CLIPBOARD HISTORY RECORDS WHILE FILEVERO IS IN FRONT ON THIS PLASMA VERSION." = "KWİN ENTEGRASYONU AÇIK: PENCERE YERLEŞTİRME HER YERDE ÇALIŞIR. BU PLASMA SÜRÜMÜNDE PANO GEÇMİŞİ, FILEVERO ÖNDEYKEN KAYDEDİLİR.";
+"KWIN INTEGRATION IS STARTING." = "KWİN ENTEGRASYONU BAŞLATILIYOR.";
+"KWin integration is on: window arranging works everywhere and clipboard history records in the background." = "KWin entegrasyonu açık: pencere yerleştirme her yerde çalışır ve pano geçmişi arka planda kaydedilir.";
+"KWin integration is on: window arranging works everywhere. Clipboard history records while Filevero is in front on this Plasma version." = "KWin entegrasyonu açık: pencere yerleştirme her yerde çalışır. Bu Plasma sürümünde pano geçmişi, Filevero öndeyken kaydedilir.";
+"KWin integration is starting." = "KWin entegrasyonu başlatılıyor.";
 "Keep" = "Koru";
 "Keep Filevero up to date." = "Filevero’yu güncel tut.";
 "Keep at least one clip." = "En az bir klip bırak.";
@@ -1697,7 +1769,6 @@
 "LARGE · 2560 PX" = "BÜYÜK · 2560 PX";
 "LARGE · 2560 PX LONGEST EDGE" = "BÜYÜK · UZUN KENAR 2560 PX";
 "LAUNCH AT LOGIN" = "OTURUM AÇILDIĞINDA BAŞLAT";
-"LAUNCH AT LOGIN IS UNAVAILABLE FOR THIS COPY." = "BU KOPYADA OTOMATİK BAŞLATMA KULLANILAMIYOR.";
 "LAYOUT" = "DÜZEN";
 "LAYOUT NAME" = "DÜZEN ADI";
 "LEAVE EMPTY TO KEEP EACH RESULT’S USUAL NAME." = "HER SONUCUN OLAĞAN ADINI KORUMAK İÇİN BOŞ BIRAK.";
@@ -1712,7 +1783,9 @@
 "LIBRARY" = "KİTAPLIK";
 "LIBRARY IS TOO LARGE." = "KİTAPLIK ÇOK BÜYÜK.";
 "LIBREOFFICE 26.8.1 ENABLES OFFICE DOCUMENT CONVERSIONS. A 285 MB DOWNLOAD; ABOUT 1 GB INSTALLED. MPL 2.0 AND ITS INCLUDED THIRD-PARTY LICENSES." = "LIBREOFFICE 26.8.1, OFFICE BELGELERİNİ DÖNÜŞTÜRMEYİ SAĞLAR. İNDİRME 285 MB; KURULUM YAKLAŞIK 1 GB. MPL 2.0 VE İÇERDİĞİ ÜÇÜNCÜ TARAF LİSANSLARI GEÇERLİDİR.";
+"LIBREOFFICE 26.8.1 ENABLES OFFICE DOCUMENT CONVERSIONS. APPROXIMATELY 220 MB TO DOWNLOAD. MPL 2.0 AND ITS INCLUDED THIRD-PARTY LICENSES." = "LIBREOFFICE 26.8.1 OFFICE BELGESİ DÖNÜŞTÜRMELERİNİ AÇAR. YAKLAŞIK 220 MB İNDİRİLİR. MPL 2.0 VE İÇERDİĞİ ÜÇÜNCÜ TARAF LİSANSLARI.";
 "LIBREOFFICE 26.8.1 ENABLES OFFICE DOCUMENT CONVERSIONS. APPROXIMATELY 360 MB TO DOWNLOAD. MPL 2.0 AND ITS INCLUDED THIRD-PARTY LICENSES." = "LIBREOFFICE 26.8.1, OFFICE BELGELERİNİ DÖNÜŞTÜRMEYİ SAĞLAR. İNDİRME YAKLAŞIK 360 MB. MPL 2.0 VE İÇERDİĞİ ÜÇÜNCÜ TARAF LİSANSLARI GEÇERLİDİR.";
+"LIBREOFFICE INSTALLED ON THIS COMPUTER IS USED FOR OFFICE DOCUMENT CONVERSIONS." = "OFFICE BELGESİ DÖNÜŞTÜRMELERİ İÇİN BU BİLGİSAYARDA KURULU LIBREOFFICE KULLANILIR.";
 "LICENSE" = "LİSANS";
 "LICENSES" = "LİSANSLAR";
 "LIGHT" = "AÇIK";
@@ -1722,6 +1795,7 @@
 "LITTLE TWEAKS.\nBIG DIFFERENCE." = "KÜÇÜK DOKUNUŞLAR.\nBÜYÜK FARK.";
 "LITTLE TWEAKS. A WHOLE NEW LOOK." = "KÜÇÜK DOKUNUŞLAR. YEPYENİ BİR GÖRÜNÜM.";
 "LOCAL BY DESIGN" = "VERİLERİN CİHAZINDA KALIR";
+"LOG OUT AND BACK IN ONCE TO TURN ON FILEVERO’S GNOME SHELL EXTENSION." = "FILEVERO'NUN GNOME SHELL EKLENTİSİNİ AÇMAK İÇİN BİR KEZ OTURUMU KAPATIP YENİDEN AÇ.";
 "LOGO" = "LOGO";
 "LOOKING FOR LITTLE SQUARES…" = "QR KODLARI ARANIYOR…";
 "LOUDNESS RANGE" = "SES DÜZEYİ ARALIĞI";
@@ -1735,7 +1809,6 @@
 "Last checked %@" = "Son denetim: %@";
 "Last checked %lld" = "Son denetim: %lld";
 "Launch at login" = "Oturum açıldığında başlat";
-"Launch at login is unavailable for this copy." = "Bu kopyada otomatik başlatma kullanılamıyor.";
 "Layout" = "Düzen";
 "Layout name" = "Düzen adı";
 "Leave empty to keep each result’s usual name." = "Her sonucun olağan adını korumak için boş bırak.";
@@ -1750,7 +1823,9 @@
 "Library" = "Kitaplık";
 "Library is too large." = "Kitaplık çok büyük.";
 "LibreOffice 26.8.1 enables Office document conversions. A 285 MB download; about 1 GB installed. MPL 2.0 and its included third-party licenses." = "LibreOffice 26.8.1, Office belgelerini dönüştürmeyi sağlar. İndirme 285 MB; kurulum yaklaşık 1 GB. MPL 2.0 ve içerdiği üçüncü taraf lisansları geçerlidir.";
+"LibreOffice 26.8.1 enables Office document conversions. Approximately 220 MB to download. MPL 2.0 and its included third-party licenses." = "LibreOffice 26.8.1 Office belgesi dönüştürmelerini açar. Yaklaşık 220 MB indirilir. MPL 2.0 ve içerdiği üçüncü taraf lisansları.";
 "LibreOffice 26.8.1 enables Office document conversions. Approximately 360 MB to download. MPL 2.0 and its included third-party licenses." = "LibreOffice 26.8.1, Office belgelerini dönüştürmeyi sağlar. İndirme yaklaşık 360 MB. MPL 2.0 ve içerdiği üçüncü taraf lisansları geçerlidir.";
+"LibreOffice installed on this computer is used for Office document conversions." = "Office belgesi dönüştürmeleri için bu bilgisayarda kurulu LibreOffice kullanılır.";
 "License" = "Lisans";
 "Licenses" = "Lisanslar";
 "Light" = "Açık";
@@ -1762,6 +1837,7 @@
 "Local by design" = "Verilerin cihazında kalır";
 "Local by design · MIT source\nVersion %@" = "Verilerin cihazında kalır · MIT lisanslı kaynak kodu\nSürüm %@";
 "Local by design · MIT source\nVersion %lld" = "Verilerin cihazında kalır · MIT lisanslı kaynak kodu\nSürüm %lld";
+"Log out and back in once to turn on Filevero’s GNOME Shell extension." = "Filevero'nun GNOME Shell eklentisini açmak için bir kez oturumu kapatıp yeniden aç.";
 "Logo" = "Logo";
 "Looking for little squares…" = "QR kodları aranıyor…";
 "Loudness range" = "Ses düzeyi aralığı";
@@ -1823,6 +1899,7 @@
 "MOVE UP" = "YUKARI TAŞI";
 "MOVED OR REMOVED" = "TAŞINMIŞ VEYA SİLİNMİŞ";
 "MOVING THESE ITEMS NEEDS ADMINISTRATOR PERMISSION. WINDOWS WILL ASK YOU TO ALLOW IT." = "BU ÖĞELERİ TAŞIMAK İÇİN YÖNETİCİ İZNİ GEREKİYOR. WINDOWS SENDEN İZİN İSTEYECEK.";
+"MOVING THESE ITEMS NEEDS ADMINISTRATOR PERMISSION. YOUR SYSTEM WILL ASK YOU TO ALLOW IT." = "BU ÖĞELERİ TAŞIMAK İÇİN YÖNETİCİ İZNİ GEREKİYOR. SİSTEMİN SENDEN İZİN İSTEYECEK.";
 "MP4 VIDEO" = "MP4 VİDEO";
 "MP4 video" = "MP4 video";
 "MPL 2.0 AND INCLUDED THIRD-PARTY LICENSES" = "MPL 2.0 VE İÇERDİĞİ ÜÇÜNCÜ TARAF LİSANSLARI";
@@ -1890,6 +1967,7 @@
 "Move up" = "Yukarı taşı";
 "Moved or removed" = "Taşınmış veya silinmiş";
 "Moving these items needs administrator permission. Windows will ask you to allow it." = "Bu öğeleri taşımak için yönetici izni gerekiyor. Windows senden izin isteyecek.";
+"Moving these items needs administrator permission. Your system will ask you to allow it." = "Bu öğeleri taşımak için yönetici izni gerekiyor. Sistemin senden izin isteyecek.";
 "Mute" = "Sessize al";
 "Mute Video" = "Videoyu Sessize Al";
 "Mute Video · Filevero" = "Videoyu Sessize Al · Filevero";
@@ -1924,6 +2002,7 @@
 "NO QR CODES THIS TIME." = "QR KODU BULUNAMADI.";
 "NO RECENT FILES" = "SON DOSYA YOK";
 "NO SUBJECT WAS DETECTED IN THIS IMAGE." = "BU GÖRSELDE BİR NESNE BULUNAMADI.";
+"NO TERMINAL APP WAS FOUND. INSTALL ONE FROM YOUR SOFTWARE CENTER." = "TERMINAL UYGULAMASI BULUNAMADI. YAZILIM MERKEZİNDEN BİR TANE KUR.";
 "NO TEXT COULD BE EXTRACTED OR RECOGNIZED IN THIS PDF." = "BU PDF'DEN METİN ÇIKARILAMADI VEYA TANINAMADI.";
 "NO TEXT WAS FOUND." = "METİN BULUNAMADI.";
 "NO TIMED SUBTITLE CUES WERE FOUND." = "ZAMANLANMIŞ ALTYAZI SATIRI BULUNAMADI.";
@@ -1979,6 +2058,7 @@
 "No public downloadable media found. Some sites require sign-in or do not expose downloadable media." = "Herkese açık, indirilebilir medya bulunamadı. Bazı siteler giriş gerektirir veya medyayı indirmeye açmaz.";
 "No recent files" = "Son dosya yok";
 "No subject was detected in this image." = "Bu görselde bir nesne bulunamadı.";
+"No terminal app was found. Install one from your software center." = "Terminal uygulaması bulunamadı. Yazılım merkezinden bir tane kur.";
 "No text could be extracted or recognized in this PDF." = "Bu PDF'den metin çıkarılamadı veya tanınamadı.";
 "No text was found." = "Metin bulunamadı.";
 "No timed subtitle cues were found." = "Zamanlanmış altyazı satırı bulunamadı.";
@@ -2010,6 +2090,8 @@
 "OFFICE SETUP COULD NOT FINISH" = "OFİS KURULUMU TAMAMLANAMADI";
 "OFFICE TOOLS" = "OFİS ARAÇLARI";
 "OK" = "TAMAM";
+"ON KDE PLASMA, THE DRAG WHEELS OUTSIDE FILEVERO NEED TO SEE WHICH MODIFIER KEYS AND MOUSE BUTTON YOU HOLD. ALLOWING IT ADDS YOU TO THE SYSTEM’S “INPUT” GROUP: FILEVERO READS ONLY THOSE KEYS, BUT ANY APP YOU RUN COULD THEN READ EVERY KEYSTROKE. WITHOUT IT, DRAG ONTO THE SCREEN-EDGE STRIP INSTEAD." = "KDE PLASMA'DA FILEVERO DIŞINDAKİ SÜRÜKLEME ÇARKLARI, BASILI TUTTUĞUN DEĞİŞTİRİCİ TUŞLARI VE FARE TUŞUNU GÖRMELİDİR. İZİN VERMEK SENİ SİSTEMİN “İNPUT” GRUBUNA EKLER: FILEVERO YALNIZCA BU TUŞLARI OKUR AMA ÇALIŞTIRDIĞIN HER UYGULAMA TÜM TUŞ VURUŞLARINI OKUYABİLİR. İZİN VERMEZSEN BUNUN YERİNE EKRAN KENARINDAKİ ŞERİDE SÜRÜKLE.";
+"ON THIS COMPUTER" = "BU BİLGİSAYARDA";
 "ON YOUR MAC" = "MAC'İNDE";
 "ON YOUR PC" = "BİLGİSAYARINDA";
 "ONE DOWNLOAD PER TOOL GROUP. NO ACCOUNT OR GITHUB TOKEN." = "HER ARAÇ GRUBU İÇİN BİR KEZ İNDİR. HESAP VEYA GITHUB TOKENI GEREKMEZ.";
@@ -2063,6 +2145,8 @@
 "Office package could not be extracted (Windows Installer data code %lld)." = "Office paketi açılamadı (Windows Installer veri kodu %lld).";
 "Office setup could not finish" = "Ofis kurulumu tamamlanamadı";
 "Office tools" = "Ofis araçları";
+"On KDE Plasma, the drag wheels outside Filevero need to see which modifier keys and mouse button you hold. Allowing it adds you to the system’s “input” group: Filevero reads only those keys, but any app you run could then read every keystroke. Without it, drag onto the screen-edge strip instead." = "KDE Plasma'da Filevero dışındaki sürükleme çarkları, basılı tuttuğun değiştirici tuşları ve fare tuşunu görmelidir. İzin vermek seni sistemin “input” grubuna ekler: Filevero yalnızca bu tuşları okur ama çalıştırdığın her uygulama tüm tuş vuruşlarını okuyabilir. İzin vermezsen bunun yerine ekran kenarındaki şeride sürükle.";
+"On this computer" = "Bu bilgisayarda";
 "On your Mac" = "Mac'inde";
 "On your PC" = "Bilgisayarında";
 "One download per tool group. No account or GitHub token." = "Her araç grubu için bir kez indir. Hesap veya GitHub tokenı gerekmez.";
@@ -2122,6 +2206,7 @@
 "PASTE A PUBLIC VIDEO, IMAGE OR AUDIO PAGE LINK" = "HERKESE AÇIK VİDEO, GÖRSEL VEYA SES BAĞLANTISI YAPIŞTIR";
 "PASTE A VIDEO SHARE LINK OR IMAGE ADDRESS" = "VİDEO PAYLAŞIM BAĞLANTISI VEYA GÖRSEL ADRESİ YAPIŞTIR";
 "PASTE AS PLAIN TEXT" = "DÜZ METİN OLARAK YAPIŞTIR";
+"PASTE INTO A CHAT, MAIL OR CLOUD APP" = "BİR SOHBET, E-POSTA VEYA BULUT UYGULAMASINA YAPIŞTIR";
 "PASTE LINK" = "BAĞLANTI YAPIŞTIR";
 "PASTE ONE COMPLETE PUBLIC MEDIA LINK." = "HERKESE AÇIK BİR MEDYA BAĞLANTISININ TAMAMINI YAPIŞTIR.";
 "PASTED FILES" = "YAPIŞTIRILAN DOSYALAR";
@@ -2201,6 +2286,7 @@
 "PREVIOUS PAGE" = "ÖNCEKİ SAYFA";
 "PREVIOUS POSITION" = "ÖNCEKİ KONUM";
 "PRISM" = "PRİZMA";
+"PROCESSED PREVIEW UNAVAILABLE FOR THIS CODEC." = "BU CODEC İÇİN İŞLENMİŞ ÖNİZLEME KULLANILAMIYOR.";
 "PROCESSED PREVIEW UNAVAILABLE FOR THIS WINDOWS CODEC." = "BU WINDOWS CODEC'İ İÇİN İŞLENMİŞ ÖNİZLEME KULLANILAMIYOR.";
 "PROCESSED PREVIEW · EXPORT USES THE ORIGINAL FILE." = "İŞLENMİŞ ÖNİZLEME · DIŞA AKTARMADA ORİJİNAL DOSYA KULLANILIR.";
 "PROCESSED PREVIEW. CHOOSE ORIGINAL TO EDIT AREAS." = "İŞLENMİŞ ÖNİZLEME. ALANLARI DÜZENLEMEK İÇİN ORİJİNAL'İ SEÇ.";
@@ -2229,6 +2315,7 @@
 "Paste a video share link or image address" = "Video paylaşım bağlantısı veya görsel adresi yapıştır";
 "Paste as Plain Text" = "Düz Metin Olarak Yapıştır";
 "Paste as plain text" = "Düz metin olarak yapıştır";
+"Paste into a chat, mail or cloud app" = "Bir sohbet, e-posta veya bulut uygulamasına yapıştır";
 "Paste link" = "Bağlantı yapıştır";
 "Paste one complete public media link." = "Herkese açık bir medya bağlantısının tamamını yapıştır.";
 "Pasted files" = "Yapıştırılan dosyalar";
@@ -2305,6 +2392,7 @@
 "Previous position" = "Önceki konum";
 "Prism" = "Prizma";
 "Processed preview unavailable for this Windows codec." = "Bu Windows codec'i için işlenmiş önizleme kullanılamıyor.";
+"Processed preview unavailable for this codec." = "Bu codec için işlenmiş önizleme kullanılamıyor.";
 "Processed preview · export uses the original file." = "İşlenmiş önizleme · dışa aktarmada orijinal dosya kullanılır.";
 "Processed preview. Choose Original to edit areas." = "İşlenmiş önizleme. Alanları düzenlemek için Orijinal'i seç.";
 "Processing happens on your Mac. Web downloads require a connection." = "İşlemler Mac’inde gerçekleşir. Web indirmeleri internet bağlantısı gerektirir.";
@@ -2327,6 +2415,7 @@
 "QUEUE" = "KUYRUK";
 "QUICK LOOK" = "HIZLI BAKIŞ";
 "QUICK PICKS" = "HIZLI SEÇİM";
+"QUICK PREVIEW" = "HIZLI ÖNİZLEME";
 "QUIT ANYWAY" = "YİNE DE ÇIK";
 "QUIT FILEVERO" = "FILEVERO'DAN ÇIK";
 "QUIT FILEVERO AND DRAG IT TO THE APPLICATIONS FOLDER IN FINDER." = "FILEVERO'DAN ÇIK VE UYGULAMAYI FINDER'DA UYGULAMALAR KLASÖRÜNE SÜRÜKLE.";
@@ -2335,6 +2424,7 @@
 "Quality (%)" = "Kalite (%)";
 "Queue" = "Kuyruk";
 "Quick Look" = "Hızlı Bakış";
+"Quick Preview" = "Hızlı Önizleme";
 "Quit Anyway" = "Yine de Çık";
 "Quit Filevero" = "Filevero'dan Çık";
 "Quit Filevero and drag it to the Applications folder in Finder." = "Filevero'dan çık ve uygulamayı Finder'da Uygulamalar klasörüne sürükle.";
@@ -2373,6 +2463,7 @@
 "REDUCTION (%; 0 = AUTO)" = "KÜÇÜLTME (%; 0 = OTOMATİK)";
 "REFLOWABLE" = "ESNEK DÜZEN";
 "REFLOWABLE TEXT" = "ESNEK METİN DÜZENİ";
+"REINSTALL THE GNOME SHELL EXTENSION" = "GNOME SHELL EKLENTİSİNİ YENİDEN KUR";
 "RELEASE TO PLACE · ESC CANCELS" = "YERLEŞTİRMEK İÇİN BIRAK · ESC İPTAL EDER";
 "REMOVE" = "KALDIR";
 "REMOVE ALL" = "TÜMÜNÜ KALDIR";
@@ -2384,6 +2475,7 @@
 "REMOVE FROM FLOAT" = "YÜZEN PENCEREDEN KALDIR";
 "REMOVE FROM SELECTION" = "SEÇİMDEN KALDIR";
 "REMOVE IMAGE" = "GÖRSELİ KALDIR";
+"REMOVE KEYBOARD AND MOUSE ACCESS" = "KLAVYE VE FARE ERİŞİMİNİ KALDIR";
 "REMOVE LOCATION" = "KONUMU KALDIR";
 "REMOVE METADATA" = "META VERİLERİ KALDIR";
 "REMOVE PASSWORD" = "PAROLAYI KALDIR";
@@ -2392,7 +2484,9 @@
 "REMOVE SILENCE AT THE BEGINNING AND END" = "BAŞLANGIÇ VE SONDAKİ SESSİZLİĞİ KALDIR";
 "REMOVE SILENCE FROM BEGINNING AND END" = "BAŞLANGIÇ VE SONDAKİ SESSİZLİĞİ KALDIR";
 "REMOVE STEP" = "ADIMI KALDIR";
+"REMOVE THE GNOME SHELL EXTENSION" = "GNOME SHELL EKLENTİSİNİ KALDIR";
 "REMOVE THE PASSWORD FROM THAT PDF BEFORE ADDING ITS PAGES." = "SAYFALARINI EKLEMEDEN ÖNCE O PDF'İN PAROLASINI KALDIR.";
+"REMOVED. LOG OUT AND BACK IN TO FINISH." = "KALDIRILDI. BİTİRMEK İÇİN OTURUMU KAPATIP YENİDEN AÇ.";
 "REMOVING BACKGROUNDS…" = "ARKA PLANLAR KALDIRILIYOR…";
 "RENAME FILES" = "YENİDEN ADLANDIR";
 "RENDERED PAGES EXCEED 512 MB. CHOOSE A LOWER DPI OR SPLIT THE PDF FIRST." = "OLUŞTURULAN SAYFALAR 512 MB'I AŞIYOR. DAHA DÜŞÜK BİR DPI SEÇ VEYA ÖNCE PDF'Yİ BÖL.";
@@ -2410,6 +2504,7 @@
 "RETRY" = "YENİDEN DENE";
 "RETRY ALL" = "TÜMÜNÜ YENİDEN DENE";
 "REVEAL FINISHED FILES IN EXPLORER" = "TAMAMLANAN DOSYALARI DOSYA GEZGİNİ'NDE GÖSTER";
+"REVEAL FINISHED FILES IN FILES" = "BİTEN DOSYALARI DOSYALAR'DA GÖSTER";
 "REVEAL FINISHED FILES IN FINDER" = "TAMAMLANAN DOSYALARI FINDER'DA GÖSTER";
 "REVIEW AND REMOVE FILE METADATA." = "DOSYANIN META VERİLERİNİ İNCELE VE KALDIR.";
 "REVIEW TOOLS" = "ARAÇLARI İNCELE";
@@ -2468,6 +2563,7 @@
 "Reduction (%; 0 = auto)" = "Küçültme (%; 0 = otomatik)";
 "Reflowable" = "Esnek düzen";
 "Reflowable text" = "Esnek metin düzeni";
+"Reinstall the GNOME Shell extension" = "GNOME Shell eklentisini yeniden kur";
 "Release to place · Esc cancels" = "Yerleştirmek için bırak · Esc iptal eder";
 "Remove" = "Kaldır";
 "Remove All" = "Tümünü Kaldır";
@@ -2482,13 +2578,16 @@
 "Remove folder access" = "Klasör erişimini kaldır";
 "Remove from Float" = "Yüzen Pencereden Kaldır";
 "Remove from selection" = "Seçimden kaldır";
+"Remove keyboard and mouse access" = "Klavye ve fare erişimini kaldır";
 "Remove metadata" = "Meta verileri kaldır";
 "Remove selected area" = "Seçili alanı kaldır";
 "Remove selected range" = "Seçili aralığı kaldır";
 "Remove silence at the beginning and end" = "Başlangıç ve sondaki sessizliği kaldır";
 "Remove silence from beginning and end" = "Başlangıç ve sondaki sessizliği kaldır";
 "Remove step" = "Adımı kaldır";
+"Remove the GNOME Shell extension" = "GNOME Shell eklentisini kaldır";
 "Remove the password from that PDF before adding its pages." = "Sayfalarını eklemeden önce o PDF'in parolasını kaldır.";
+"Removed. Log out and back in to finish." = "Kaldırıldı. Bitirmek için oturumu kapatıp yeniden aç.";
 "Removing backgrounds…" = "Arka planlar kaldırılıyor…";
 "Rename Files" = "Toplu Yeniden Adlandır";
 "Rename files" = "Yeniden adlandır";
@@ -2509,6 +2608,7 @@
 "Retry" = "Yeniden dene";
 "Retry all" = "Tümünü yeniden dene";
 "Reveal finished files in Explorer" = "Tamamlanan dosyaları Dosya Gezgini'nde göster";
+"Reveal finished files in Files" = "Biten dosyaları Dosyalar'da göster";
 "Reveal finished files in Finder" = "Tamamlanan dosyaları Finder'da göster";
 "Review and remove file metadata." = "Dosyanın meta verilerini incele ve kaldır.";
 "Review tools" = "Araçları incele";
@@ -2578,6 +2678,7 @@
 "SAVED IN POST ORDER IN A NEW INSTAGRAM FOLDER." = "GÖNDERİ SIRASIYLA YENİ BİR INSTAGRAM KLASÖRÜNE KAYDEDİLİR.";
 "SAVED LAYOUTS" = "KAYITLI DÜZENLER";
 "SAVING TO THIS FOLDER NEEDS ADMINISTRATOR PERMISSION. WINDOWS WILL ASK YOU TO ALLOW IT." = "BU KLASÖRE KAYDETMEK İÇİN YÖNETİCİ İZNİ GEREKİYOR. WINDOWS SENDEN İZİN İSTEYECEK.";
+"SAVING TO THIS FOLDER NEEDS ADMINISTRATOR PERMISSION. YOUR SYSTEM WILL ASK YOU TO ALLOW IT." = "BU KLASÖRE KAYDETMEK İÇİN YÖNETİCİ İZNİ GEREKİYOR. SİSTEMİN SENDEN İZİN İSTEYECEK.";
 "SCAN AGAIN" = "YENİDEN TARA";
 "SCAN COMPLETE." = "TARAMA TAMAMLANDI.";
 "SCANNING FOR QR CODES…" = "QR KODLARI TARANIYOR…";
@@ -2617,6 +2718,7 @@
 "SET UP MEDIA TOOLS ONCE TO INSPECT INSTAGRAM POSTS." = "INSTAGRAM GÖNDERİLERİNİ İNCELEMEK İÇİN BİR KEZ MEDYA ARAÇLARINI KUR.";
 "SET UP MEDIA TOOLS ONCE TO INSPECT THIS MEDIA." = "BU MEDYAYI İNCELEMEK İÇİN BİR KEZ MEDYA ARAÇLARINI KUR.";
 "SET UP MEDIA TOOLS TO PREVIEW THE PROCESSED RESULT." = "İŞLENMİŞ SONUCU ÖNİZLEMEK İÇİN MEDYA ARAÇLARINI KUR.";
+"SET UP MEDIA TOOLS TO PREVIEW VIDEO AND AUDIO." = "VİDEO VE SES ÖNİZLEMEK İÇİN MEDYA ARAÇLARINI KUR.";
 "SET UP METADATA TOOLS" = "META VERİ ARAÇLARINI KUR";
 "SET UP METADATA TOOLS ONCE TO REMOVE METADATA FROM GIF FILES." = "GIF DOSYALARINDAN META VERİLERİ KALDIRMAK İÇİN META VERİ ARAÇLARINI BİR KEZ KUR.";
 "SET UP METADATA TOOLS ONCE." = "BİR KEZ META VERİ ARAÇLARINI KUR.";
@@ -2643,8 +2745,11 @@
 "SHOW CLIPBOARD HISTORY" = "PANO GEÇMİŞİNİ GÖSTER";
 "SHOW COPIES IN FINDER" = "KOPYALARI FINDER'DA GÖSTER";
 "SHOW EACH IMAGE FOR 0.05 TO 60 SECONDS." = "HER GÖRSELİ 0,05 İLE 60 SANİYE ARASINDA GÖSTER.";
+"SHOW FILEVERO CLIPBOARD HISTORY" = "FILEVERO PANO GEÇMİŞİNİ GÖSTER";
 "SHOW FILEVERO IN FINDER" = "FILEVERO'YU FINDER'DA GÖSTER";
+"SHOW FILEVERO IN THE APPLICATIONS MENU AND “OPEN WITH”" = "FILEVERO'YU UYGULAMA MENÜSÜNDE VE “BİRLİKTE AÇ” LİSTESİNDE GÖSTER";
 "SHOW IN EXPLORER" = "DOSYA GEZGİNİ'NDE GÖSTER";
+"SHOW IN FILES" = "DOSYALAR'DA GÖSTER";
 "SHOW IN FINDER" = "FINDER'DA GÖSTER";
 "SHOW LESS" = "DAHA AZ GÖSTER";
 "SHOW ORIGINAL" = "ORİJİNALİ GÖSTER";
@@ -2677,6 +2782,7 @@
 "SPACE PLAY/PAUSE · ←/→ 1S · ⇧←/→ 1 FRAME · M ADD FRAME" = "SPACE OYNAT/DURAKLAT · ←/→ 1 SN · ⇧←/→ 1 KARE · M KARE EKLE";
 "SPACE PLAY/PAUSE · ←/→ 1S · ⇧←/→ 1 FRAME · M ADD SPLIT" = "SPACE OYNAT/DURAKLAT · ←/→ 1 SN · ⇧←/→ 1 KARE · M BÖLME EKLE";
 "SPACE · PREVIEW" = "BOŞLUK · ÖNİZLEME";
+"SPACE: PREVIEW · ENTER: USE IN FILEVERO" = "BOŞLUK: ÖNİZLE · ENTER: FILEVERO'DA KULLAN";
 "SPACING" = "BOŞLUK";
 "SPEAKS EVERY FORMAT. KEEPS EVERYTHING LOCAL." = "HER BİÇİMİ KONUŞUR, HER ŞEYİ CİHAZINDA TUTAR.";
 "SPECTRUM" = "SPEKTRUM";
@@ -2778,6 +2884,7 @@
 "Saved size: %@" = "Kaydedilen boyut: %@";
 "Saved size: %lld" = "Kaydedilen boyut: %lld";
 "Saving to this folder needs administrator permission. Windows will ask you to allow it." = "Bu klasöre kaydetmek için yönetici izni gerekiyor. Windows senden izin isteyecek.";
+"Saving to this folder needs administrator permission. Your system will ask you to allow it." = "Bu klasöre kaydetmek için yönetici izni gerekiyor. Sistemin senden izin isteyecek.";
 "Scan again" = "Yeniden tara";
 "Scan complete." = "Tarama tamamlandı.";
 "Scanning for QR codes…" = "QR kodları taranıyor…";
@@ -2819,6 +2926,7 @@
 "Set up media tools once to inspect Instagram posts." = "Instagram gönderilerini incelemek için bir kez medya araçlarını kur.";
 "Set up media tools once to inspect this media." = "Bu medyayı incelemek için bir kez medya araçlarını kur.";
 "Set up media tools to preview the processed result." = "İşlenmiş sonucu önizlemek için medya araçlarını kur.";
+"Set up media tools to preview video and audio." = "Video ve ses önizlemek için medya araçlarını kur.";
 "Set up metadata tools" = "Meta veri araçlarını kur";
 "Set up metadata tools once to remove metadata from GIF files." = "GIF dosyalarından meta verileri kaldırmak için meta veri araçlarını bir kez kur.";
 "Set up metadata tools once." = "Bir kez meta veri araçlarını kur.";
@@ -2845,12 +2953,15 @@
 "Show %@ in Finder" = "Finder'da göster: %@";
 "Show %lld in Finder" = "Finder'da göster: %lld";
 "Show Clipboard History" = "Pano Geçmişini Göster";
+"Show Filevero clipboard history" = "Filevero pano geçmişini göster";
 "Show Filevero in Finder" = "Filevero'yu Finder'da Göster";
+"Show Filevero in the applications menu and “Open With”" = "Filevero'yu uygulama menüsünde ve “Birlikte Aç” listesinde göster";
 "Show Original" = "Orijinali Göster";
 "Show clipboard history" = "Pano geçmişini göster";
 "Show copies in Finder" = "Kopyaları Finder'da göster";
 "Show each image for 0.05 to 60 seconds." = "Her görseli 0,05 ile 60 saniye arasında göster.";
 "Show in Explorer" = "Dosya Gezgini'nde Göster";
+"Show in Files" = "Dosyalar'da göster";
 "Show in Finder" = "Finder'da Göster";
 "Show less" = "Daha az göster";
 "Show original" = "Orijinali göster";
@@ -2884,6 +2995,7 @@
 "Space play/pause · ←/→ 1s · ⇧←/→ 1 frame · M add frame" = "Space oynat/duraklat · ←/→ 1 sn · ⇧←/→ 1 kare · M kare ekle";
 "Space play/pause · ←/→ 1s · ⇧←/→ 1 frame · M add split" = "Space oynat/duraklat · ←/→ 1 sn · ⇧←/→ 1 kare · M bölme ekle";
 "Space · Preview" = "Boşluk · Önizleme";
+"Space: preview · Enter: use in Filevero" = "Boşluk: önizle · Enter: Filevero'da kullan";
 "Spacing" = "Boşluk";
 "Speaks every format. Keeps everything local." = "Her biçimi konuşur, her şeyi cihazında tutar.";
 "Spectrum" = "Spektrum";
@@ -2950,6 +3062,7 @@
 "TEXT FILE" = "METİN DOSYASI";
 "TEXT IS RECOGNIZED ON THIS MAC. NOTHING IS UPLOADED." = "METİN BU MAC’TE TANINIR. HİÇBİR ŞEY YÜKLENMEZ.";
 "TEXT OR CALLOUT" = "METİN VEYA AÇIKLAMA";
+"TEXT RECOGNITION USES TESSERACT. INSTALL IT ONCE (FOR EXAMPLE: SUDO APT INSTALL TESSERACT-OCR TESSERACT-OCR-TUR, OR SUDO DNF INSTALL TESSERACT TESSERACT-LANGPACK-TUR), THEN TRY AGAIN." = "METİN TANIMA TESSERACT KULLANIR. BİR KEZ KUR (ÖRNEĞİN: SUDO APT İNSTALL TESSERACT-OCR TESSERACT-OCR-TUR VEYA SUDO DNF İNSTALL TESSERACT TESSERACT-LANGPACK-TUR), SONRA YENİDEN DENE.";
 "TEXT SIZE" = "METİN BOYUTU";
 "TEXTURE" = "DOKU";
 "THAT PASSWORD DIDN’T WORK. TRY AGAIN." = "BU PAROLA İŞE YARAMADI. TEKRAR DENE.";
@@ -2972,7 +3085,9 @@
 "THE IMAGE DOWNLOAD ENDED EARLY." = "GÖRSEL İNDİRMESİ ERKEN SONA ERDİ.";
 "THE IMAGE ORDER MUST INCLUDE EVERY IMAGE ONCE." = "GÖRSEL SIRASINDA HER GÖRSEL BİR KEZ YER ALMALI.";
 "THE IMAGE PIXELS DO NOT MATCH ITS SIZE." = "GÖRSELİN PİKSELLERİ BOYUTUYLA EŞLEŞMİYOR.";
+"THE ISNET MODEL REMOVES IMAGE BACKGROUNDS ON THIS COMPUTER. APPROXIMATELY 179 MB. IF YOU SKIP IT, FILEVERO DOWNLOADS IT THE FIRST TIME YOU REMOVE A BACKGROUND. APACHE-2.0 MODEL IN REMBG'S MIT-LICENSED EXPORT." = "ISNET MODELİ GÖRSEL ARKA PLANLARINI BU BİLGİSAYARDA KALDIRIR. YAKLAŞIK 179 MB. ATLARSAN FILEVERO ONU İLK ARKA PLAN KALDIRIŞINDA İNDİRİR. REMBG'NİN MIT LİSANSLI DIŞA AKTARIMINDAKİ APACHE-2.0 MODELİ.";
 "THE ISNET MODEL REMOVES IMAGE BACKGROUNDS ON THIS PC. APPROXIMATELY 179 MB. IF YOU SKIP IT, FILEVERO DOWNLOADS IT THE FIRST TIME YOU REMOVE A BACKGROUND. APACHE-2.0 MODEL IN REMBG'S MIT-LICENSED EXPORT." = "ISNET MODELİ GÖRSELLERİN ARKA PLANINI BU BİLGİSAYARDA KALDIRIR. YAKLAŞIK 179 MB. ATLARSAN FILEVERO ONU İLK KEZ ARKA PLAN KALDIRDIĞINDA İNDİRİR. APACHE-2.0 LİSANSLI MODEL, REMBG'NİN MIT LİSANSLI DIŞA AKTARIMIYLA GELİR.";
+"THE MEDIA PLAYER COULD NOT START." = "MEDYA OYNATICI BAŞLATILAMADI.";
 "THE MEDIA SERVER REDIRECTED TO AN INSECURE URL." = "MEDYA SUNUCUSU GÜVENLİ OLMAYAN BİR ADRESE YÖNLENDİRDİ.";
 "THE NAME TEMPLATE IS TOO LONG." = "AD ŞABLONU ÇOK UZUN.";
 "THE NEW NAME WOULD BE EMPTY." = "YENİ AD BOŞ OLURDU.";
@@ -3008,6 +3123,8 @@
 "THIRDS, HALVES, TWO-THIRDS, TOP AND BOTTOM HALVES AND CORNERS. PREVIOUS POSITION RETURNS A WINDOW TO WHERE IT WAS; NEXT DISPLAY MOVES IT TO ANOTHER SCREEN." = "ÜÇTE BİR, YARIM, ÜÇTE İKİ, ÜST VE ALT YARIM İLE KÖŞELER. ÖNCEKİ KONUM PENCEREYİ ESKİ YERİNE DÖNDÜRÜR; SONRAKİ EKRAN ONU BAŞKA BİR EKRANA TAŞIR.";
 "THIS BUILD HAS AN UPDATE SIGNING KEY BUT NO RELEASE FEED." = "BU DERLEMEDE GÜNCELLEME İMZA ANAHTARI VAR AMA SÜRÜM AKIŞI YOK.";
 "THIS CLIPBOARD ITEM HAS NO IMAGE TO SAVE." = "BU PANO ÖĞESİNDE KAYDEDİLECEK GÖRSEL YOK.";
+"THIS COPY OF FILEVERO CAN’T REPLACE ITSELF HERE. OPEN THE DOWNLOAD PAGE TO GET THE NEW VERSION?" = "FILEVERO'NUN BU KOPYASI BURADA KENDİNİ GÜNCELLEYEMEZ. YENİ SÜRÜMÜ ALMAK İÇİN İNDİRME SAYFASI AÇILSIN MI?";
+"THIS COPY OF FILEVERO DOES NOT INCLUDE ITS GNOME SHELL EXTENSION." = "FILEVERO'NUN BU KOPYASINDA GNOME SHELL EKLENTİSİ YOK.";
 "THIS CROP APPLIES TO EVERY SELECTED IMAGE AND MUST FIT INSIDE EACH ONE." = "BU KIRPMA, SEÇİLEN TÜM GÖRSELLERE UYGULANIR VE HER GÖRSELİN SINIRLARINA SIĞMALIDIR.";
 "THIS FILE COULD NOT BE READ." = "BU DOSYA OKUNAMADI.";
 "THIS FILE HAS MOVED OR WAS DELETED." = "BU DOSYA TAŞINMIŞ VEYA SİLİNMİŞ.";
@@ -3039,6 +3156,7 @@
 "THIS POST CONTAINS VIDEOS. USE ITS REEL LINK TO DOWNLOAD VIDEO." = "BU GÖNDERİDE VİDEO VAR. VİDEOYU İNDİRMEK İÇİN REEL BAĞLANTISINI KULLAN.";
 "THIS REPOSITORY IS PRIVATE" = "BU DEPO GİZLİ";
 "THIS RTFD ATTACHMENT SYNTAX COULD NOT BE PRESERVED." = "BU RTFD EKİNİN YAPISI KORUNAMADI.";
+"THIS SHORTCUT KEY IS NOT ON YOUR KEYBOARD. CHOOSE A DIFFERENT SHORTCUT." = "BU KISAYOL TUŞU KLAVYENDE YOK. FARKLI BİR KISAYOL SEÇ.";
 "THIS SIZE CANNOT BE REACHED. CHOOSE A LARGER TARGET OR SMALLER DIMENSIONS." = "BU BOYUTA İNİLEMİYOR. DAHA BÜYÜK BİR HEDEF VEYA DAHA KÜÇÜK BOYUTLAR SEÇ.";
 "THIS TEXT IS TOO LARGE TO PASTE. CHOOSE A TEXT FILE INSTEAD." = "BU METİN YAPIŞTIRMAK İÇİN ÇOK BÜYÜK. BUNUN YERİNE BİR METİN DOSYASI SEÇ.";
 "THIS TEXT IS TOO LARGE TO PREVIEW. USE OPEN TO READ THE COMPLETE FILE." = "BU METİN ÖNİZLEME İÇİN ÇOK BÜYÜK. DOSYANIN TAMAMINI OKUMAK İÇİN AÇ'I KULLAN.";
@@ -3089,6 +3207,7 @@
 "TURN OFF UNIFORM WIDTH TO PRESERVE THIS PDF’S FORM FIELDS, ATTACHMENTS, LINKS OR NAVIGATION." = "BU PDF'NİN FORM ALANLARINI, EKLERİNİ, BAĞLANTILARINI VEYA GEZİNMESİNİ KORUMAK İÇİN EŞİT GENİŞLİĞİ KAPAT.";
 "TURN OFF, KEEP HISTORY" = "KAPAT, GEÇMİŞ KALSIN";
 "TURN ON APPLE INTELLIGENCE IN SYSTEM SETTINGS TO GET NAME SUGGESTIONS." = "AD ÖNERİLERİ İÇİN SİSTEM AYARLARI'NDA APPLE INTELLİGENCE'I AÇ.";
+"TURN ON CLIPBOARD HISTORY IN SETTINGS FIRST." = "ÖNCE AYARLAR'DA PANO GEÇMİŞİNİ AÇ.";
 "TWO SELECTED ITEMS HAVE THE SAME NAME. RENAME ONE BEFORE ARCHIVING." = "SEÇİLEN İKİ ÖĞE AYNI ADA SAHİP. ARŞİVLEMEDEN ÖNCE BİRİNİ YENİDEN ADLANDIR.";
 "Tap the chosen modifier combination while dragging files." = "Dosyaları sürüklerken seçtiğin tuş birleşimine bas.";
 "Target" = "Hedef";
@@ -3102,6 +3221,7 @@
 "Text file" = "Metin dosyası";
 "Text is recognized on this Mac. Nothing is uploaded." = "Metin bu Mac’te tanınır. Hiçbir şey yüklenmez.";
 "Text or callout" = "Metin veya açıklama";
+"Text recognition uses Tesseract. Install it once (for example: sudo apt install tesseract-ocr tesseract-ocr-tur, or sudo dnf install tesseract tesseract-langpack-tur), then try again." = "Metin tanıma Tesseract kullanır. Bir kez kur (örneğin: sudo apt install tesseract-ocr tesseract-ocr-tur veya sudo dnf install tesseract tesseract-langpack-tur), sonra yeniden dene.";
 "Text size" = "Metin boyutu";
 "Text size %@ pt" = "Yazı boyutu %@ pt";
 "Text size %lld pt" = "Yazı boyutu %lld pt";
@@ -3111,6 +3231,7 @@
 "The GIF could not be created." = "GIF oluşturulamadı.";
 "The GIF could not be saved." = "GIF kaydedilemedi.";
 "The ISNet model removes image backgrounds on this PC. Approximately 179 MB. If you skip it, Filevero downloads it the first time you remove a background. Apache-2.0 model in rembg's MIT-licensed export." = "ISNet modeli görsellerin arka planını bu bilgisayarda kaldırır. Yaklaşık 179 MB. Atlarsan Filevero onu ilk kez arka plan kaldırdığında indirir. Apache-2.0 lisanslı model, rembg'nin MIT lisanslı dışa aktarımıyla gelir.";
+"The ISNet model removes image backgrounds on this computer. Approximately 179 MB. If you skip it, Filevero downloads it the first time you remove a background. Apache-2.0 model in rembg's MIT-licensed export." = "ISNet modeli görsel arka planlarını bu bilgisayarda kaldırır. Yaklaşık 179 MB. Atlarsan Filevero onu ilk arka plan kaldırışında indirir. rembg'nin MIT lisanslı dışa aktarımındaki Apache-2.0 modeli.";
 "The PDF could not be created." = "PDF oluşturulamadı.";
 "The PDF could not be saved." = "PDF kaydedilemedi.";
 "The PDF could not be verified." = "PDF doğrulanamadı.";
@@ -3135,6 +3256,7 @@
 "The image pixels do not match its size." = "Görselin pikselleri boyutuyla eşleşmiyor.";
 "The location field %@ could not be removed. No output was saved." = "%@ konum alanı kaldırılamadı. Çıktı kaydedilmedi.";
 "The location field %lld could not be removed. No output was saved." = "%lld konum alanı kaldırılamadı. Çıktı kaydedilmedi.";
+"The media player could not start." = "Medya oynatıcı başlatılamadı.";
 "The media server redirected to an insecure URL." = "Medya sunucusu güvenli olmayan bir adrese yönlendirdi.";
 "The name template is too long." = "Ad şablonu çok uzun.";
 "The new name would be empty." = "Yeni ad boş olurdu.";
@@ -3188,6 +3310,8 @@
 "This clipboard item has no image to save." = "Bu pano öğesinde kaydedilecek görsel yok.";
 "This conversion is not available for %@." = "%@ için bu dönüştürme kullanılamıyor.";
 "This conversion is not available for %lld." = "%lld için bu dönüştürme kullanılamıyor.";
+"This copy of Filevero can’t replace itself here. Open the download page to get the new version?" = "Filevero'nun bu kopyası burada kendini güncelleyemez. Yeni sürümü almak için indirme sayfası açılsın mı?";
+"This copy of Filevero does not include its GNOME Shell extension." = "Filevero'nun bu kopyasında GNOME Shell eklentisi yok.";
 "This crop applies to every selected image and must fit inside each one." = "Bu kırpma, seçilen tüm görsellere uygulanır ve her görselin sınırlarına sığmalıdır.";
 "This file could not be read." = "Bu dosya okunamadı.";
 "This file has moved or was deleted." = "Bu dosya taşınmış veya silinmiş.";
@@ -3206,6 +3330,7 @@
 "This output format has no adjustable conversion defaults." = "Bu çıktı biçiminin ayarlanabilir dönüştürme tercihi yok.";
 "This post contains videos. Use its Reel link to download video." = "Bu gönderide video var. Videoyu indirmek için Reel bağlantısını kullan.";
 "This repository is private" = "Bu depo gizli";
+"This shortcut key is not on your keyboard. Choose a different shortcut." = "Bu kısayol tuşu klavyende yok. Farklı bir kısayol seç.";
 "This size cannot be reached. Choose a larger target or smaller dimensions." = "Bu boyuta inilemiyor. Daha büyük bir hedef veya daha küçük boyutlar seç.";
 "This text is too large to paste. Choose a text file instead." = "Bu metin yapıştırmak için çok büyük. Bunun yerine bir metin dosyası seç.";
 "This text is too large to preview. Use Open to read the complete file." = "Bu metin önizleme için çok büyük. Dosyanın tamamını okumak için Aç'ı kullan.";
@@ -3257,6 +3382,7 @@
 "Turn off clipboard history?" = "Pano geçmişi kapatılsın mı?";
 "Turn off uniform width to preserve this PDF’s form fields, attachments, links or navigation." = "Bu PDF'nin form alanlarını, eklerini, bağlantılarını veya gezinmesini korumak için eşit genişliği kapat.";
 "Turn on Apple Intelligence in System Settings to get name suggestions." = "Ad önerileri için Sistem Ayarları'nda Apple Intelligence'ı aç.";
+"Turn on clipboard history in Settings first." = "Önce Ayarlar'da pano geçmişini aç.";
 "Two files would get the name “%@”." = "İki dosya “%@” adını alacaktı.";
 "Two files would get the name “%lld”." = "İki dosya “%lld” adını alacaktı.";
 "Two selected items have the same name. Rename one before archiving." = "Seçilen iki öğe aynı ada sahip. Arşivlemeden önce birini yeniden adlandır.";
@@ -3464,10 +3590,13 @@
 "Workflows" = "Akışlar";
 "Working…" = "İşleniyor…";
 "Workspace" = "Çalışma alanı";
+"X11 SESSION: DRAG WHEELS, WINDOW ARRANGING, CLIPBOARD HISTORY AND PASTING WORK EVERYWHERE." = "X11 OTURUMU: SÜRÜKLEME ÇARKLARI, PENCERE YERLEŞTİRME, PANO GEÇMİŞİ VE YAPIŞTIRMA HER YERDE ÇALIŞIR.";
+"X11 session: drag wheels, window arranging, clipboard history and pasting work everywhere." = "X11 oturumu: sürükleme çarkları, pencere yerleştirme, pano geçmişi ve yapıştırma her yerde çalışır.";
 "YOU CAN ALSO CHOOSE FILES FROM THE MAIN WINDOW." = "ANA PENCEREDEN DE DOSYA SEÇEBİLİRSİN.";
 "YOU CAN CHANGE SHORTCUTS IN SETTINGS." = "KISAYOLLARI AYARLAR’DAN DEĞİŞTİREBİLİRSİN.";
 "YOU CAN PUT THEM BACK FROM THE TRASH." = "ÇÖP SEPETİ'NDEN GERİ ALABİLİRSİN.";
 "YOU CHOOSE WHEN TO DOWNLOAD AND INSTALL." = "NE ZAMAN İNDİRİP KURACAĞINA SEN KARAR VER.";
+"YOU HAVE THE LATEST PUBLISHED LINUX VERSION." = "YAYIMLANAN EN YENİ LİNUX SÜRÜMÜNÜ KULLANIYORSUN.";
 "YOU HAVE THE LATEST PUBLISHED WINDOWS VERSION." = "YAYINLANAN EN GÜNCEL WINDOWS SÜRÜMÜNÜ KULLANIYORSUN.";
 "YOUR CLIPBOARD IS EMPTY." = "PANON BOŞ.";
 "YOUR CURRENT TASK WILL FINISH BEFORE AN UPDATE RESTARTS THE APP." = "GÜNCELLEME UYGULAMAYI YENİDEN BAŞLATMADAN ÖNCE MEVCUT İŞLEMİN TAMAMLANIR.";
@@ -3495,6 +3624,7 @@
 "You can change shortcuts in Settings." = "Kısayolları Ayarlar’dan değiştirebilirsin.";
 "You can put them back from the Trash." = "Çöp Sepeti'nden geri alabilirsin.";
 "You choose when to download and install." = "Ne zaman indirip kuracağına sen karar ver.";
+"You have the latest published Linux version." = "Yayımlanan en yeni Linux sürümünü kullanıyorsun.";
 "You have the latest published Windows version." = "Yayınlanan en güncel Windows sürümünü kullanıyorsun.";
 "YouTube thumbnail · best available full-size image" = "YouTube küçük resmi · mevcut en iyi tam boyutlu görsel";
 "Your Library" = "Kitaplığın";

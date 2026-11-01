@@ -8,7 +8,7 @@ internal static class UpdateInstaller
     public static Version Current=>Assembly.GetExecutingAssembly().GetName().Version??new(0,7,0);
     internal static string InstallParent=>Path.GetDirectoryName(Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory))??AppContext.BaseDirectory;
     /// waitForProcess: the app window the worker must outlive when an elevated copy stages the update for it.
-    public static async Task StageAsync(WindowsUpdate update,IProgress<OperationProgress> progress,CancellationToken token,int? waitForProcess=null)
+    public static async Task StageAsync(UpdateManifest update,IProgress<OperationProgress> progress,CancellationToken token,int? waitForProcess=null)
     {
         var target=Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory);var parent=Path.GetDirectoryName(target)??throw new IOException("Extract Filevero into its own writable folder first.");
         if(target==Path.GetPathRoot(target)||(File.GetAttributes(target)&FileAttributes.ReparsePoint)!=0)throw new IOException("Use a regular writable folder for portable updates.");

@@ -26,4 +26,16 @@ The first foreground launch opens the same two-group setup as macOS. Choose **Do
 
 Exact URLs and hashes: [`Toolchain.cs`](../windows/Filevero.Core/Toolchain.cs). [Windows availability and shortcuts](../windows/README.md). [Bundled Windows library notices](../windows/THIRD-PARTY-NOTICES.txt). The preview is self-contained and does not require .NET to be installed separately.
 
+## Linux x64 and arm64 preview
+
+Setup offers the same groups. Downloads are pinned by SHA-256 to upstream releases for each architecture:
+
+- [FFmpeg 9.0.2 GPL build, BtbN](https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-10-31-12-59) (linked from [FFmpeg’s download page](https://ffmpeg.org/download.html)), GPL.
+- The same yt-dlp and Deno releases above, using their Linux x64/arm64 assets.
+- [ExifTool 13.59](https://exiftool.org/) Unix archive, Artistic/GPL, run by the system's Perl.
+- LibreOffice: the system's copy when installed; otherwise the official [LibreOffice 26.8.1](https://downloadarchive.documentfoundation.org/libreoffice/old/26.8.1.1/deb/) Debian packages, unpacked into the user tools folder without root (MPL 2.0 and included third-party licenses).
+- The [UltraFace RFB-320](https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB) face model (MIT) for redaction help, after the user agrees.
+
+The AppImage and archive bundle Tesseract (Apache-2.0) with English and Turkish data and wl-clipboard's `wl-paste` (GPL-3.0), taken from Ubuntu 22.04 packages; their copyright files are in `licenses/linux-tools` and the corresponding sources are published with each release. Packaging pins [appimagetool 1.9.1](https://github.com/AppImage/appimagetool/releases/tag/1.9.1) and the [type2 runtime 20251108](https://github.com/AppImage/type2-runtime/releases/tag/20251108) by SHA-256. Exact URLs and hashes: [`Toolchain.cs`](../windows/Filevero.Core/Toolchain.cs), [`LinuxOfficeRuntime.cs`](../windows/Filevero.Core/LinuxOfficeRuntime.cs), [`MetadataService.cs`](../windows/Filevero.Core/MetadataService.cs), [`FaceDetection.cs`](../windows/Filevero.Core/FaceDetection.cs) and [`build-linux-appimage.sh`](../scripts/build-linux-appimage.sh). [Linux edition](../windows/Filevero.Linux/README.md). [Bundled Linux library notices](../windows/Filevero.Linux/THIRD-PARTY-NOTICES.txt).
+
 We do not change operating-system security settings or request administrator access for this setup. OS publisher trust and Filevero’s pinned update-signature verification are separate: Mac downloads are not yet Apple-notarized and Windows builds are not yet Authenticode signed, so each asks for a one-time approval on first launch.
