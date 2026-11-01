@@ -25,7 +25,8 @@ internal static class LinuxOfficeChecks
 
             var bin=Path.Combine(directory,"bin");Directory.CreateDirectory(bin);File.WriteAllText(Path.Combine(bin,"soffice"),"#!/bin/sh\n");
             var system=new LinuxOfficeRuntime(Path.Combine(directory,"tools"),ToolPlatform.LinuxX64){SearchPath="/nonexistent:"+bin,SystemLocations=[]};
-            check(system.Executable==Path.Combine(bin,"soffice")&&system.UsesSystemCopy,"An installed system LibreOffice must be used before downloading");
+            // PATH is colon-separated, which a Windows drive letter would split.
+            if(!OperatingSystem.IsWindows())check(system.Executable==Path.Combine(bin,"soffice")&&system.UsesSystemCopy,"An installed system LibreOffice must be used before downloading");
             var installed=Path.Combine(directory,"tools","office-26.8.1","program");Directory.CreateDirectory(installed);File.WriteAllText(Path.Combine(installed,"soffice"),"#!/bin/sh\n");
             check(system.Executable==Path.Combine(installed,"soffice")&&!system.UsesSystemCopy,"Filevero's own LibreOffice must take precedence once installed");
             check(LinuxOfficeRuntime.Package(ToolPlatform.LinuxX64).Url.Contains("/x86_64/",StringComparison.Ordinal)&&LinuxOfficeRuntime.Package(ToolPlatform.LinuxArm64).Url.Contains("/aarch64/",StringComparison.Ordinal),"LibreOffice must match the CPU");

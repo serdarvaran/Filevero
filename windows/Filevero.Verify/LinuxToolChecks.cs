@@ -44,7 +44,8 @@ internal static class LinuxToolChecks
         check(UserFolders.Downloads(home,null,true)==Path.Combine(home,"İndirilenler"),"The localized XDG download folder was not used");
         check(UserFolders.Downloads(home,null,false)==Path.Combine(home,"Downloads"),"Windows must keep its Downloads folder");
         var custom=Path.Combine(root,"Custom config");Directory.CreateDirectory(custom);File.WriteAllText(Path.Combine(custom,"user-dirs.dirs"),"XDG_DOWNLOAD_DIR=\"/media/arşiv/İndir\"\n");
-        check(UserFolders.Downloads(home,custom,true)=="/media/arşiv/İndir","XDG_CONFIG_HOME and absolute download folders must be honoured");
+        // A Unix absolute path is only fully qualified on a Unix host.
+        if(!OperatingSystem.IsWindows())check(UserFolders.Downloads(home,custom,true)=="/media/arşiv/İndir","XDG_CONFIG_HOME and absolute download folders must be honoured");
         File.WriteAllText(Path.Combine(custom,"user-dirs.dirs"),"XDG_DOWNLOAD_DIR=\"relative/place\"\n");
         check(UserFolders.Downloads(home,custom,true)==Path.Combine(home,"Downloads"),"A relative XDG folder must fall back to ~/Downloads");
         File.WriteAllText(Path.Combine(custom,"user-dirs.dirs"),"XDG_DOWNLOAD_DIR=\"$HOME\"\n");
