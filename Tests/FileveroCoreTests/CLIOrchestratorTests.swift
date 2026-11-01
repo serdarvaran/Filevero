@@ -12,7 +12,7 @@ final class CommandLineTests: XCTestCase {
         ] {
             XCTAssertNotNil(catalog[key], key)
         }
-        XCTAssertEqual((catalog["toolNames"] as? [String: String])?.count, 28)
+        XCTAssertEqual((catalog["toolNames"] as? [String: String])?.count, 29)
         XCTAssertEqual((catalog["categoryExtensions"] as? [String: [String]])?["image"]?.contains("png"), true)
         XCTAssertEqual((catalog["extensionAliases"] as? [String: String])?["jpeg"], "jpg")
         XCTAssertEqual((catalog["editorHints"] as? [String: String])?["cropVideo"], "Select the area you want to keep.")

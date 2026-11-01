@@ -104,7 +104,7 @@ def main():
 
     invoke(["--ui-audit", output / "gallery"])
     gallery = json.loads((output / "gallery/manifest.json").read_text())
-    assert gallery["passed"] and len(gallery["captures"]) == 108
+    assert gallery["passed"] and len(gallery["captures"]) == 124
     assert len(gallery["validatorChecks"]) >= 18
     expected = {
         (s, a, l)
@@ -136,6 +136,10 @@ def main():
             "home.actions",
             "organize.rename",
             "editor.watermark",
+            "tools.setup",
+            "tools.licenses",
+            "clipboard.picker",
+            "settings.clipboard",
         ]
         for a in ["light", "dark"]
         for l in ["en", "tr"]
@@ -198,7 +202,7 @@ def main():
     artwork = json.loads((output / "artwork/file-artwork.json").read_text())
     assert artwork["passed"] >= 11 and artwork["asyncProviderCalls"] == 1
     print(
-        f"PASS: 108 native UI captures; {len(themes['captures'])} theme captures; {len(opaque['captures'])} opaque captures; {len(gallery['validatorChecks'])} audit guardrails; "
+        f"PASS: 124 native UI captures; {len(themes['captures'])} theme captures; {len(opaque['captures'])} opaque captures; {len(gallery['validatorChecks'])} audit guardrails; "
         f"{len(ranges['checks'])} range checks; {artwork['passed']} artwork checks; parser/output safety"
     )
 

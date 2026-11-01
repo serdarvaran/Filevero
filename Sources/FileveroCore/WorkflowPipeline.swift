@@ -88,6 +88,7 @@ public enum WorkflowPipelineEngine {
         workflow: Workflow,
         options: OperationOptions,
         token: CancellationToken,
+        nameSuffix: String = "",
         progress: @escaping ProgressHandler = { _, _ in }
     ) throws -> [URL] {
         guard !workflow.steps.isEmpty else {
@@ -135,6 +136,7 @@ public enum WorkflowPipelineEngine {
             shouldPreserveOriginalName: inputs.count == 1,
             options: options,
             template: templateFormatter,
+            nameSuffix: nameSuffix,
             token: token
         )
     }
@@ -146,6 +148,7 @@ public enum WorkflowPipelineEngine {
         shouldPreserveOriginalName: Bool,
         options: OperationOptions,
         template: OutputNameFormatter?,
+        nameSuffix: String,
         token: CancellationToken
     ) throws -> [URL] {
         let fileManager = FileManager.default
@@ -170,7 +173,8 @@ public enum WorkflowPipelineEngine {
             if movedMapping[rootName] == nil {
                 var candidateName = rootName
                 if shouldPreserveOriginalName, outputs.count == 1, relativeParts.count == 1 {
-                    candidateName = sourceURL.deletingPathExtension().lastPathComponent + "." + output.pathExtension
+                    candidateName =
+                        sourceURL.deletingPathExtension().lastPathComponent + nameSuffix + "." + output.pathExtension
                 }
                 let targetURL = stagingArea.directory.appendingPathComponent(candidateName)
                 try fileManager.moveItem(at: directory.appendingPathComponent(rootName), to: targetURL)

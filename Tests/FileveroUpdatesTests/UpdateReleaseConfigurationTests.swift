@@ -16,30 +16,11 @@ final class UpdateConfigurationTests: XCTestCase {
             XCTAssertEqual($0 as? UpdateConfiguration.ConfigurationError, .notConfigured)
         }
     }
-    func testBundledKeyCanEnableAUserSelectedGitHubRepoWithoutAnotherBootstrap() throws {
+    func testSigningKeyWithoutAFeedDoesNotStartUpdates() {
         var candidate = info
         candidate.removeValue(forKey: "SUFeedURL")
         XCTAssertThrowsError(try UpdateConfiguration(info: candidate)) {
             XCTAssertEqual($0 as? UpdateConfiguration.ConfigurationError, .missingFeed)
-        }
-        let configuration = try UpdateConfiguration(info: candidate, repository: GitHubRepository("example/private"))
-        XCTAssertEqual(
-            configuration.feedURL.absoluteString,
-            "https://github.com/example/private/releases/latest/download/appcast.xml")
-        XCTAssertEqual(configuration.publicKey, info["SUPublicEDKey"] as? String)
-    }
-    func testRepositoryCannotSupplyOrReplaceTheBundledTrustKey() throws {
-        var candidate = info
-        candidate.removeValue(forKey: "SUFeedURL")
-        candidate.removeValue(forKey: "SUPublicEDKey")
-        XCTAssertThrowsError(try UpdateConfiguration(info: candidate, repository: GitHubRepository("example/private")))
-        {
-            XCTAssertEqual($0 as? UpdateConfiguration.ConfigurationError, .notConfigured)
-        }
-        candidate["SUPublicEDKey"] = "invalid"
-        XCTAssertThrowsError(try UpdateConfiguration(info: candidate, repository: GitHubRepository("example/private")))
-        {
-            XCTAssertEqual($0 as? UpdateConfiguration.ConfigurationError, .invalidPublicKey)
         }
     }
     func testHTTPSAndPinnedEd25519Key() throws {
@@ -94,5 +75,13 @@ final class UpdateConfigurationTests: XCTestCase {
                 XCTAssertEqual($0 as? UpdateConfiguration.ConfigurationError, .missingVerification)
             }
         }
+    }
+
+    func testShippedAppChecksForUpdatesAutomaticallyByDefault() throws {
+        let plist = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("Resources/Info.plist")
+        let info = try XCTUnwrap(NSDictionary(contentsOf: plist) as? [String: Any])
+        XCTAssertEqual(info["SUEnableAutomaticChecks"] as? Bool, true)
     }
 }

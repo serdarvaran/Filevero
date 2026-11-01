@@ -3,9 +3,11 @@ internal static class ToolSetupChecks
 {
     internal static void Run(Action<bool,string> check,string root)
     {
-        check(!new ToolSetupStatus(false,false).Ready&&new ToolSetupStatus(false,false).Missing.SequenceEqual(new[]{ToolGroup.Media,ToolGroup.Office}),"Clean profile must offer both tool groups");
-        check(new ToolSetupStatus(true,false).Missing.SequenceEqual(new[]{ToolGroup.Office}),"Installed media must survive retrying Office setup");
-        check(new ToolSetupStatus(true,true).Ready&&new ToolSetupStatus(true,true).Missing.Length==0,"Existing tools must not be downloaded again");
+        check(!new ToolSetupStatus(false,false,false,false).Ready&&new ToolSetupStatus(false,false,false,false).Missing.SequenceEqual(new[]{ToolGroup.Media,ToolGroup.Office,ToolGroup.Metadata}),"Clean profile must offer every required tool group");
+        check(new ToolSetupStatus(true,false,true,false).Missing.SequenceEqual(new[]{ToolGroup.Office}),"Installed media must survive retrying Office setup");
+        check(new ToolSetupStatus(true,true,false,true).Missing.SequenceEqual(new[]{ToolGroup.Metadata})&&!new ToolSetupStatus(true,true,false,true).Ready,"Setup must offer missing metadata tools");
+        check(new ToolSetupStatus(true,true,true,false).Ready&&!new ToolSetupStatus(true,true,true,false).IsReady(ToolGroup.Background),"The optional background model must not hold up setup");
+        check(new ToolSetupStatus(true,true,true,true).Ready&&new ToolSetupStatus(true,true,true,true).Missing.Length==0,"Existing tools must not be downloaded again");
         var directory=Path.Combine(root,"Setup checks");Directory.CreateDirectory(directory);
         try
         {

@@ -1,10 +1,13 @@
 namespace Filevero.Core;
 
-public enum ToolGroup { Media, Office }
-public sealed record ToolSetupStatus(bool MediaReady, bool OfficeReady)
+public enum ToolGroup { Media, Office, Metadata, Background }
+public sealed record ToolSetupStatus(bool MediaReady, bool OfficeReady, bool MetadataReady, bool BackgroundReady)
 {
-    public bool Ready => MediaReady && OfficeReady;
-    public ToolGroup[] Missing => Enum.GetValues<ToolGroup>().Where(g => g == ToolGroup.Media ? !MediaReady : !OfficeReady).ToArray();
+    // Background removal is offered in setup but optional: its ~179 MB model is also downloaded on first use.
+    private static readonly ToolGroup[] Required = [ToolGroup.Media, ToolGroup.Office, ToolGroup.Metadata];
+    public bool IsReady(ToolGroup group) => group switch { ToolGroup.Media => MediaReady, ToolGroup.Office => OfficeReady, ToolGroup.Metadata => MetadataReady, _ => BackgroundReady };
+    public bool Ready => Required.All(IsReady);
+    public ToolGroup[] Missing => Required.Where(g => !IsReady(g)).ToArray();
 }
 
 public static class ToolInstallation

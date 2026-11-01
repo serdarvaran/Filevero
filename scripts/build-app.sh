@@ -10,7 +10,6 @@ if [[ -f "$filevero_selected_update_config" ]] && plutil -type PublicRepository 
 # Builds without an update channel can still leave large runtimes to first-use setup.
 filevero_external_tools=$filevero_public_build
 if [[ "${FILEVERO_EXTERNAL_TOOLS:-}" == 1 ]]; then filevero_external_tools=true; fi
-if [[ "$filevero_signing_mode" != ad-hoc && "$filevero_public_build" == false ]]; then python3 scripts/build-credential-broker.py; fi
 # Release binaries do not embed the builder's home-directory/source paths.
 swift build -c "$configuration" --product Filevero -Xswiftc -file-prefix-map -Xswiftc "$PWD=/filevero" -Xswiftc -file-compilation-dir -Xswiftc /filevero
 binary_dir=$(swift build -c "$configuration" --show-bin-path)
@@ -31,12 +30,6 @@ python3 scripts/generate-localizations.py
 ditto Resources/Localizations "$application/Contents/Resources"
 if [[ -d "$binary_dir/Filevero_FileveroCore.bundle" ]]; then ditto "$binary_dir/Filevero_FileveroCore.bundle" "$application/Contents/Resources/Filevero_FileveroCore.bundle"; fi
 python3 scripts/configure-updates.py "$application/Contents/Info.plist" "${FILEVERO_UPDATE_CONFIG:-Configuration/Updates.plist}"
-if [[ "$filevero_signing_mode" != ad-hoc && "$filevero_public_build" == false ]]; then
-  python3 scripts/build-credential-broker.py --app "$application"
-elif [[ -e "$application/Contents/XPCServices/app.filevero.mac.credentials.v1.xpc" ]]; then
-  print -u2 "Use a separate output directory for an ad-hoc build; this output contains a frozen signed credential broker."
-  exit 1
-fi
 mkdir -p "$application/Contents/Frameworks"
 if [[ -d "$application/Contents/Frameworks/Sparkle.framework" ]]; then rm -rf "$application/Contents/Frameworks/Sparkle.framework"; fi
 ditto "$sparkle_framework" "$application/Contents/Frameworks/Sparkle.framework"
@@ -88,5 +81,4 @@ fi
 codesign "${filevero_signing_flags[@]}" "$application"
 codesign --verify --deep --strict "$application"
 filevero_verify_signing_identity "$application"
-if [[ "$filevero_signing_mode" != ad-hoc && "$filevero_public_build" == false ]]; then python3 scripts/build-credential-broker.py --verify-app "$application"; fi
 print "$application"

@@ -62,4 +62,53 @@ final class PDFPageEditorStateTests: XCTestCase {
         XCTAssertTrue(editor.sourceIndexes.isEmpty)
         XCTAssertFalse(editor.hasSelection)
     }
+    func testMultipleSelectionRotatesDuplicatesAndDeletesTogether() {
+        var editor = PDFPageEditorState()
+        editor.reset(document: document(pages: 4))
+        editor.select(1)
+        editor.toggle(3)
+        XCTAssertEqual(editor.selection, [1, 3])
+        editor.rotateSelected()
+        XCTAssertEqual(editor.pages.map(\.rotation), [0, 90, 0, 90])
+        editor.duplicateSelected()
+        XCTAssertEqual(editor.sourceIndexes, [0, 1, 1, 2, 3, 3])
+        XCTAssertEqual(editor.selection, [1, 4])
+        editor.extend(to: 5)
+        XCTAssertEqual(editor.selection, [1, 2, 3, 4, 5])
+        XCTAssertTrue(editor.canDelete)
+        editor.deleteSelected()
+        XCTAssertEqual(editor.sourceIndexes, [0])
+        editor.selectAll()
+        XCTAssertFalse(editor.canDelete, "the last page cannot be deleted")
+    }
+
+    func testDraggingAndArrowMovesCarryTheWholeSelection() {
+        var editor = PDFPageEditorState()
+        editor.reset(document: document(pages: 5))
+        editor.select(0)
+        editor.toggle(2)
+        editor.moveSelected(by: 1)
+        XCTAssertEqual(editor.sourceIndexes, [1, 0, 3, 2, 4])
+        XCTAssertEqual(editor.selection, [1, 3])
+        editor.move([1, 3], to: 5)
+        XCTAssertEqual(editor.sourceIndexes, [1, 3, 4, 0, 2])
+        XCTAssertEqual(editor.selection, [3, 4])
+        XCTAssertFalse(editor.canMoveRight)
+        editor.move([4], to: 0)
+        XCTAssertEqual(editor.sourceIndexes, [2, 1, 3, 4, 0])
+        XCTAssertEqual(editor.selection, [0])
+    }
+
+    func testAddedDocumentPagesFollowTheSelectionAndRememberTheirDocument() {
+        var editor = PDFPageEditorState()
+        editor.reset(document: document(pages: 3))
+        editor.select(0)
+        editor.insert(document(pages: 2), as: 1)
+        XCTAssertEqual(editor.sourceIndexes, [0, 0, 1, 1, 2])
+        XCTAssertEqual(editor.documentIndexes, [0, 1, 1, 0, 0])
+        XCTAssertEqual(editor.selection, [1, 2])
+        editor.reset()
+        editor.insert(document(pages: 1), as: 1)
+        XCTAssertTrue(editor.pages.isEmpty, "pages are only added to an open document")
+    }
 }

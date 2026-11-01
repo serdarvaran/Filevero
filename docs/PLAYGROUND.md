@@ -9,7 +9,7 @@ The English and Turkish landing pages use an independent implementation of Filev
 - Shift-click selects multiple files. Batch wheels use the intersection of the app catalog's formats and tools.
 - Touch users tap a file, then a mode and a wheel option.
 - All 60 input extensions and 393 conversion routes can be explored using the sample-input selector.
-- All 28 tools have an interactive window. The feature filters show tools by file family.
+- All 29 tools have an interactive window. The feature filters show tools by file family.
 - The wheel follows the native 320-point panel: 22-point rounded corners, the wheel name in the header and a two-column (up to four items) or three-column grid of 12-point rounded tiles, with each label fitted inside its tile. Conversion tiles omit icons. Tool names, Turkish translations, editor headings/hints/actions and the light/dark palette are generated from the desktop sources.
 - Appearance switches only the interactive demo; the landing page keeps its own theme.
 - Library stores the current visit's exports and explicitly labeled app previews. Float is a temporary shelf within the sample desktop: a thumbnail stack and paperclip expand into the narrow icon/list shelf, with multi-selection, Space preview, reference removal and drop-to-add. It does not expose local filesystem dragging from the browser.

@@ -18,7 +18,7 @@ for name in filter(None, files):
         issues.append((name, 'environment file'))
     if p.suffix.lower() in {'.p12', '.pfx', '.key', '.mobileprovision'}:
         issues.append((name, 'signing/credential material'))
-    if name in {'Configuration/Signing.plist', 'Configuration/CredentialBroker.json'} or name.startswith(
+    if name == 'Configuration/Signing.plist' or name.startswith(
         ('local/', 'build/', 'Downloads/', '.build/', 'Reference/native/', 'Reference/tool-windows/')
     ):
         issues.append((name, 'private/build artifact'))

@@ -93,6 +93,7 @@ public struct ToolWorkbench: View {
     @State public var equalClips = 2
     @State public var qrResults: [String] = []
     @State public var pdfEditor = PDFPageEditorState()
+    @State public var pdfAddedDocuments: [URL] = []
     @State public var passwordConfirmation = ""
     @Environment(\.dismiss) public var dismiss
     @Environment(\.fileveroTheme) public var theme
@@ -492,6 +493,7 @@ public struct ToolWorkbench: View {
         inputs = originalInputs
         options = OperationOptions()
         pdfEditor.reset()
+        pdfAddedDocuments = []
         passwordConfirmation = ""
         selectedSplitClip = nil
         aspect = "Free"
@@ -625,10 +627,64 @@ public struct ToolWorkbench: View {
 
     public func saveOrganizedPDF() {
         guard canApply, !pdfEditor.pages.isEmpty else { return }
+        savePDFPages(Array(pdfEditor.pages.indices), selectionOnly: false)
+    }
+
+    public func saveSelectedPDFPages() {
+        guard canApply, pdfEditor.hasSelection else { return }
+        savePDFPages(Array(pdfEditor.selection), selectionOnly: true)
+    }
+
+    private func savePDFPages(_ positions: [Int], selectionOnly: Bool) {
         var settings = options
-        settings.pdfPageOrder = pdfEditor.sourceIndexes
-        settings.pdfPageRotations = pdfEditor.rotations
+        settings.pdfPageOrder = positions.map { pdfEditor.sourceIndexes[$0] }
+        settings.pdfPageDocuments = positions.map { pdfEditor.documentIndexes[$0] }
+        settings.pdfAdditionalDocuments = pdfAddedDocuments
+        settings.pdfPageRotations = Dictionary(
+            uniqueKeysWithValues: positions.enumerated().map { ($0.offset, pdfEditor.pages[$0.element].rotation) })
+        settings.pdfSavesSelection = selectionOnly
         state.execute(.tool(.organizePDF), options: settings, inputs: inputs)
+    }
+
+    /// Image pages are written as PDFs the queued save still needs after the editor closes, so they are kept for a
+    /// day and removed the next time pages are added.
+    private static func addedPageFolder() throws -> URL {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("Filevero Added Pages", isDirectory: true)
+        let stale = Date().addingTimeInterval(-86_400)
+        for folder in (try? FileManager.default.contentsOfDirectory(
+            at: root, includingPropertiesForKeys: [.contentModificationDateKey])) ?? []
+        where ((try? folder.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? .distantPast) < stale {
+            try? FileManager.default.removeItem(at: folder)
+        }
+        let folder = root.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        return folder
+    }
+
+    /// Adds the pages of chosen PDFs and images after the selection; images become one page each.
+    public func addPDFPages() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.pdf, .image]
+        panel.allowsMultipleSelection = true
+        guard panel.runModal() == .OK else { return }
+        do {
+            for url in panel.urls {
+                var source = url
+                switch FileCategory.detect(url) {
+                case .pdf: break
+                case .image:
+                    var conversion = OperationOptions()
+                    conversion.outputDirectory = try Self.addedPageFolder()
+                    source = try PDFEngine.create(inputs: [url], options: conversion, token: .init())[0]
+                default:
+                    throw FileveroError.unsupported("Choose PDFs or still images to add as pages.")
+                }
+                pdfEditor.insert(try PDFEngine.open(source), as: pdfAddedDocuments.count + 1)
+                pdfAddedDocuments.append(source)
+            }
+        } catch {
+            previewError = error.localizedDescription
+        }
     }
 
     public func detectRedactions(faces: Bool) {

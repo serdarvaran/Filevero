@@ -48,22 +48,13 @@ filevero_require_release_signing() {
   # The release integration fixture uses an isolated, validated loopback feed.
   # Publishing never accepts this exception, even when its flag is inherited.
   if [[ "$scope" == local-test && "${FILEVERO_ALLOW_AD_HOC_TEST_RELEASE:-}" == 1 ]]; then return 0; fi
-  if [[ "$filevero_signing_mode" == local ]]; then
-    python3 scripts/build-credential-broker.py || {
-      print -u2 "Local update releases require the verified frozen credential broker matching the main app certificate. Restore it or complete the explicit reviewed initialization."
-      return 1
-    }
-    return 0
-  fi
+  if [[ "$filevero_signing_mode" == local ]]; then return 0; fi
   print -u2 "Release signing is not configured. Pin an Apple Development or Developer ID certificate in Configuration/Signing.plist; ad-hoc releases are refused."
   return 1
 }
 
 filevero_verify_release_app() {
   filevero_verify_signing_identity "$1" || return 1
-  if [[ "$filevero_signing_mode" == local ]]; then
-    python3 scripts/build-credential-broker.py --verify-app "$1" || return 1
-  fi
 }
 
 filevero_verify_signing_identity() {

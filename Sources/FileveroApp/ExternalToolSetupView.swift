@@ -7,6 +7,7 @@ import SwiftUI
 @MainActor public struct ExternalToolSetupView: View {
     @StateObject private var model: ExternalToolSetupCoordinator
     @Environment(\.fileveroTheme) private var theme
+    @State private var showingLicenses = false
     public let onDone: () -> Void
 
     public init(model: ExternalToolSetupCoordinator, onDone: @escaping () -> Void = {}) {
@@ -44,9 +45,8 @@ import SwiftUI
                         button: "Download office tools",
                         id: "SetupOffice",
                         action: { model.install(.office) })
-                    if let notices = Bundle.main.url(forResource: "THIRD-PARTY-NOTICES", withExtension: "txt") {
-                        Link("Upstream versions, licenses and source links", destination: notices).font(.callout)
-                    }
+                    Button("Upstream versions, licenses and source links") { showingLicenses = true }
+                        .accessibilityIdentifier("SetupLicenses")
                 }
                 .padding(28)
             }
@@ -89,6 +89,7 @@ import SwiftUI
         .tint(FileveroPalette.accent)
         .buttonStyle(FileveroButtonStyle())
         .onAppear { model.refresh() }
+        .sheet(isPresented: $showingLicenses) { ToolLicensesView() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             model.refresh()
         }

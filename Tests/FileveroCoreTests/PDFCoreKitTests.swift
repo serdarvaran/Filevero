@@ -47,6 +47,52 @@ final class PDFEngineTests: XCTestCase {
         XCTAssertTrue(pdf.page(at: 0)!.string!.contains("Page Two"))
         XCTAssertEqual(try Data(contentsOf: source), before)
     }
+    func testOrganizeInterleavesPagesAddedFromAnotherPDFAndCanSaveOnlyASelection() throws {
+        let source = try fixture()
+        let blank = PDFDocument()
+        blank.insert(PDFPage(), at: 0)
+        let extra = root.appendingPathComponent("Ek.pdf")
+        XCTAssertTrue(blank.write(to: extra))
+        var options = OperationOptions()
+        options.pdfPageOrder = [0, 0, 1]
+        options.pdfPageDocuments = [0, 1, 0]
+        options.pdfAdditionalDocuments = [extra]
+        options.pdfPageRotations = [0: 0, 1: 90, 2: 0]
+        let output = try PDFEngine.tool(.organizePDF, inputs: [source], options: options, token: .init())[0]
+        XCTAssertTrue(output.lastPathComponent.hasSuffix(" - Organized.pdf"))
+        let pdf = try PDFEngine.open(output)
+        XCTAssertEqual(pdf.pageCount, 3)
+        XCTAssertTrue(pdf.page(at: 0)!.string!.contains("Page One"))
+        XCTAssertEqual(pdf.page(at: 1)?.bounds(for: .mediaBox).width ?? 0, 612, accuracy: 0.1)
+        XCTAssertEqual(pdf.page(at: 1)?.rotation, 90)
+        XCTAssertTrue(pdf.page(at: 2)!.string!.contains("Page Two"))
+
+        options.pdfPageOrder = [1]
+        options.pdfPageDocuments = [0]
+        options.pdfPageRotations = [:]
+        options.pdfSavesSelection = true
+        let selected = try PDFEngine.tool(.organizePDF, inputs: [source], options: options, token: .init())[0]
+        XCTAssertTrue(selected.lastPathComponent.hasSuffix(" - Selected Pages.pdf"))
+        XCTAssertEqual(try PDFEngine.open(selected).pageCount, 1)
+
+        options.pdfPageDocuments = [2]
+        XCTAssertThrowsError(try PDFEngine.tool(.organizePDF, inputs: [source], options: options, token: .init()))
+
+        let linked = PDFDocument()
+        let page = PDFPage()
+        page.addAnnotation(PDFAnnotation(bounds: CGRect(x: 10, y: 10, width: 40, height: 20), forType: .link, withProperties: nil))
+        linked.insert(page, at: 0)
+        let withLink = root.appendingPathComponent("Bağlantılı.pdf")
+        XCTAssertTrue(linked.write(to: withLink))
+        options.pdfSavesSelection = false
+        options.pdfAdditionalDocuments = [withLink]
+        options.pdfPageOrder = [0, 0]
+        options.pdfPageDocuments = [0, 1]
+        options.pdfUniformWidth = true
+        XCTAssertThrowsError(
+            try PDFEngine.tool(.organizePDF, inputs: [source], options: options, token: .init()),
+            "uniform width must not silently drop an added PDF's links")
+    }
     func testUniformWidthScalesPagesProportionallyWithoutRasterizingText() throws {
         let input = try fixture()
         var options = OperationOptions()

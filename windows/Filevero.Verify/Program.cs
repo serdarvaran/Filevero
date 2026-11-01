@@ -17,6 +17,9 @@ try
     try{LocalizationChecks.Run(Check,languageRoot);}finally{Directory.Delete(languageRoot,true);}
     await DownloadChecks.Run(Check,root);
     ToolSetupChecks.Run(Check,root);
+    ClipboardHistoryChecks.Run(Check,root);
+    ClipboardActionChecks.Run(Check);
+    var workflowRoot=Path.Combine(root,"Workflows");Directory.CreateDirectory(workflowRoot);try{WorkflowChecks.Run(Check,workflowRoot);}finally{Directory.Delete(workflowRoot,true);}
     BackgroundChecks.Run(Check,root);
     var parityRoot=Path.Combine(root,"Parity");Directory.CreateDirectory(parityRoot);try{ParityChecks.Run(Check,parityRoot);}finally{Directory.Delete(parityRoot,true);}
     Check(FeatureCatalog.IsVideo("Clip.m4v")&&FeatureCatalog.IsAudio("Clip.aac"),"Media preview classification differs from Mac aliases");

@@ -112,12 +112,6 @@ public struct PrimaryWorkspaceView: View {
                             if let version = updater.availableVersion {
                                 AppUpdateBanner(updater: updater, version: version)
                             }
-                            if let error = updater.lastError, updater.repository != nil {
-                                LText(error).font(.caption).foregroundStyle(.orange)
-                                Button("Update Connection…") {
-                                    NotificationCenter.default.post(name: .showUpdateConnection, object: nil)
-                                }
-                            }
                             if let moves = state.lastMoves {
                                 CategoryUndoMovesBanner(state: state, applied: moves)
                             }
@@ -265,14 +259,7 @@ public struct PrimaryWorkspaceView: View {
     private var operationPanel: some View {
         VStack(alignment: .leading, spacing: 18) {
             Text("Operation desk").font(.system(size: 17, weight: .semibold))
-            Picker("Operation", selection: $actionSection) {
-                Text("Convert").tag(0)
-                Text("Edit").tag(1)
-                Text("Actions").tag(2)
-                Text("Workflows").tag(3)
-            }
-            .pickerStyle(.segmented)
-            .labelsHidden()
+            operationSections
 
             Divider()
 
@@ -381,6 +368,35 @@ public struct PrimaryWorkspaceView: View {
         .frame(width: 284)
         .frame(maxHeight: .infinity)
         .fileveroGlass(radius: 22)
+    }
+
+    // A native segmented picker keeps its intrinsic width, which on some SDKs is wider than this fixed panel.
+    private var operationSections: some View {
+        HStack(spacing: 2) {
+            ForEach(Array(["Convert", "Edit", "Actions", "Workflows"].enumerated()), id: \.offset) { index, title in
+                Button {
+                    actionSection = index
+                } label: {
+                    LText(title)
+                        .font(.system(size: 12, weight: actionSection == index ? .semibold : .regular))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .foregroundStyle(actionSection == index ? FileveroPalette.onAccent : Color.primary)
+                        .background {
+                            if actionSection == index { Capsule().fill(FileveroPalette.accentGradient) }
+                        }
+                        .contentShape(Capsule())
+                }
+                .buttonStyle(.plain)
+                .accessibilityAddTraits(actionSection == index ? .isSelected : [])
+            }
+        }
+        .padding(3)
+        .background(Color.primary.opacity(0.06), in: Capsule())
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Operation"))
     }
 
     private var archiveFormatChoices: some View {

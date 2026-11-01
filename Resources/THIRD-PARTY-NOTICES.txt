@@ -41,11 +41,6 @@ BSD notices. https://sparkle-project.org/ ; https://github.com/sparkle-project/S
 The package is pinned in Package.resolved. The complete license is copied from
 the official package into licenses/Sparkle-LICENSE.txt in the application bundle.
 
-Tendedero personal fork credential broker
-Adapted credential XPC architecture, client and validation fixtures.
-Upstream copyright (c) 2026 Alejandro Buján. MIT License.
-See licenses/Tendedero-MIT.txt. No Tendedero name or icon artwork is included.
-
 Web downloads
 yt-dlp 2026.08.19, contributors: https://github.com/yt-dlp/yt-dlp/tree/2026.08.19
 The separately downloaded official yt-dlp_macos executable includes Python, yt-dlp-ejs and

@@ -8,6 +8,7 @@ public sealed partial class MainWindow
 {
     private readonly OfficeRuntime officeRuntime=new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Filevero","Tools"));
     private readonly MetadataService metadataService=new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Filevero","Tools"));
+    private WorkflowRunner Runner=>new(tools,metadataService,officeRuntime);
     private async Task EditMetadataAsync(string[] selected)
     {
         if(selected.All(p=>FeatureCatalog.IsAudio(p)||FeatureCatalog.IsVideo(p)&&FeatureCatalog.Extension(p)!="gif")){await EditMediaMetadataAsync(selected);return;}
@@ -20,7 +21,7 @@ public sealed partial class MainWindow
         if(selected.Length==1){var values=await metadataService.ReadAsync(selected[0]);var editor=new MetadataEditor(this,values);if(editor.ShowDialog()!=true)return;removeAll=editor.RemoveAll;changes=removeAll?null:editor.Updates;}
         await RunAsync((destination,p,t)=>metadataService.WriteAsync(selected,destination,removeAll,changes,progress:p,token:t),"Metadata");
     }
-    internal static string ToolSymbol(string id)=>id switch{"compress"=>"↘","removeMetadata"=>"◇","editImage"=>"☷","annotateImage"=>"✎","frameImage"=>"▣","cropImage" or "cropVideo"=>"⌗","trimAudio" or "trimVideo"=>"✂","muteVideo"=>"♫","normalizeAudio"=>"≋","audioChannels"=>"⇆","audioToVideo"=>"▷","createCollage"=>"▦","redactImage" or "redactVideo" or "redactAudio"=>"▨","removeBackground"=>"✦","readQRCode"=>"▧","mergePDF"=>"▣","splitPDF" or "splitVideo"=>"◫","organizePDF"=>"▤","extractArchive"=>"↗","createPDF"=>"▱","joinVideos"=>"⇥","videoSnapshots"=>"▣","changeVideoSpeed"=>"◴",_=>"↗"};
+    internal static string ToolSymbol(string id)=>id switch{"compress"=>"↘","removeMetadata"=>"◇","editImage"=>"☷","annotateImage"=>"✎","frameImage"=>"▣","cropImage" or "cropVideo"=>"⌗","trimAudio" or "trimVideo"=>"✂","muteVideo"=>"♫","normalizeAudio"=>"≋","audioChannels"=>"⇆","audioToVideo"=>"▷","createCollage"=>"▦","redactImage" or "redactVideo" or "redactAudio"=>"▨","removeBackground"=>"✦","readQRCode"=>"▧","mergePDF"=>"▣","splitPDF" or "splitVideo"=>"◫","organizePDF"=>"▤","extractArchive"=>"↗","createPDF"=>"▱","joinVideos"=>"⇥","videoSnapshots"=>"▣","changeVideoSpeed"=>"◴","prepareToShare"=>"⇪",_=>"↗"};
     private async Task SetupOfficeAsync()
     {
         if(busy)return;if(officeRuntime.Executable is not null){L10n.SetText(status,"Office tools are ready.");return;}
@@ -36,7 +37,7 @@ public sealed partial class MainWindow
         }
         if(choice.Id=="organizePDF")
         {
-            var organizer=await PdfOrganizer.CreateAsync(this,selected[0]);if(organizer?.ShowDialog()!=true)return;await RunAsync((destination,p,t)=>Task.Run(()=>DocumentEngine.Pdf("organizePDF",selected,destination,organizer.Pages,t,organizer.Rotations,pageRotations:organizer.PageRotations,password:organizer.Password,uniformWidth:organizer.UniformWidth),t),"Organize PDF");return;
+            var organizer=await PdfOrganizer.CreateAsync(this,selected[0]);if(organizer is null)return;try{if(organizer.ShowDialog()!=true)return;var pages=organizer.OrganizedPages;await RunAsync((destination,p,t)=>Task.Run(()=>DocumentEngine.Organize(organizer.Documents,pages,destination,organizer.SelectionOnly,organizer.Password,organizer.UniformWidth,t),t),"Organize PDF");}finally{organizer.DeleteTemporaryFiles();}return;
         }
         var dialog=new ToolEditor(this,choice.Id,choice.Title,selected[0],inputs:selected);if(dialog.ShowDialog()!=true)return;if(choice.Id=="compress"){await RunAsync((destination,p,t)=>Task.Run(()=>PdfCompression.RunAsync(selected,destination,dialog.ImageOptions,dialog.DocumentOptions.Password,p,t),t),"Compress PDF");return;}await RunAsync((destination,p,t)=>Task.Run(()=>DocumentEngine.Pdf(choice.Id,dialog.OrderedInputs,destination,null,t,pagesPerFile:dialog.PagesPerFile,password:dialog.DocumentOptions.Password,pageRanges:dialog.PageRanges),t),choice.Title);
     }

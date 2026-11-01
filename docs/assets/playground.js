@@ -74,6 +74,7 @@
   const tools = {
     compress: ['Compress', 'Sıkıştır', 'compress'],
     removeMetadata: ['Metadata', 'Metadata', 'metadata'],
+    prepareToShare: ['Prepare to share', 'Paylaşıma hazırla', 'metadata'],
     editImage: ['Edit image', 'Görsel düzenle', 'edit'],
     annotateImage: ['Annotate', 'İşaretle', 'annotate'],
     frameImage: ['Frame image', 'Çerçeve ekle', 'frame'],
@@ -2907,6 +2908,7 @@
     image: [
       'compress',
       'removeMetadata',
+      'prepareToShare',
       'editImage',
       'annotateImage',
       'frameImage',
@@ -2920,6 +2922,7 @@
     video: [
       'compress',
       'removeMetadata',
+      'prepareToShare',
       'muteVideo',
       'trimVideo',
       'cropVideo',
@@ -2932,13 +2935,14 @@
     audio: [
       'compress',
       'removeMetadata',
+      'prepareToShare',
       'normalizeAudio',
       'audioToVideo',
       'trimAudio',
       'audioChannels',
       'redactAudio',
     ],
-    pdf: ['compress', 'removeMetadata', 'splitPDF', 'organizePDF', 'mergePDF', 'readQRCode'],
+    pdf: ['compress', 'removeMetadata', 'prepareToShare', 'splitPDF', 'organizePDF', 'mergePDF', 'readQRCode'],
     archive: ['extractArchive'],
   };
   const featureSection = $('#features'),

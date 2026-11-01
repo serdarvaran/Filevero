@@ -14,8 +14,12 @@ Dosyayı bırak, neye dönüşeceğini seç, devam et. Filevero dönüştürmeyi
 - **Düzenle & Geliştir:** Akıştan çıkmadan yapay zeka ile arka planı kaldır (aygıt içi Apple Vision ile nesne ayıklama), sosyal medya ve web şablonlarıyla kırp (Instagram, YouTube, X, LinkedIn, Web), işaretle, sansürle, çerçeve ve filigran ekle, metin tanı, ses ve videoyu kırp, meta verileri düzenle.
 - **Menü çubuğu bırakma alanı ve Kestirmeler:** Dosyaları menü çubuğundaki simgeye sürükleyip bırakarak radyal çarkı aç; Apple Kestirmeler ve Siri (yerel AppIntents) ile dönüştürme ve arka plan kaldırmayı otomatikleştir.
 - **Düzenli tut:** Toplu işler için şablonla yeniden adlandır, kopyaları bul, arşiv oluştur (ZIP, 7Z, TAR, TAR.GZ, TAR.BZ2, TAR.XZ), PDF birleştir veya böl, kayıtlı iş akışlarını çalıştır.
+- **Paylaşıma hazırla:** Göndermesi güvenli ve hafif bir kopya hazırlar: konum ve diğer meta veriler silinir, HEIC ve RAW fotoğraflar JPG olur, büyük görseller 2048 piksele sığdırılır.
+- **PDF sayfalarını düzenle:** Birden çok sayfayı birlikte seç, sürükleyerek yeniden sırala, döndür, çoğalt veya sil; başka PDF'lerden ya da görsellerden sayfa ekle ya da yalnızca seçili sayfaları yeni bir PDF olarak kaydet.
+- **İzlenen klasörler** (Ayarlar → İzlenen Klasörler): Bir klasör ve kayıtlı bir akış seç; oraya düşen her yeni dosya işlenir ve sonuç klasörün Filevero alt klasörüne kaydedilir. Akışlar artık Windows'ta da var.
 - **Sürükle ve seç:** Finder’da sürüklerken **Shift** dönüştürme çarkını, **Command** araçları, **Control** dosya işlemlerini açar.
 - **Pencereleri yerleştir:** Bir pencereyi değiştirici tuşla sürükleyerek sekiz yerleşimden birine oturt.
+- **Pano geçmişi** (Ayarlar → Pano'dan açana kadar kapalı): **Control–Command–V** (Windows: **Ctrl+Shift+Alt+V**) ile kopyaladıklarında ara, sık kullandıklarını sabitle, düz metin olarak yapıştır ya da bir görseli veya dosyayı doğrudan Filevero'ya gönder. **⌘T** (Windows: **Ctrl+T**) seçili öğenin işlemlerini açar: metni BÜYÜK HARF, küçük harf ya da baş harfleri büyük yap, boşlukları düzenle, JSON'u biçimlendir, bir metni veya bağlantıyı QR kodu olarak kopyala ya da kopyalanan görseli PNG veya JPG olarak kaydet. Kısayola yeniden basınca kapanır. Sabitlenen öğeler geçmiş sınırına sayılmaz ve yanlışlıkla silinemez. Geçmiş, oturum kapanınca, bilgisayar kapanınca veya yeniden başlayınca kendini temizleyebilir.
 - **Kendine göre ayarla:** Sekiz renk teması, açık ve koyu görünüm, Türkçe ve İngilizce.
 
 Her şey cihazında çalışır. Orijinallere dokunulmaz; her sonuç yeni bir kopya olarak kaydedilir.
@@ -30,7 +34,7 @@ Her şey cihazında çalışır. Orijinallere dokunulmaz; her sonuç yeni bir ko
 
 Ekran görüntüleri, üretilmiş örnek dosyalarla çalışan uygulamadan alınmıştır. [Görseller hakkında](docs/assets/showcase/README.md).
 
-[Web sitesinde](https://serdarvaran.github.io/Filevero/tr/#playground) tarayıcıda çalışan bir deneme alanı var: örnek dosyaları sürükle, çarkı ve kısayolları dene, 28 aracın tamamını keşfet.
+[Web sitesinde](https://serdarvaran.github.io/Filevero/tr/#playground) tarayıcıda çalışan bir deneme alanı var: örnek dosyaları sürükle, çarkı ve kısayolları dene, 29 aracın tamamını keşfet.
 
 ## Başlarken
 
@@ -58,6 +62,8 @@ Windows sürümü (WPF / .NET 10) aynı kataloğu paylaşır; orada arka plan ka
 | --- | --- |
 | Finder’da sürükleme | **Shift** dönüştürme · **Command** araçlar · **Control** dosya işlemleri (değiştirilebilir) |
 | Her yerde | **Control–Shift–D** kopyalanan herkese açık bağlantıyı indirir |
+| Her yerde | **Control–Command–V** pano geçmişini açar (açıksa) |
+| Pano geçmişi | **Return** yapıştır · **Shift–Return** düz metin · **⌘1–9** satırı yapıştır · **⌘P** sabitle · **⌘T** işlemler · **⌘O** Filevero'da aç · **⌘⌫** sabitlenmemiş öğeyi sil |
 | Çalışma alanı | **⌘1** Çalışma alanı · **⌘2** Kitaplık · **⌘F** Kitaplıkta ara · **⌘O** dosya seç |
 | Medya editörleri | **Boşluk** oynat/duraklat · **←/→** bir saniye ileri/geri · **I/O** aralık işaretle |
 | Kırpma | Sürükleyerek seç · **Shift** oranı kilitler · **Return** kaydeder |
@@ -66,7 +72,7 @@ Windows sürümü (WPF / .NET 10) aynı kataloğu paylaşır; orada arka plan ka
 
 ## Gizlilik
 
-Dönüştürme ve düzenleme Mac’inde çalışır. Web indirmeleri yalnızca seçtiğin siteye bağlanır. Analitik, bulut hesabı veya tarayıcı çerezi aktarımı yoktur. Güncelleme denetimi yalnızca bu deponun GitHub Releases sayfasına bağlanır; bir güncelleme ancak Ed25519 imzası uygulamadaki anahtarla eşleşirse kurulur.
+Dönüştürme ve düzenleme Mac’inde çalışır. Web indirmeleri yalnızca seçtiğin siteye bağlanır. Analitik, bulut hesabı veya tarayıcı çerezi aktarımı yoktur. Pano geçmişi varsayılan olarak kapalıdır; açıldığında bilgisayarındaki özel bir klasörde kalır ve parola yöneticilerinin gizli ya da geçici olarak işaretlediği içerik ve hariç tuttuğun uygulamalardan kopyalananlar hiç okunmaz, kaydedilmez. Dizin dosyası bozulursa geçmiş kaybolmaz, yedekten geri yüklenir. İzlenen klasörler sen bir klasör ekleyene kadar kapalıdır; yalnızca sonradan eklenen dosyalar okunur ve sonuçlar bilgisayarında, dosyaların yanında kalır. Güncelleme denetimi yalnızca bu deponun GitHub Releases sayfasına bağlanır; bir güncelleme ancak Ed25519 imzası uygulamadaki anahtarla eşleşirse kurulur.
 
 ## Geliştirme
 

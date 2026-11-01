@@ -6,10 +6,10 @@ internal static class ParityChecks
 {
     public static void Run(Action<bool,string> check,string root)
     {
-        check(FeatureCatalog.Conversions.Count==50&&FeatureCatalog.ToolNames.Count==28,"Mac/Windows catalog count diverged");
+        check(FeatureCatalog.Conversions.Count==50&&FeatureCatalog.ToolNames.Count==29,"Mac/Windows catalog count diverged");
         check(FeatureCatalog.Formats(["a.jpeg","b.png"]).Contains("webp"),"Mixed image conversion intersection failed");
         check(!FeatureCatalog.Formats(["a.png","b.mp4"]).Any(),"Unrelated inputs offered an invalid format");
-        check(FeatureCatalog.Tools(["a.pdf","b.pdf"]).SequenceEqual(new[]{"compress","removeMetadata","splitPDF","mergePDF","readQRCode"}),"Multiple PDF wheel diverged from Mac");
+        check(FeatureCatalog.Tools(["a.pdf","b.pdf"]).SequenceEqual(new[]{"compress","removeMetadata","prepareToShare","splitPDF","mergePDF","readQRCode"}),"Multiple PDF wheel diverged from Mac");
         check(FeatureCatalog.Tools(["a.jpg","b.png"]).Contains("createCollage"),"Mixed image collage missing");
         check(DocumentEngine.PageRange("3-1, 2",3).SequenceEqual(new[]{3,2,1,2}),"PDF descending page ranges or duplicates changed");
         var preferences=new PreferencesStore(Path.Combine(root,"Preferences"));preferences.Save(preferences.Value with{Feedback=false,WheelScale=1.2,FloatBehavior="addToExisting"});preferences.SetProfile("jpg",new(Quality:.7));var persisted=new PreferencesStore(Path.Combine(root,"Preferences"));check(!persisted.Value.Feedback&&persisted.Value.WheelScale==1.2&&persisted.Profile("jpg").Quality==.7,"Windows settings/export defaults did not persist");try{persisted.Save(persisted.Value with{ToolsModifier="Shift"});throw new Exception("Conflicting drag shortcuts accepted");}catch(ArgumentException){check(true,"Drag shortcut collision validation");}
@@ -60,6 +60,14 @@ internal static class ParityChecks
         foreach(var (ranges,expected) in new[]{("1 - 3",new[]{1,2,3}),("5-",new[]{5,6,7,8}),("-3",new[]{1,2,3}),(" 7 - , 2",new[]{7,8,2})})check(DocumentEngine.PageRange(ranges,8).SequenceEqual(expected),"PDF page range parsed differently from macOS: "+ranges);
         foreach(var ranges in new[]{"-","1-2-3","a-2","1,,2","0","9-"})try{DocumentEngine.PageRange(ranges,8);throw new Exception("Invalid PDF page range accepted: "+ranges);}catch(ArgumentException){check(true,"PDF page range validation");}
         var eight=Path.Combine(root,"Eight.pdf");using(var document=new PdfSharp.Pdf.PdfDocument()){for(var n=0;n<8;n++)document.AddPage();document.Save(eight);}
+        var widePdf=Path.Combine(root,"Wide.pdf");using(var document=new PdfSharp.Pdf.PdfDocument()){var page=document.AddPage();page.Width=PdfSharp.Drawing.XUnit.FromPoint(800);page.Height=PdfSharp.Drawing.XUnit.FromPoint(400);document.Save(widePdf);}
+        var organizeFolder=Path.Combine(root,"Organize");
+        var interleaved=DocumentEngine.Organize([eight,widePdf],[new(0,1,0),new(1,1,90),new(0,8,0)],organizeFolder)[0];
+        using(var organized=PdfSharp.Pdf.IO.PdfReader.Open(interleaved,PdfSharp.Pdf.IO.PdfDocumentOpenMode.Import))check(Path.GetFileName(interleaved)=="Eight - Organized.pdf"&&organized.PageCount==3&&Math.Abs(organized.Pages[1].Width.Point-800)<.1&&organized.Pages[1].Rotate==90&&organized.Pages[2].Rotate==0,"Pages added from another PDF were not interleaved like macOS");
+        var selection=DocumentEngine.Organize([eight],[new(0,3,0)],organizeFolder,selectionOnly:true)[0];
+        using(var selected=PdfSharp.Pdf.IO.PdfReader.Open(selection,PdfSharp.Pdf.IO.PdfDocumentOpenMode.Import))check(Path.GetFileName(selection)=="Eight - Selected Pages.pdf"&&selected.PageCount==1,"Saving selected pages differs from macOS");
+        foreach(var invalid in new DocumentEngine.OrganizedPage[]{new(2,1,0),new(1,2,0),new(0,1,45)})try{DocumentEngine.Organize([eight,widePdf],[invalid],organizeFolder);throw new Exception("Invalid organized page accepted: "+invalid);}catch(ArgumentException){check(true,"Organized page validation");}
+        Directory.Delete(organizeFolder,true);
         // Reading PdfPage.Annotations adds an empty /Annots array; a plain PDF must still allow uniform width and stay free of it.
         var uniformFolder=Path.Combine(root,"Uniform");var uniform=DocumentEngine.Pdf("organizePDF",[eight],uniformFolder,[1,2],uniformWidth:true)[0];
         using(var organized=PdfSharp.Pdf.IO.PdfReader.Open(uniform,PdfSharp.Pdf.IO.PdfDocumentOpenMode.Import))check(organized.PageCount==2&&organized.Pages.Cast<PdfSharp.Pdf.PdfPage>().All(p=>!p.Elements.ContainsKey("/Annots")),"Uniform width refused or changed a plain PDF");

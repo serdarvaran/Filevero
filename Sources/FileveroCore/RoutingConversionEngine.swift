@@ -76,6 +76,9 @@ public enum RoutingConversionEngine {
             case .readQRCode:
                 outputs = try BarcodeScannerEngine.export(
                     request.inputs, options: request.options, token: token, progress: progress)
+            case .prepareToShare:
+                outputs = try ShareCopyPreparer.run(
+                    request.inputs, options: request.options, token: token, progress: progress)
             case .createArchive:
                 outputs = try SelectionArchive.create(request.inputs, options: request.options, token: token)
             case .watermark:

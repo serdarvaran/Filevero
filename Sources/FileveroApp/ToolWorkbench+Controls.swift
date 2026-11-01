@@ -405,11 +405,22 @@ extension ToolWorkbench {
                         PDFPageThumbnail(page: page)
                         Text("\(index+1)").font(.caption)
                     }.padding(8).background(
-                        pdfEditor.selectedPage == index
+                        pdfEditor.selection.contains(index)
                             ? FileveroPalette.accent.opacity(0.2) : Color.primary.opacity(0.03)
-                    ).cornerRadius(8).onTapGesture { pdfEditor.select(index) }
+                    ).cornerRadius(8)
+                    .onTapGesture { selectPDFPage(index) }
+                    .draggable(String(index))
+                    .dropDestination(for: String.self) { items, _ in
+                        guard let dragged = items.first.flatMap(Int.init) else { return false }
+                        let moving = pdfEditor.selection.contains(dragged) ? pdfEditor.selection : [dragged]
+                        pdfEditor.move(moving, to: index > (moving.last ?? index) ? index + 1 : index)
+                        return true
+                    }
                 }
             }
+            .onDeleteCommand { pdfEditor.deleteSelected() }
+            Text("Click to select, ⌘-click or ⇧-click to select several, and drag pages to reorder them.")
+                .font(.caption).foregroundStyle(.secondary)
             HStack {
                 Button("Rotate") { pdfEditor.rotateSelected() }.disabled(!pdfEditor.hasSelection)
                 Button("Duplicate") { pdfEditor.duplicateSelected() }.disabled(!pdfEditor.hasSelection)
@@ -417,7 +428,23 @@ extension ToolWorkbench {
                 Button("Move Left") { pdfEditor.moveSelected(by: -1) }.disabled(!pdfEditor.canMoveLeft)
                 Button("Move Right") { pdfEditor.moveSelected(by: 1) }.disabled(!pdfEditor.canMoveRight)
             }
+            HStack {
+                Button("Add Pages…") { addPDFPages() }.disabled(pdfEditor.pages.isEmpty)
+                Button("Select All") { pdfEditor.selectAll() }.disabled(pdfEditor.pages.isEmpty)
+                Button("Save Selected Pages") { saveSelectedPDFPages() }.disabled(!pdfEditor.hasSelection || !canApply)
+            }
             Toggle("Make all pages the same width", isOn: $options.pdfUniformWidth)
+        }
+    }
+
+    private func selectPDFPage(_ index: Int) {
+        let modifiers = NSEvent.modifierFlags
+        if modifiers.contains(.command) {
+            pdfEditor.toggle(index)
+        } else if modifiers.contains(.shift) {
+            pdfEditor.extend(to: index)
+        } else {
+            pdfEditor.select(index)
         }
     }
 

@@ -542,6 +542,7 @@
     "redactVideo",
     "redactAudio",
     "readQRCode",
-    "removeBackground"
+    "removeBackground",
+    "prepareToShare"
   ]
 }

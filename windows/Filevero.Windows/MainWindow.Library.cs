@@ -16,12 +16,12 @@ public sealed partial class MainWindow
         if(busy)return;
         toolSetupOffered=true;
         if(toolSetupWindow is not null){toolSetupWindow.Activate();return;}
-        toolSetupWindow=new ToolSetupWindow(this,tools,officeRuntime,SetBusy);
+        toolSetupWindow=new ToolSetupWindow(this,tools,officeRuntime,metadataService,backgroundModel,SetBusy);
         try{toolSetupWindow.ShowDialog();}finally{toolSetupWindow=null;}
     }
     private void OfferFirstRunTools()
     {
-        if(toolSetupOffered || busy || tools.Ready && officeRuntime.Executable is not null)return;
+        if(toolSetupOffered || busy || tools.Ready && officeRuntime.Executable is not null && metadataService.Executable is not null)return;
         toolSetupOffered=true;ShowToolSetupMenu();
     }
     private void BuildFileChips()
@@ -67,5 +67,16 @@ public sealed partial class MainWindow
         Tile(1,"Fine-tune","Edit, compress, and more","☷",tools.Select(t=>(t.Title,(Action)(async()=>await EditAsync(t)))));
         Tile(2,"Move & share","Send it on its way","↗",new[]{("Share","share"),("Float","float"),("Copy","copy"),("Move","move"),("Copy Path","copyPath"),("Terminal","terminal"),("Create Archive","createArchive")}.Select(t=>(t.Item1,(Action)(async()=>await PerformFileAction(t.Item2,files.ToArray())))));
         var quick=new WrapPanel{Margin=new(0,8,0,0)};quick.Children.Add(Text("QUICK PICKS",10,"Muted"));foreach(var format in formats.Take(4))quick.Children.Add(Button(ArchiveEngine.Label(format)+" ↗",async()=>await EditAsync(new("convert:"+format,"Convert","↗"))));stack.Children.Add(quick);
+        if(preferences.Value.Workflows.Where(w=>w.Accepts(files)).ToArray() is {Length:>0} workflows)
+        {
+            var row=new WrapPanel{Margin=new(0,8,0,0)};row.Children.Add(Text("WORKFLOWS",10,"Muted"));
+            foreach(var workflow in workflows){var button=new System.Windows.Controls.Button{Content=workflow.Name+" ▸",Margin=new(4,0,4,0),Padding=new(10,6,10,6)};button.Click+=async(_,_)=>await RunWorkflowAsync(workflow);row.Children.Add(button);}
+            stack.Children.Add(row);
+        }
+    }
+    private async Task RunWorkflowAsync(Workflow workflow)
+    {
+        if(busy||files.Count==0)return;var selected=files.ToArray();
+        await RunAsync((destination,p,t)=>Runner.RunEachAsync(workflow,selected,destination,p,t),workflow.Name);
     }
 }

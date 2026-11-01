@@ -14,8 +14,12 @@ Drop a file in, pick what it should become, move on. Filevero brings conversion,
 - **Edit & Enhance** without leaving the flow: AI background removal (on-device Apple Vision subject lifting), social media & web presets (Instagram, YouTube, X, LinkedIn, Web), crop, annotate, redact, add frames and watermarks, recognize text, trim audio and video, edit metadata.
 - **Menu Bar Drop Zone & Shortcuts**: Drag files directly onto the macOS status bar icon to invoke the radial wheel, or automate with Apple Shortcuts and Siri via native AppIntents.
 - **Organize** batches: rename with templates, find duplicates, create archives (ZIP, 7Z, TAR, TAR.GZ, TAR.BZ2, TAR.XZ), merge or split PDFs, run saved workflows.
+- **Prepare to Share** makes a copy that is safe and light to send: location and other metadata removed, HEIC and RAW photos turned into JPG and large images fitted within 2048 px.
+- **Organize PDF pages**: select several pages at once, drag them into a new order, rotate, duplicate or delete them, add pages from other PDFs or images, or save only the selected pages as a new PDF.
+- **Watched folders** (Settings → Watched Folders): pick a folder and a saved workflow, and every new file that lands there is processed into the folder’s Filevero subfolder. Workflows run on Windows too.
 - **Drag and choose.** Hold **Shift** while dragging in Finder for the conversion wheel, **Command** for tools or **Control** for file actions.
 - **Arrange windows.** Drag any window with a modifier to snap it into one of eight layouts.
+- **Clipboard history** (off until you turn it on in Settings → Clipboard): press **Control–Command–V** (Windows: **Ctrl+Shift+Alt+V**) to search what you copied, pin favorites, paste as plain text, or send an image or file straight into Filevero. **⌘T** (Windows: **Ctrl+T**) opens actions for the selected item: change text to UPPERCASE, lowercase or Title Case, tidy whitespace, format JSON, copy a text or link as a QR code, or save a copied image as PNG or JPG. Press the shortcut again to close it. Pinned items never count toward the history limit and can't be deleted by accident. History can clear itself when you sign out, shut down or restart.
 - **Make it yours.** Eight color themes, light and dark appearance, English and Turkish.
 
 Everything runs locally. Originals stay untouched; every result is saved as a fresh copy.
@@ -30,7 +34,7 @@ Everything runs locally. Originals stay untouched; every result is saved as a fr
 
 Screenshots are captures of the running app with generated sample files. [About these images](docs/assets/showcase/README.md).
 
-The [website](https://serdarvaran.github.io/Filevero/#playground) includes a browser playground: drag sample files, try the wheel and shortcuts, and explore all 28 tools.
+The [website](https://serdarvaran.github.io/Filevero/#playground) includes a browser playground: drag sample files, try the wheel and shortcuts, and explore all 29 tools.
 
 ## Get started
 
@@ -58,6 +62,8 @@ A Windows edition (WPF / .NET 10) shares the same catalog; there, background rem
 | --- | --- |
 | Finder drag | **Shift** conversion · **Command** tools · **Control** file actions (customizable) |
 | Anywhere | **Control–Shift–D** downloads a copied public link |
+| Anywhere | **Control–Command–V** opens clipboard history (when it is on) |
+| Clipboard history | **Return** paste · **Shift–Return** plain text · **⌘1–9** paste a row · **⌘P** pin · **⌘T** actions · **⌘O** open in Filevero · **⌘⌫** delete an unpinned item |
 | Workspace | **⌘1** Workspace · **⌘2** Library · **⌘F** find in Library · **⌘O** choose files |
 | Media editors | **Space** play/pause · **←/→** seek one second · **I/O** mark a range |
 | Crop | Drag to select · **Shift** locks the ratio · **Return** saves |
@@ -66,7 +72,7 @@ The [English](https://serdarvaran.github.io/Filevero/#shortcuts) and [Turkish](h
 
 ## Privacy
 
-Conversion and editing run on your Mac. Web downloads contact only the site you choose. There is no analytics, cloud account or browser-cookie import. Update checks contact only GitHub Releases of this repository, and an update is installed only after its Ed25519 signature matches the key built into the app.
+Conversion and editing run on your Mac. Web downloads contact only the site you choose. There is no analytics, cloud account or browser-cookie import. Clipboard history is off by default; when it is on, it stays in a private folder on your computer, and content that password managers mark as concealed or temporary, or that is copied in an app you exclude, is never read or saved. If its index file is damaged, the history is restored from a backup instead of being lost. Watched folders are off until you add one; only files added afterwards are read, and results stay next to them on your computer. Update checks contact only GitHub Releases of this repository, and an update is installed only after its Ed25519 signature matches the key built into the app.
 
 ## Development
 

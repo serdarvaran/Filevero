@@ -66,6 +66,8 @@ internal static class SmokeTests
         var window=new MainWindow([source],library,checkForUpdates:false);window.Show();window.UpdateLayout();DesktopInput.Pump();
         LocalizationChecks.Run(root,window,source,Check);
         ToolSetupChecks.Run(root,window,Check);
+        ClipboardChecks.Run(root,window,Check);
+        WorkflowSmoke.Run(root,Check);
         FileArtworkSmoke.Run(root,Check);
         RangeAccessibilityChecks.Run(root,window,Check);
         Button FindButton(string name)=>Descendants(window).OfType<Button>().First(b=>b.Content as string==name);

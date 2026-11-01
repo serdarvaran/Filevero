@@ -9,10 +9,12 @@ public sealed partial class SettingsWindow:Window
 {
     private readonly LibraryStore? appearanceStore;
     private readonly PreferencesStore store;private readonly Action changed;
-    private readonly StackPanel page=new(){Margin=new(28)};private readonly ListBox sections=new(){Width=175,ItemsSource=new[]{"General","Formats","Compatibility","Folders","Updates","About"},SelectedIndex=0};
-    public SettingsWindow(Window owner,PreferencesStore store,Action changed,Func<Task> update,LibraryStore? appearanceStore=null)
+    private readonly StackPanel page=new(){Margin=new(28)};private readonly ListBox sections=new(){Width=175,ItemsSource=new[]{"General","Formats","Compatibility","Folders","Workflows","Watched folders","Clipboard","Updates","About"},SelectedIndex=0};
+    private readonly string? availableUpdate;
+    internal ClipboardService? Clipboard{get;init;}
+    public SettingsWindow(Window owner,PreferencesStore store,Action changed,Func<Task> update,LibraryStore? appearanceStore=null,string? availableUpdate=null)
     {
-        this.appearanceStore=appearanceStore;L10n.Choices(sections);
+        this.appearanceStore=appearanceStore;this.availableUpdate=availableUpdate;L10n.Choices(sections);
         this.store=store;this.changed=changed;Owner=owner;Theme.Attach(this);Title="Make it yours · Filevero";Width=850;Height=680;MinWidth=740;MinHeight=500;WindowStartupLocation=WindowStartupLocation.CenterOwner;var root=new DockPanel();Content=root;DockPanel.SetDock(sections,Dock.Left);root.Children.Add(sections);root.Children.Add(new ScrollViewer{Content=page,VerticalScrollBarVisibility=ScrollBarVisibility.Auto});sections.SelectionChanged+=(_,_)=>ShowSection(update);ShowSection(update);PreviewKeyDown+=(_,e)=>{if(e.Key==System.Windows.Input.Key.Escape){Close();e.Handled=true;}};
     }
     private void Save(Preferences value){try{store.Save(value);changed();}catch(Exception error)when(error is IOException or ArgumentException or UnauthorizedAccessException){MessageBox.Show(this,L10n.Text(error.Message),L10n.Text("Settings could not be saved"));}}
@@ -52,7 +54,10 @@ public sealed partial class SettingsWindow:Window
                 FormatDefaults();break;
             case "Compatibility":Heading("Everything has a next form.","The same conversion and tool catalog as macOS.");foreach(var pair in FeatureCatalog.Conversions.OrderBy(p=>p.Key))page.Children.Add(new TextBlock{Text=ArchiveEngine.Label(pair.Key)+"  →  "+string.Join(", ",pair.Value.Select(ArchiveEngine.Label)),TextWrapping=TextWrapping.Wrap,Margin=new(4,8,4,8)});break;
             case "Folders":Heading("A place for fresh files.","Originals remain safe. Choose where new copies should land.");Pick("Save new copies",["beside","ask","folder"],store.Value.OutputMode,v=>Save(store.Value with{OutputMode=v}));page.Children.Add(MainWindow.Button("Choose output folder…",()=>{var picker=new OpenFolderDialog{Title="Save new copies here"};if(picker.ShowDialog(this)==true){Save(store.Value with{OutputFolder=picker.FolderName,OutputMode="folder"});ShowSection(update);}}));page.Children.Add(new TextBlock{Text=store.Value.OutputFolder,TextWrapping=TextWrapping.Wrap});page.Children.Add(MainWindow.Button("Choose downloads folder…",()=>{var picker=new OpenFolderDialog{Title="Save downloaded media here"};if(picker.ShowDialog(this)==true){Save(store.Value with{DownloadFolder=picker.FolderName});ShowSection(update);}}));page.Children.Add(new TextBlock{Text=store.Value.DownloadFolder,TextWrapping=TextWrapping.Wrap});break;
-            case "Updates":Heading("Fresh things, on their way.","Updates are downloaded from the public Filevero repository and verified before installation. No GitHub account or token is required.");Toggle("Check for updates automatically",store.Value.AutomaticUpdateChecks,v=>Save(store.Value with{AutomaticUpdateChecks=v}));page.Children.Add(MainWindow.Button("Check for updates",async()=>await update()));break;
+            case "Workflows":WorkflowsPage(update);break;
+            case "Watched folders":WatchedFoldersPage(update);break;
+            case "Clipboard":ClipboardPage(update);break;
+            case "Updates":Heading("Fresh things, on their way.","Updates are downloaded from the public Filevero repository and verified before installation. No GitHub account or token is required.");Toggle("Check for updates automatically",store.Value.AutomaticUpdateChecks,v=>Save(store.Value with{AutomaticUpdateChecks=v}));page.Children.Add(MainWindow.Button(availableUpdate is null?"Check for updates":"Update to "+availableUpdate,async()=>await update()));break;
             default:Heading("Filevero", "Every file, in the shape you need.");page.Children.Add(L10n.Label(new TextBlock{Text="Local by design · MIT source\nVersion "+UpdateInstaller.Current,Margin=new(4,12,4,12)}));page.Children.Add(MainWindow.Button("Third-party notices",()=>MainWindow.OpenUrl(Path.Combine(AppContext.BaseDirectory,"THIRD-PARTY-NOTICES.txt"))));break;
         }
     }

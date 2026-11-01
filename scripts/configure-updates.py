@@ -39,24 +39,9 @@ def apply_configuration(info_path, configuration_path, environ=None):
             raise ValueError("PublicEDKey must be a base64-encoded 32-byte Ed25519 public key")
         info["SUFeedURL"] = feed
         info["SUPublicEDKey"] = key
-        if configuration.get("GitHubOnly", False) is True:
-            match = re.fullmatch(
-                r"/([A-Za-z0-9][A-Za-z0-9-]{0,38})/([A-Za-z0-9_.-]{1,100})/releases/latest/download/appcast\.xml",
-                address.path,
-            )
-            if address.hostname != "github.com" or address.scheme != "https" or address.query or not match:
-                raise ValueError("GitHubOnly requires the repository's HTTPS latest appcast asset URL")
-            # No unauthenticated checks before the user saves a connection.
-            info.pop("SUFeedURL", None)
-            info["FileveroSuggestedGitHubRepository"] = "/".join(match.groups())
-        else:
-            info.pop("FileveroSuggestedGitHubRepository", None)
         public_repository = configuration.get("PublicRepository")
         if public_repository:
-            if (
-                configuration.get("GitHubOnly", False)
-                or feed != "https://github.com/" + public_repository + "/releases/latest/download/appcast.xml"
-            ):
+            if feed != "https://github.com/" + public_repository + "/releases/latest/download/appcast.xml":
                 raise ValueError("PublicRepository must match the anonymous HTTPS feed")
             if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9_.-]{1,100}", public_repository):
                 raise ValueError("Invalid PublicRepository")
@@ -70,20 +55,16 @@ def apply_configuration(info_path, configuration_path, environ=None):
             info["NSAppTransportSecurity"] = {"NSAllowsLocalNetworking": True}
         else:
             info.pop("FileveroLocalUpdateFeed", None)
-            # The private GitHub adapter binds only 127.0.0.1. Remote requests
-            # still require HTTPS; arbitrary insecure loads remain disallowed.
-            info["NSAppTransportSecurity"] = {"NSAllowsLocalNetworking": True}
         print(f"Update feed: {feed}")
     else:
         if environ.get("FILEVERO_UPDATE_CONFIG"):
             raise FileNotFoundError(f"Update configuration does not exist: {path}")
         info.pop("SUFeedURL", None)
-        info.pop("FileveroSuggestedGitHubRepository", None)
         key = info.get("SUPublicEDKey", "")
         if key:
             if len(base64.b64decode(key, validate=True)) != 32:
                 raise ValueError("The bundled update signing key must be a 32-byte Ed25519 public key")
-            print("Update signing key included; connect a GitHub repository in the app.")
+            print("Update signing key included; the release feed is not configured yet.")
         else:
             print("Update controls included; release feed and signing key are not configured yet.")
     with open(info_path, "wb") as stream:

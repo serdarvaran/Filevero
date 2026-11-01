@@ -182,21 +182,36 @@ public enum PDFCoreKit {
                 let order =
                     options.pdfPageOrder.isEmpty
                     ? try pageOrder(options.pageRanges, count: pdf.pageCount) : options.pdfPageOrder
+                let documents = options.pdfPageDocuments.isEmpty ? Array(repeating: 0, count: order.count) : options.pdfPageDocuments
+                let sources = [input] + options.pdfAdditionalDocuments
+                guard documents.count == order.count, documents.allSatisfy(sources.indices.contains) else {
+                    throw FileveroError.invalidInput("A page refers to a PDF that is not part of this edit.")
+                }
+                let opened = try sources.indices.map { $0 == 0 ? pdf : try open(sources[$0]) }
                 var rotations: [Int: Int] = [:]
+                var runs: [(document: URL, pages: [Int])] = []
                 for (index, n) in order.enumerated() {
                     try token.check()
-                    guard n >= 0, n < pdf.pageCount, let page = pdf.page(at: n) else {
+                    let source = opened[documents[index]]
+                    guard n >= 0, n < source.pageCount, let page = source.page(at: n) else {
                         throw FileveroError.invalidInput("A page index is outside the PDF.")
                     }
                     rotations[index] =
                         options.pdfPageRotations[index] ?? ((page.rotation % 360) + (options.rotation % 360)) % 360
+                    // Consecutive pages of one document are written as one source, so a single PDF stays one source.
+                    if index > 0, documents[index - 1] == documents[index] {
+                        runs[runs.count - 1].pages.append(n)
+                    } else {
+                        runs.append((sources[documents[index]], [n]))
+                    }
                 }
                 let bytes = try PDFStructuralPreservationCodec.transform(
-                    [input], selections: [order], rotations: rotations, token: token)
+                    runs.map(\.document), selections: runs.map(\.pages), rotations: rotations, token: token)
                 let output = OutputFiles.unique(
-                    for: input, extension: "pdf", suffix: " - Organized", directory: options.outputDirectory)
+                    for: input, extension: "pdf", suffix: options.pdfSavesSelection ? " - Selected Pages" : " - Organized",
+                    directory: options.outputDirectory)
                 if options.pdfUniformWidth {
-                    guard !requiresPreservingWrite(pdf) else {
+                    guard !opened.contains(where: requiresPreservingWrite) else {
                         throw FileveroError.unsupported(
                             "Uniform page width cannot safely preserve this PDF's form fields, attachments, links or other document features. Turn off Uniform width and try again. No copy was exported."
                         )

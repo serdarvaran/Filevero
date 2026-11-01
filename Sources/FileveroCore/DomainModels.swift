@@ -50,7 +50,7 @@ public enum ToolKind: String, Codable, CaseIterable, Sendable {
     case renameFiles, organizeFiles, findDuplicates, createArchive
     case watermark, uniformSize, createAnimation, removeLocation
     case pageNumbers, protectPDF, unlockPDF, combineToPDF, joinAudio
-    case removeBackground
+    case removeBackground, prepareToShare
 
     /// Explanatory hint displayed beneath the tool title in the editor panel.
     public var editorHint: String? {
@@ -148,6 +148,7 @@ public enum ToolKind: String, Codable, CaseIterable, Sendable {
         case .combineToPDF: return "Combine into PDF"
         case .joinAudio: return "Join Audio"
         case .removeBackground: return "Remove Background"
+        case .prepareToShare: return "Prepare to Share"
         }
     }
 }
@@ -203,6 +204,10 @@ public struct OperationOptions: Codable, Sendable {
     public var pdfPageOrder: [Int] = []
     public var pdfPageRotations: [Int: Int] = [:]
     public var pdfUniformWidth: Bool = false
+    /// Document of each `pdfPageOrder` entry: 0 is the input, n is `pdfAdditionalDocuments[n - 1]`. Empty means all from the input.
+    public var pdfPageDocuments: [Int] = []
+    public var pdfAdditionalDocuments: [URL] = []
+    public var pdfSavesSelection: Bool = false
     public var epubLayout: String = "reflowable"
     public var pdfOfficeLayout: String = "editable"
     public var dpi: Int = 300

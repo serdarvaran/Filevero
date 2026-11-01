@@ -46,14 +46,39 @@ public static partial class DocumentEngine
             else if(tool=="organizePDF")
             {
                 if(pages is null||pages.Length==0||pages.Any(p=>p<1||p>source.PageCount))throw new ArgumentException("Enter page numbers within this PDF, in the desired order.");
-                if(uniformWidth&&(source.Internals.Catalog.Elements.ContainsKey("/Names")||source.Internals.Catalog.Elements.ContainsKey("/Outlines")||source.Pages.Cast<PdfPage>().Any(p=>p.Elements.ContainsKey("/Annots"))))throw new ArgumentException("Turn off uniform width to preserve this PDF’s form fields, attachments, links or navigation.");
-                using var result=new PdfDocument();for(var n=0;n<pages.Length;n++){var page=pages[n];var added=result.AddPage(source.Pages[page-1]);added.Rotate=(added.Rotate+(pageRotations is not null?pageRotations[n]:rotations?.GetValueOrDefault(page)??0))%360;}
-                var output=SafePaths.Unique(tx.StagingDirectory,Path.GetFileNameWithoutExtension(input)+" - Organized.pdf");result.Save(output);if(uniformWidth)UniformWidths(output,token);outputs.Add(output);
+                var organized=pages.Select((page,n)=>new OrganizedPage(0,page,pageRotations is not null?pageRotations[n]:rotations?.GetValueOrDefault(page)??0)).ToArray();
+                outputs.Add(WriteOrganized([source],organized,SafePaths.Unique(tx.StagingDirectory,Path.GetFileNameWithoutExtension(input)+" - Organized.pdf"),uniformWidth,token));
             }
             else throw new ArgumentException("Unknown PDF tool.");
         }
         return tx.Publish(outputs,token);
     }
+    /// A page of an organized PDF: `Document` indexes the organizer's documents (0 is the opened PDF), `Page` is 1-based and `Rotation` is added to the page's own rotation.
+    public sealed record OrganizedPage(int Document,int Page,int Rotation);
+
+    /// Writes pages taken from one or more PDFs in the given order; only the first document can have a password.
+    public static IReadOnlyList<string> Organize(IReadOnlyList<string> documents,IReadOnlyList<OrganizedPage> pages,string destination,bool selectionOnly=false,string password="",bool uniformWidth=false,CancellationToken token=default)
+    {
+        if(documents.Count==0||pages.Count==0)throw new ArgumentException("Keep at least one page.");
+        using var tx=new ExportTransaction(destination);var sources=new List<PdfDocument>();
+        try
+        {
+            for(var i=0;i<documents.Count;i++){token.ThrowIfCancellationRequested();var source=PdfReader.Open(documents[i],i==0?password:"",PdfDocumentOpenMode.Import);sources.Add(source);RequireUnencrypted(source);RequireRebuildable(source);}
+            var name=Path.GetFileNameWithoutExtension(documents[0])+(selectionOnly?" - Selected Pages.pdf":" - Organized.pdf");
+            return tx.Publish([WriteOrganized(sources,pages,SafePaths.Unique(tx.StagingDirectory,name),uniformWidth,token)],token);
+        }
+        finally{foreach(var source in sources)source.Dispose();}
+    }
+
+    private static string WriteOrganized(IReadOnlyList<PdfDocument> sources,IReadOnlyList<OrganizedPage> pages,string output,bool uniformWidth,CancellationToken token)
+    {
+        if(pages.Any(p=>p.Document<0||p.Document>=sources.Count||p.Page<1||p.Page>sources[p.Document].PageCount||p.Rotation%90!=0))throw new ArgumentException("Enter page numbers within this PDF, in the desired order.");
+        if(uniformWidth&&pages.Select(p=>sources[p.Document]).Distinct().Any(source=>source.Internals.Catalog.Elements.ContainsKey("/Names")||source.Internals.Catalog.Elements.ContainsKey("/Outlines")||source.Pages.Cast<PdfPage>().Any(p=>p.Elements.ContainsKey("/Annots"))))throw new ArgumentException("Turn off uniform width to preserve this PDF’s form fields, attachments, links or navigation.");
+        using var result=new PdfDocument();
+        foreach(var page in pages){token.ThrowIfCancellationRequested();var added=result.AddPage(sources[page.Document].Pages[page.Page-1]);added.Rotate=((added.Rotate+page.Rotation)%360+360)%360;}
+        result.Save(output);if(uniformWidth)UniformWidths(output,token);return output;
+    }
+
     public const string EncryptedPdfMessage="This PDF is password-protected. Remove the password first; the new copy would not keep it.";
     /// PDFsharp decrypts on open and saves without the source's encryption, so a rebuilt or rewritten copy would silently drop its password.
     public static void RequireUnencrypted(PdfDocument source){if(source.SecurityHandler.Elements.ContainsKey("/Filter"))throw new NotSupportedException(EncryptedPdfMessage);}

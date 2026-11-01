@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import FileveroCore
 import FileveroUpdates
 import PDFKit
@@ -13,7 +14,8 @@ public struct InterfaceAuditOptions {
         "home.output-names", "library", "settings.general", "settings.formats",
         "settings.video", "settings.folders", "settings.updates", "wheel.pdf-multiple",
         "wheel.window", "editor.crop-image", "editor.annotate-image", "editor.frame-image",
-        "editor.recognize-text", "home.actions", "organize.rename", "editor.watermark"
+        "editor.recognize-text", "home.actions", "organize.rename", "editor.watermark", "tools.setup",
+        "tools.licenses", "clipboard.picker", "settings.clipboard"
     ]
 
     public var output: URL
@@ -411,6 +413,26 @@ public final class InterfaceAuditCoordinator: NSObject, NSApplicationDelegate {
             sceneView = AnyView(PrimaryWorkspaceView(state: state, updater: updater))
             sceneDimensions = NSSize(width: 1000, height: 680)
 
+        case "tools.setup":
+            sceneView = AnyView(ExternalToolSetupView(model: ExternalToolSetupCoordinator()))
+            sceneDimensions = NSSize(width: 646, height: 690)
+
+        case "tools.licenses":
+            sceneView = AnyView(ToolLicensesView())
+            sceneDimensions = NSSize(width: 560, height: 600)
+
+        case "clipboard.picker":
+            sceneView = AnyView(ClipboardPickerView(model: Self.clipboardFixture(image: image, file: pdf)))
+            sceneDimensions = NSSize(width: 420, height: 480)
+
+        case "settings.clipboard":
+            defaults.set(true, forKey: ClipboardController.Key.enabled)
+            let store = ClipboardHistoryStore(
+                directory: FileManager.default.temporaryDirectory.appendingPathComponent("FileveroAuditClipboard-\(UUID())"))
+            let clipboard = ClipboardController(store: store, defaults: defaults)
+            sceneView = AnyView(SettingsWorkspaceViews(updater: updater, clipboard: clipboard, initialSection: .clipboard))
+            sceneDimensions = NSSize(width: 790, height: 590)
+
         case "settings.general", "settings.formats", "settings.video", "settings.folders", "settings.updates":
             let section: SettingsSection =
                 scene == "settings.formats" || scene == "settings.video"
@@ -768,3 +790,28 @@ public final class InterfaceAuditCoordinator: NSObject, NSApplicationDelegate {
 public typealias UIAudit = InterfaceAuditCoordinator
 public typealias UIAuditOptions = InterfaceAuditOptions
 
+// MARK: - Clipboard History Audit Fixture
+
+extension InterfaceAuditCoordinator {
+    static func clipboardFixture(image: URL, file: URL) -> ClipboardPickerModel {
+        let png = NSImage(contentsOf: image)?.tiffRepresentation.flatMap(NSBitmapImageRep.init(data:))?
+            .representation(using: .png, properties: [:]) ?? Data()
+        let samples: [([ClipboardFormat: Data], String, TimeInterval)] = [
+            ([.plainText: Data("https://filevero.app/download".utf8)], "com.apple.Safari", 3_600),
+            ([.plainText: Data("Quarterly totals\t4 210\t3 980".utf8), .html: Data("<table></table>".utf8)], "com.apple.TextEdit", 120),
+            ([.png: png], "com.apple.Preview", 300),
+            ([.fileURLs: Data(file.path.utf8), .plainText: Data(file.lastPathComponent.utf8)], "com.apple.finder", 900),
+        ]
+        var history = ClipboardHistory()
+        var stored: [UUID: [ClipboardFormat: Data]] = [:]
+        for (formats, app, age) in samples.reversed() {
+            let entry = ClipboardEntry(capture: formats, sourceApp: app, at: Date().addingTimeInterval(-age))
+            stored[entry.id] = formats
+            history = history.inserting(entry, limit: 200)
+        }
+        if let link = history.entries.first { history = history.togglingPin(link.id) }
+        return ClipboardPickerModel(
+            history: Just(history).eraseToAnyPublisher(), formats: { stored[$0.id] ?? [:] }, perform: { _, _ in },
+            togglePin: { _ in }, remove: { _ in }, close: {})
+    }
+}

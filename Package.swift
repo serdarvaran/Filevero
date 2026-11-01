@@ -14,12 +14,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "FileveroCore", resources: [.copy("Resources")]),
-        // The broker's XPC protocol keeps its own folder so the broker executable can compile it too.
-        // Its Objective-C name is part of the wire contract and must not change.
-        .target(
-            name: "FileveroUpdates", dependencies: [.product(name: "Sparkle", package: "Sparkle")], path: "Sources",
-            exclude: ["FileveroApp", "FileveroCore", "FileveroCLI", "UpdateCredentialBroker"],
-            sources: ["FileveroUpdates", "FileveroBrokerProtocol/UpdateCredentialBrokerProtocol.swift"]),
+        .target(name: "FileveroUpdates", dependencies: [.product(name: "Sparkle", package: "Sparkle")]),
         .executableTarget(
             name: "FileveroApp", dependencies: ["FileveroCore", "FileveroUpdates"],
             linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/../Frameworks"])]),

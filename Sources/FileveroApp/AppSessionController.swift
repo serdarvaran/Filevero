@@ -162,7 +162,7 @@ public final class AppSessionController: NSObject, ObservableObject {
             return
         }
         if case .tool(let kind) = operation, !immediate,
-           !([.muteVideo, .extractArchive, .createPDF, .splitPDF, .createArchive, .removeLocation].contains(kind)) {
+           !([.muteVideo, .extractArchive, .createPDF, .splitPDF, .createArchive, .removeLocation, .prepareToShare].contains(kind)) {
             onShowTool?(kind)
             return
         }
@@ -184,11 +184,13 @@ public final class AppSessionController: NSObject, ObservableObject {
         runQueue()
     }
 
-    public func run(_ workflow: Workflow, inputs: [URL]? = nil) {
+    /// With an `outputDirectory` (a watched folder's results) the outputs go there and are never revealed.
+    public func run(_ workflow: Workflow, inputs: [URL]? = nil, outputDirectory: URL? = nil) {
         let selected = inputs ?? self.inputs
         guard !selected.isEmpty else { return }
         var options = OperationOptions()
-        options.revealInFinder = UserDefaults.standard.bool(forKey: "reveal")
+        options.outputDirectory = outputDirectory
+        options.revealInFinder = outputDirectory == nil && UserDefaults.standard.bool(forKey: "reveal")
         options.outputNameTemplate = OutputNamePreference.template()
         queue.enqueue(selected, workflow: workflow, options: options)
         saveQueue()

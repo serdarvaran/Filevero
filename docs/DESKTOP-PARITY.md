@@ -1,6 +1,6 @@
 # Mac and Windows desktop parity
 
-Both implementations use the same 50 input-format / 28-tool shared catalog; camera RAW is macOS-only. Background removal uses Apple Vision on macOS and a locally run ISNet model (ONNX Runtime) on Windows. `scripts/check-feature-parity.py` checks conversion destinations, tool names and single/multi-file eligibility against the app's `filevero-cli catalog` export; it is not a substitute for running the tools.
+Both implementations use the same 50 input-format / 29-tool shared catalog; camera RAW is macOS-only. Background removal uses Apple Vision on macOS and a locally run ISNet model (ONNX Runtime) on Windows. `scripts/check-feature-parity.py` checks conversion destinations, tool names and single/multi-file eligibility against the app's `filevero-cli catalog` export; it is not a substitute for running the tools.
 
 | Workflow | Shared behavior |
 | --- | --- |
@@ -13,7 +13,8 @@ Both implementations use the same 50 input-format / 28-tool shared catalog; came
 | Crop | Drag a new region; Shift makes a square in Free mode, or preserves an existing selection's ratio when resizing; presets, moving, resizing and Enter to save |
 | Media | Conversion, trim, crop, speed, mute, joins/splits, snapshots, normalization, channels, visualization and timed redaction; timeline/waveform, selected-range playback and processed audio/redaction preview |
 | Precise media keys | Arrows seek 1 second; Shift+arrows use the source video FPS or 0.1 seconds for audio; I/O set trim range; Shift+Space plays the selected range |
-| PDF/documents | Merge, split, reorder/duplicate/rotate pages, uniform widths, compression, QR reading, editable/preserved document layouts, spreadsheets, EPUB and Pages interoperability |
+| PDF/documents | Merge, split, reorder (multiple selection and drag)/duplicate/rotate pages, add pages from other PDFs or images, save selected pages, uniform widths, compression, QR reading, editable/preserved document layouts, spreadsheets, EPUB and Pages interoperability |
+| Workflows | Saved steps (convert, fit within, compress, remove metadata) run on each file and keep only the final result; watched folders run a workflow on new files into their `Filevero` subfolder; Prepare to Share makes a clean, light copy |
 | Archives/subtitles | ZIP/TAR/GZIP/BZIP2/XZ/7Z/RAR extraction, Create Archive (Windows writes ZIP/TAR/GZIP/BZIP2) and SRT/VTT conversion; original files retained and output collisions handled safely |
 | Float/actions | Compact paperclip stack; hover/click opens a slim thumbnail shelf; stack carries all files, clip moves the shelf; multi-selection, preview, copy/path, reveal/share, icon/list modes and edge attachment; removal never deletes originals |
 | Window management | Eight layouts: thirds, halves, two-thirds and Maximize; actual title-bar/resize drag, target preview, release placement and Escape cancellation; usable display work area; app minimum widths keep the selected left/center/right anchor |
@@ -31,6 +32,9 @@ Both implementations use the same 50 input-format / 28-tool shared catalog; came
 | Open selected-file tools | Return / Command+Return | Enter / Ctrl+Enter; Ctrl+Space remains supported |
 | Library result | Up/Down, Space preview, Return reuse | Up/Down, Space preview, Enter reuse |
 | Download copied link | Control+Shift+D | Ctrl+Shift+D |
+| Clipboard history (when on) | Control+Command+V | Ctrl+Shift+Alt+V |
+| Clipboard history: pin / delete unpinned | Command+P / Command+Delete | Ctrl+P / Ctrl+Delete |
+| Clipboard history: item actions | Command+T | Ctrl+T |
 | Drag: convert / tools / actions | Shift / Command / Control | Shift / Ctrl / Alt |
 | Arrange a dragged window | Shift or Command | Shift or Alt |
 | Preview batch / media | Arrows navigate files; for media arrows seek, Option+arrows change files | Arrows navigate files; for media arrows seek, Alt+arrows change files |

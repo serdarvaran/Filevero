@@ -2,11 +2,10 @@ import FileveroCore
 import FileveroUpdates
 import SwiftUI
 
-// MARK: - AppUpdateViews: In-App Update Banners, Preferences & Repository Connection Panels
+// MARK: - AppUpdateViews: In-App Update Banners & Preferences
 
 extension Notification.Name {
     public static let showUpdateSettings = Notification.Name("FileveroShowUpdateSettings")
-    public static let showUpdateConnection = Notification.Name("FileveroShowUpdateConnection")
 }
 
 public struct AppUpdateBanner: View {
@@ -88,38 +87,6 @@ public struct AppUpdateSettingsView: View {
                 .padding(22)
                 .fileveroCard()
 
-                HStack(spacing: 12) {
-                    Image(systemName: "externaldrive.badge.person.crop").foregroundStyle(FileveroPalette.accentText)
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(
-                            updater.repository?.slug ?? updater.officialRepository?.slug ?? "GitHub release connection"
-                        ).font(.headline)
-                        Text(
-                            updater.repository == nil
-                                ? (updater.officialRepository == nil
-                                    ? "Connect a private or public updates repository."
-                                    : "Official public releases · No account or token needed")
-                                : updater.requiresToken
-                                    ? "Private repository · Token saved in Keychain"
-                                    : "Public repository · No token needed"
-                        )
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    if let official = updater.officialRepository, updater.repository == nil {
-                        Link("View releases", destination: official.websiteURL.appendingPathComponent("releases"))
-                            .buttonStyle(FileveroButtonStyle(.secondary, compact: true))
-                    } else {
-                        Button(updater.repository == nil ? "Connect…" : "Manage…") {
-                            NotificationCenter.default.post(name: .showUpdateConnection, object: nil)
-                        }
-                        .buttonStyle(FileveroButtonStyle(.secondary, compact: true))
-                    }
-                }
-                .padding(18)
-                .fileveroCard()
-
                 if let error = updater.configurationError {
                     GroupBox("Updates are being set up") {
                         LText(error).font(.system(size: 13)).foregroundStyle(.secondary).frame(
@@ -134,7 +101,7 @@ public struct AppUpdateSettingsView: View {
                                 isOn: Binding(
                                     get: { updater.automaticallyChecksForUpdates },
                                     set: updater.setAutomaticChecks))
-                            Text("Filevero checks once an hour while it’s running. You choose when to download and install.")
+                            Text("Filevero checks once an hour while it’s running and asks before installing an update.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
 
@@ -201,219 +168,7 @@ public struct AppUpdateSettingsView: View {
     }
 }
 
-public struct AppUpdateConnectionView: View {
-    @Environment(\.fileveroTheme) private var theme
-    @Environment(\.locale) private var locale
-    @ObservedObject public var updater: SparkleUpdateCoordinator
-    @State private var repository = ""
-    @State private var token = ""
-    @State private var privateRepository = true
-    @State private var message: String?
-    @State private var error: String?
-
-    public init(updater: SparkleUpdateCoordinator) {
-        self.updater = updater
-    }
-
-    public var body: some View {
-        let _ = theme
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                FileveroPageHeading(
-                    eyebrow: "Update connection",
-                    title: "Connect an update source.",
-                    subtitle: "Connect a GitHub repository to check its releases.")
-
-                Text(
-                    "Filevero \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development") · Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "—")"
-                )
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-                if let connected = updater.repository {
-                    Label("Connected to \(connected.slug)", systemImage: "checkmark.circle.fill")
-                        .font(.system(size: 13, weight: .semibold))
-                        .foregroundStyle(FileveroPalette.accentText)
-                }
-
-                VStack(alignment: .leading, spacing: 14) {
-                    Text("GitHub repository").font(.headline)
-                    TextField("owner/repository or GitHub URL", text: $repository)
-                        .textFieldStyle(.roundedBorder)
-                        .accessibilityLabel("GitHub repository")
-
-                    Toggle("This repository is private", isOn: $privateRepository)
-
-                    if privateRepository {
-                        Text("Fine-grained access token").font(.headline)
-                        SecureField(
-                            updater.hasSavedToken && repositoryMatches
-                                ? "Saved token · Leave blank to keep it" : "Paste your GitHub token",
-                            text: $token
-                        )
-                        .textFieldStyle(.roundedBorder)
-                        .accessibilityLabel("GitHub token")
-                        .privacySensitive()
-
-                        if updater.hasSavedToken && repositoryMatches {
-                            Button("Authorize Saved Token…") {
-                                token = ""
-                                save()
-                            }
-                            .buttonStyle(FileveroButtonStyle(.quiet, compact: true))
-
-                            Text("Use once if macOS needs permission for your saved update connection.")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        Text("Select only this repository and give Contents read access. The token stays in this Mac’s Keychain.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        Link(
-                            "Create a fine-grained token on GitHub",
-                            destination: URL(string: "https://github.com/settings/personal-access-tokens/new")!
-                        )
-                        .font(.caption)
-                    } else {
-                        Label("Public updates work without a token.", systemImage: "lock.open")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                .padding(20)
-                .fileveroCard()
-                .disabled(!updater.canChangeConnection)
-
-                if let message {
-                    Label(message, systemImage: "checkmark.circle")
-                        .font(.system(size: 12))
-                        .foregroundStyle(FileveroPalette.accentText)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                if let error {
-                    Label(error, systemImage: "exclamationmark.circle")
-                        .font(.system(size: 12))
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                if let configurationError = updater.configurationError {
-                    Label(configurationError, systemImage: "wrench.and.screwdriver")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                HStack(spacing: 12) {
-                    if updater.isConnecting {
-                        ProgressView().controlSize(.small)
-                        Text("Checking the connection…").font(.caption)
-                    } else if updater.repository != nil {
-                        Button("Disconnect & Forget Token") { disconnect() }
-                            .buttonStyle(FileveroButtonStyle(.quiet, compact: true))
-                            .disabled(!updater.canChangeConnection)
-                    }
-                    Spacer()
-                    Button("Save Connection") { save() }
-                        .buttonStyle(FileveroButtonStyle(.primary))
-                        .keyboardShortcut(.defaultAction)
-                        .disabled(
-                            !updater.canChangeConnection
-                                || repository.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                }
-
-                if updater.isConfigured {
-                    Divider()
-                    HStack {
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(updater.isPreparingCheck ? "Checking releases…" : "Check for updates").font(.headline)
-                            if let checked = updater.lastCheckedAt {
-                                Text("Last checked \(AppLocalization.dateTime(checked, language: locale.identifier))")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                        Spacer()
-                        Button(updater.availableVersion == nil ? "Check for Updates…" : "Update…") {
-                            updater.checkForUpdates()
-                        }
-                        .buttonStyle(FileveroButtonStyle(.secondary, compact: true))
-                        .disabled(!updater.canCheckForUpdates || updater.isBusy)
-                    }
-
-                    Toggle(
-                        "Check automatically while Filevero is running",
-                        isOn: Binding(get: { updater.automaticallyChecksForUpdates }, set: updater.setAutomaticChecks)
-                    )
-                    .font(.system(size: 12))
-
-                    if let lastError = updater.lastError {
-                        Label(lastError, systemImage: "exclamationmark.circle")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-
-                Text("Updates are signed and verified before installation. Changing repositories keeps the same trusted signing key. Your settings and files stay with you.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .padding(28)
-        }
-        .frame(minWidth: 530, minHeight: 570)
-        .fileveroBackdrop()
-        .onAppear {
-            repository =
-                updater.repository?.slug ?? updater.officialRepository?.slug ?? Bundle.main.object(
-                    forInfoDictionaryKey: "FileveroSuggestedGitHubRepository") as? String ?? ""
-            privateRepository = updater.requiresToken
-        }
-        .onDisappear { token = "" }
-    }
-
-    private var repositoryMatches: Bool {
-        (try? FileveroUpdates.GitHubRepository(repository)) == updater.repository && updater.repository != nil
-    }
-
-    private func save() {
-        message = nil
-        error = nil
-        Task { @MainActor in
-            do {
-                try await updater.connectGitHub(repository: repository, token: token, requiresToken: privateRepository)
-                token = ""
-                repository = updater.repository?.slug ?? repository
-                message =
-                    updater.isConfigured
-                    ? "Connection saved. Future checks use it automatically."
-                    : "Connection saved. This build still needs its release signing configuration."
-            } catch {
-                self.error = error.localizedDescription
-            }
-        }
-    }
-
-    private func disconnect() {
-        Task { @MainActor in
-            do {
-                try await updater.disconnectGitHub()
-                token = ""
-                message = "Connection removed and its saved token deleted."
-                error = nil
-            } catch {
-                self.error = error.localizedDescription
-                message = nil
-            }
-        }
-    }
-}
-
 // MARK: - Compatibility Bridge
 public typealias UpdateBanner = AppUpdateBanner
 public typealias UpdateSettingsView = AppUpdateSettingsView
-public typealias UpdateConnectionView = AppUpdateConnectionView
 

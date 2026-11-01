@@ -207,13 +207,14 @@ private final class WindowManagementFixtureDelegate: NSObject, NSApplicationDele
 public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     public let state = AppSessionController()
     public let updater = SparkleUpdateCoordinator()
+    let clipboard = ClipboardController()
+    private var clipboardPicker: ClipboardPickerPanel?
     private var updateSubscriptions = Set<AnyCancellable>()
 
     public var statusItem: NSStatusItem!
     public var home: NSWindow?
     private var homeKeyboardEventMonitor: Any?
     public var settings: NSWindow?
-    public var updateConnection: NSWindow?
     private let progressToast = ProgressStatusToast()
     public var toolSetupWorking = false
     public var toolSetupWindow: NSWindow?
@@ -315,10 +316,6 @@ public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuD
 
         updater.start()
 
-        NotificationCenter.default.publisher(for: .showUpdateConnection)
-            .sink { [weak self] _ in self?.showUpdateConnection() }
-            .store(in: &updateSubscriptions)
-
         NotificationCenter.default.publisher(for: .showToolSetup)
             .sink { [weak self] _ in self?.showToolSetup() }
             .store(in: &updateSubscriptions)
@@ -349,6 +346,12 @@ public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuD
         }
 
         registerDownloadShortcut()
+        clipboard.onShowPicker = { [weak self] in self?.showClipboardPicker() }
+        clipboard.start()
+        WatchedFolderController.shared.run = { [weak self] workflow, file, output in
+            self?.state.run(workflow, inputs: [file], outputDirectory: output)
+        }
+        WatchedFolderController.shared.start()
 
         homeKeyboardEventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             guard let self, event.window === self.home, self.home?.isKeyWindow == true else { return event }
@@ -496,8 +499,10 @@ public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuD
 
         let installedStatus = InstallEventHandler(
             GetApplicationEventTarget(),
-            { _, _, context in
-                guard let context else { return OSStatus(eventNotHandledErr) }
+            { _, event, context in
+                // The clipboard history hot key shares this event target.
+                guard let event, let context, GlobalHotKey.identifier(of: event)?.signature == 0x5447_4E44
+                else { return OSStatus(eventNotHandledErr) }
                 let del = Unmanaged<FileveroAppDelegate>.fromOpaque(context).takeUnretainedValue()
                 Task { @MainActor in del.showDownloadLink() }
                 return noErr
@@ -559,7 +564,7 @@ public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuD
             settings = makeStandardWindow(
                 title: "Filevero Settings",
                 size: NSSize(width: 860, height: 700),
-                view: SettingsWorkspaceViews(updater: updater, initialSection: section ?? .general)
+                view: SettingsWorkspaceViews(updater: updater, clipboard: clipboard, initialSection: section ?? .general)
             )
         } else if section == .updates {
             NotificationCenter.default.post(name: .showUpdateSettings, object: nil)
@@ -622,21 +627,87 @@ public final class FileveroAppDelegate: NSObject, NSApplicationDelegate, NSMenuD
         if updater.isConfigured {
             updater.checkForUpdates()
         } else {
-            showUpdateConnection()
+            presentSettingsWorkspace(section: .updates)
         }
     }
 
-    @objc public func showUpdateConnection() {
-        if updateConnection == nil {
-            updateConnection = makeStandardWindow(
-                title: "Filevero Update Connection",
-                size: NSSize(width: 620, height: 720),
-                view: AppUpdateConnectionView(updater: updater)
-            )
+    @objc func showClipboardPicker() {
+        guard clipboard.isRunning else { return }
+        let panel = clipboardPicker ?? ClipboardPickerPanel()
+        clipboardPicker = panel
+        // Pressing the shortcut again closes the picker, as the system clipboard history does on Windows.
+        guard !panel.isVisible else {
+            panel.dismiss()
+            return
         }
-        updateConnection?.contentMinSize = NSSize(width: 560, height: 570)
-        updateConnection?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+        panel.show(controller: clipboard) { [weak self] action, entry, target in
+            self?.use(entry, action: action, target: target)
+        }
+    }
+
+    @objc func toggleClipboardPause() {
+        clipboard.togglePause()
+    }
+
+    private func use(_ entry: ClipboardEntry, action: ClipboardPickerModel.Action, target: NSRunningApplication?) {
+        let formats = clipboard.formats(for: entry)
+        clipboard.touch(entry.id)
+        switch action {
+        case .openInFilevero:
+            let pasteboard = NSPasteboard(name: .init("filevero-clipboard-open"))
+            ClipboardPasteboardCodec.write(formats, plainTextOnly: false, to: pasteboard)
+            showHome()
+            state.pasteContent(pasteboard)
+            pasteboard.releaseGlobally()
+        case .copyOnly:
+            ClipboardPasteboardCodec.write(formats, plainTextOnly: false, to: .general)
+        case .paste, .pastePlainText:
+            let result = ClipboardPaster().paste(
+                formats, plainTextOnly: action == .pastePlainText, into: target, pasteboard: .general)
+            if result == .copiedOnly {
+                successToast.show(SuccessNotice(title: "Copied", detail: L10n.text("Press ⌘V to paste.")))
+            }
+        case .apply(let clipboardAction):
+            apply(clipboardAction, to: formats, target: target)
+        }
+    }
+
+    private func apply(_ action: ClipboardAction, to formats: [ClipboardFormat: Data], target: NSRunningApplication?) {
+        let text = formats[.plainText].map { String(decoding: $0, as: UTF8.self) } ?? ""
+        switch action {
+        case .qrCode:
+            guard !text.isEmpty, let png = ClipboardAction.qrCodePNG(for: text) else {
+                successToast.show(SuccessNotice(title: "Too long for a QR code", detail: L10n.text("Copy a shorter text or link.")))
+                return
+            }
+            ClipboardPasteboardCodec.write([.png: png], plainTextOnly: false, to: .general)
+            successToast.show(SuccessNotice(title: "QR code copied", detail: L10n.text("Press ⌘V to paste.")))
+        case .savePNG, .saveJPG:
+            do {
+                let output = try ClipboardImageExport.save(
+                    formats[.png], as: action == .savePNG ? "png" : "jpg",
+                    in: FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0])
+                successToast.show(SuccessNotice(title: "Image saved", detail: output.lastPathComponent, files: [output]))
+            } catch {
+                successToast.show(SuccessNotice(title: "Couldn’t save the image", detail: error.localizedDescription))
+            }
+        default:
+            guard !text.isEmpty else {
+                NSSound.beep()
+                successToast.show(SuccessNotice(title: "No plain text", detail: L10n.text("This item has no text to change.")))
+                return
+            }
+            guard let rewritten = action.transform(text, language: L10n.language) else {
+                NSSound.beep()
+                successToast.show(SuccessNotice(title: "Not valid JSON", detail: L10n.text("The text was left unchanged.")))
+                return
+            }
+            let result = ClipboardPaster().paste(
+                [.plainText: Data(rewritten.utf8)], plainTextOnly: true, into: target, pasteboard: .general)
+            if result == .copiedOnly {
+                successToast.show(SuccessNotice(title: "Copied", detail: L10n.text("Press ⌘V to paste.")))
+            }
+        }
     }
 
     @objc public func quit() {
@@ -829,6 +900,14 @@ extension FileveroAppDelegate: NSMenuItemValidation {
         }
         if menuItem.action == #selector(quit) {
             return !state.working
+        }
+        if menuItem.action == #selector(toggleClipboardPause) {
+            menuItem.title = L10n.text(clipboard.isPaused ? "Resume Clipboard History" : "Pause Clipboard History")
+            return clipboard.isRunning
+        }
+        if menuItem.action == #selector(showClipboardPicker) {
+            menuItem.title = L10n.text("Show Clipboard History") + " (\(clipboard.shortcut.rawValue))"
+            return clipboard.isRunning
         }
         return true
     }

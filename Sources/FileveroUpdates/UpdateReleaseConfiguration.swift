@@ -18,7 +18,7 @@ public struct UpdateReleaseConfiguration: Equatable, Sendable {
             case .notConfigured:
                 return "Updates aren’t connected yet. This build needs a release feed and an update signing key."
             case .missingFeed:
-                return "The update signing key is ready. Connect a GitHub repository to enable updates."
+                return "This build has an update signing key but no release feed."
             case .insecureFeed:
                 return "The update feed must use HTTPS. Local development feeds must use a loopback address."
             case .invalidPublicKey:
@@ -29,17 +29,12 @@ public struct UpdateReleaseConfiguration: Equatable, Sendable {
         }
     }
 
-    public init(info: [String: Any], repository: GitHubRepository? = nil) throws {
+    public init(info: [String: Any]) throws {
         guard let key = info["SUPublicEDKey"] as? String, !key.isEmpty else {
             throw ConfigurationError.notConfigured
         }
 
-        let feed = (info["SUFeedURL"] as? String).flatMap { $0.isEmpty ? nil : $0 }
-            ?? repository.map {
-                $0.websiteURL.appendingPathComponent("releases/latest/download/appcast.xml").absoluteString
-            }
-
-        guard let feedString = feed else {
+        guard let feedString = info["SUFeedURL"] as? String, !feedString.isEmpty else {
             throw ConfigurationError.missingFeed
         }
 

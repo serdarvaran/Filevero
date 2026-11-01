@@ -10,7 +10,6 @@ repository = plistlib.loads(Path(os.environ['FILEVERO_UPDATE_CONFIG']).read_byte
 assert info.get('FileveroPublicUpdateRepository') == repository
 assert info.get('SUFeedURL') == f'https://github.com/{repository}/releases/latest/download/appcast.xml'
 assert info.get('FileveroExternalTools') is True
-assert not (root / 'Contents/XPCServices').exists(), 'Public archive must not include a private credential broker'
 assert not (root / 'Contents/Resources/Tools/ffmpeg').exists(), 'Upstream media tools use direct first-use acquisition'
 assert not (root / 'Contents/Resources/Tools/LibreOffice.app').exists()
 username = os.environ.get('USER', '').encode()

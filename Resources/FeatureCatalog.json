@@ -411,6 +411,7 @@
     "jpg": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "editImage",
       "annotateImage",
       "frameImage",
@@ -421,6 +422,7 @@
     "png": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "editImage",
       "annotateImage",
       "frameImage",
@@ -431,6 +433,7 @@
     "webp": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "editImage",
       "annotateImage",
       "frameImage",
@@ -441,6 +444,7 @@
     "heic": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "editImage",
       "annotateImage",
       "frameImage",
@@ -451,6 +455,7 @@
     "tiff": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "editImage",
       "annotateImage",
       "frameImage",
@@ -468,6 +473,7 @@
     "mp3": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio",
       "audioToVideo",
       "trimAudio",
@@ -477,6 +483,7 @@
     "m4a": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio",
       "audioToVideo",
       "trimAudio",
@@ -486,6 +493,7 @@
     "wav": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio",
       "audioToVideo",
       "trimAudio",
@@ -495,6 +503,7 @@
     "flac": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio",
       "audioToVideo",
       "trimAudio",
@@ -508,6 +517,7 @@
     "mp4": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "muteVideo",
       "trimVideo",
       "cropVideo",
@@ -519,6 +529,7 @@
     "mov": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "muteVideo",
       "trimVideo",
       "cropVideo",
@@ -530,6 +541,7 @@
     "mkv": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "muteVideo",
       "trimVideo",
       "cropVideo",
@@ -542,11 +554,13 @@
     "avi": [],
     "wmv": [],
     "gif": [
-      "removeMetadata"
+      "removeMetadata",
+      "prepareToShare"
     ],
     "pdf": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "splitPDF",
       "organizePDF"
     ],
@@ -593,6 +607,7 @@
     "jpg": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "cropImage",
       "createPDF",
       "createCollage"
@@ -600,6 +615,7 @@
     "png": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "cropImage",
       "createPDF",
       "createCollage"
@@ -607,6 +623,7 @@
     "webp": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "cropImage",
       "createPDF",
       "createCollage"
@@ -614,6 +631,7 @@
     "heic": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "cropImage",
       "createPDF",
       "createCollage"
@@ -621,6 +639,7 @@
     "tiff": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "cropImage",
       "createPDF",
       "createCollage"
@@ -634,21 +653,25 @@
     "mp3": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio"
     ],
     "m4a": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio"
     ],
     "wav": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio"
     ],
     "flac": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "normalizeAudio"
     ],
     "ogg": [],
@@ -658,18 +681,21 @@
     "mp4": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "muteVideo",
       "joinVideos"
     ],
     "mov": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "muteVideo",
       "joinVideos"
     ],
     "mkv": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "muteVideo",
       "joinVideos"
     ],
@@ -677,11 +703,13 @@
     "avi": [],
     "wmv": [],
     "gif": [
-      "removeMetadata"
+      "removeMetadata",
+      "prepareToShare"
     ],
     "pdf": [
       "compress",
       "removeMetadata",
+      "prepareToShare",
       "splitPDF",
       "mergePDF"
     ],
@@ -752,7 +780,8 @@
     "redactVideo": "Redact Video",
     "redactAudio": "Bleep Audio",
     "readQRCode": "Read QR Codes",
-    "removeBackground": "Remove Background"
+    "removeBackground": "Remove Background",
+    "prepareToShare": "Prepare to Share"
   },
   "fileActions": [
     "share",

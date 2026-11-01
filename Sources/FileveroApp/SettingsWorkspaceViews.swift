@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 
 public struct SettingsWorkspaceViews: View {
     @ObservedObject public var updater: SparkleUpdateCoordinator
+    var clipboard: ClipboardController?
     @State private var section = SettingsSection.general
     @State private var selectedFormat = "jpg"
     @State private var formatSearch = ""
@@ -46,6 +47,11 @@ public struct SettingsWorkspaceViews: View {
         _selectedFormat = State(initialValue: initialFormat)
     }
 
+    init(updater: SparkleUpdateCoordinator, clipboard: ClipboardController, initialSection: SettingsSection = .general) {
+        self.init(updater: updater, initialSection: initialSection)
+        self.clipboard = clipboard
+    }
+
     private var terminalApplications: [(String, String)] {
         var apps = [("com.apple.Terminal", "Terminal")]
         if NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.googlecode.iterm2") != nil {
@@ -71,6 +77,9 @@ public struct SettingsWorkspaceViews: View {
                         section = .formats
                     }
                 case .folders: FolderSettingsView()
+                case .watchedFolders: WatchedFoldersSettingsView()
+                case .clipboard:
+                    if let clipboard { ClipboardSettingsView(controller: clipboard) }
                 case .updates: AppUpdateSettingsView(updater: updater)
                 case .about: AboutSettingsView()
                 }
@@ -100,7 +109,7 @@ public struct SettingsWorkspaceViews: View {
     }
 
     private var sidebar: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 4) {
             FileveroMark(size: 26)
             Text(verbatim: "Filevero").font(.system(size: 14, weight: .semibold)).fixedSize().padding(.trailing, 8)
             ForEach(SettingsSection.allCases) { item in
@@ -113,7 +122,7 @@ public struct SettingsWorkspaceViews: View {
                         Image(systemName: item.symbol)
                     }
                     .font(.system(size: 12, weight: section == item ? .semibold : .regular))
-                    .padding(.horizontal, 9)
+                    .padding(.horizontal, 7)
                     .padding(.vertical, 7)
                     .foregroundStyle(section == item ? FileveroPalette.onAccent : Color.primary)
                     .background {
@@ -404,6 +413,8 @@ public enum SettingsSection: String, CaseIterable, Identifiable {
     case formats = "Formats"
     case compatibility = "Compatibility"
     case folders = "Folders"
+    case watchedFolders = "Watched Folders"
+    case clipboard = "Clipboard"
     case updates = "Updates"
     case about = "About"
     public var id: String { rawValue }
@@ -414,6 +425,8 @@ public enum SettingsSection: String, CaseIterable, Identifiable {
         case .formats: return "doc.on.doc"
         case .compatibility: return "square.grid.3x3"
         case .folders: return "folder"
+        case .watchedFolders: return "folder.badge.gearshape"
+        case .clipboard: return "doc.on.clipboard"
         case .updates: return "arrow.triangle.2.circlepath"
         case .about: return "info.circle"
         }

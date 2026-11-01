@@ -30,7 +30,7 @@ public sealed partial class MainWindow:Window
     private readonly Button homeButton,libraryButton,updateButton,toolsSetupButton;private readonly ComboBox appearance;
     private readonly StackPanel workArea=new();
     private readonly ScrollViewer homeScroll=new(),libraryScroll=new();
-    private bool busy,checking,toolSetupOffered;private WindowsUpdate? update;private Border? updateBanner;
+    private bool busy,checking,toolSetupOffered;private WindowsUpdate? update;private string? promptedUpdate;private Border? updateBanner;
     private ToolSetupWindow? toolSetupWindow;
     private readonly bool monitorToolSetup;
     internal bool UpdateBannerVisible=>updateBanner?.Visibility==Visibility.Visible;
@@ -242,6 +242,7 @@ public sealed partial class MainWindow:Window
             if(choice.Id=="removeMetadata"){SetBusy(false);await EditMetadataAsync(selected);return;}
             if(choice.Id=="readQRCode"){SetBusy(false);await ReadQrAsync(selected);return;}
             if(choice.Id=="removeBackground"){SetBusy(false);await RemoveBackgroundAsync(selected);return;}
+            if(choice.Id=="prepareToShare"){SetBusy(false);await RunAsync((destination,p,t)=>Runner.PrepareToShareAsync(selected,destination,p,t),choice.Title);return;}
             if(!imageSelection&&!mediaSelection&&choice.Id is not ("extractArchive" or "unzip")){SetBusy(false);await EditDocumentAsync(choice,selected,requestedFormat);return;}
             if(imageSelection)preview=ImageEngine.Load(input);
             else if(mediaSelection)
@@ -313,8 +314,10 @@ public sealed partial class MainWindow:Window
     {
         if(busy||checking)return;checking=true;updateButton.IsEnabled=false;if(user)L10n.SetText(status,"Checking for updates…");try
         {
-            if(update is null){update=await PublicUpdates.CheckAsync(UpdateInstaller.Current);if(update is null){if(user)L10n.SetText(status,"You have the latest published Windows version.");return;}OfferUpdate(update);if(!user)return;}
-            if(busy)return;
+            if(update is null){update=await PublicUpdates.CheckAsync(UpdateInstaller.Current);if(update is null){if(user)L10n.SetText(status,"You have the latest published Windows version.");return;}OfferUpdate(update);}
+            // Automatic checks ask once per version; the banner, tray menu and Settings keep offering it.
+            if(busy||!user&&(!IsVisible||promptedUpdate==update.Version))return;
+            promptedUpdate=update.Version;
             if(MessageBox.Show(this,L10n.Text("Download, verify and install Filevero "+update.Version+"? The app will restart. No account or token is needed."),L10n.Text("Filevero update"),MessageBoxButton.OKCancel)!=MessageBoxResult.OK)return;
             SetBusy(true);using var cancellation=new CancellationTokenSource();var toast=new ToastWindow(this,cancellation.Cancel);toast.Show();
             try
