@@ -8,6 +8,7 @@ public partial class App:Application
     private WindowManagement? windowManagement;
     protected override void OnStartup(StartupEventArgs e)
     {
+        PhotoCodec.Initialize();
         if(Environment.GetEnvironmentVariable("FILEVERO_SMOKE_DIRECTORY") is {} diagnostics)
         {
             Directory.CreateDirectory(diagnostics);

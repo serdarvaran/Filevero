@@ -16,6 +16,8 @@ public sealed record PhotoAdjustments
 }
 public static class PhotoCodec
 {
+    /// ImageMagick reads its security policy once, on first use, so entry points call this before anything else touches it.
+    public static void Initialize(){}
     static PhotoCodec()
     {
         var config=ConfigurationFiles.Default;

@@ -1,6 +1,7 @@
 using Filevero.Core;
 using System.Text.Json;
 
+PhotoCodec.Initialize();
 if(Environment.GetEnvironmentVariable("FILEVERO_VERIFY_DOWNLOAD_TOOLS")=="1")
 {
     var toolPath=Environment.GetEnvironmentVariable("FILEVERO_VERIFY_TOOLS_DIRECTORY")??throw new Exception("Set a test tool directory.");
