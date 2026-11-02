@@ -84,6 +84,15 @@ python3 scripts/test-native-ui.py
 
 `swift test` motor ve güncelleyici testlerini çalıştırır. UI betiği her ekranı iki dilde, iki görünümde ve sekiz temanın tamamında çizer. Bkz. [UI denetimi](docs/testing/UI-AUDIT.md) ve [Katkı rehberi](CONTRIBUTING.md).
 
+## Destek
+
+Filevero işine yaradıysa geliştirilmesini GitHub Sponsors ya da kripto ile destekleyebilirsin. Destek gönüllüdür ve lisansı değiştirmez.
+
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-GitHub-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/serdarvaran)
+[![Donate Bitcoin](https://img.shields.io/badge/Bitcoin-BTC-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white)](https://github.com/serdarvaran/serdarvaran#bitcoin)
+[![Donate Ethereum](https://img.shields.io/badge/Ethereum-ETH-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)](https://github.com/serdarvaran/serdarvaran#ethereum)
+[![Donate Solana](https://img.shields.io/badge/Solana-SOL-9945FF?style=for-the-badge&logo=solana&logoColor=white)](https://github.com/serdarvaran/serdarvaran#solana)
+
 ## Lisans
 
 Filevero [MIT Lisansı](LICENSE) ile yayımlanır. Birlikte gelen kütüphaneler ve harici araçlar kendi lisanslarını korur; bkz. [macOS bildirimleri](Resources/THIRD-PARTY-NOTICES.txt) ve [Windows bildirimleri](windows/THIRD-PARTY-NOTICES.txt).

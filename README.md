@@ -84,6 +84,15 @@ python3 scripts/test-native-ui.py
 
 `swift test` runs the engine and updater suites. The UI script renders every screen in both languages, appearances and all eight themes. See [UI audit](docs/testing/UI-AUDIT.md) and [Contributing](CONTRIBUTING.md).
 
+## Support
+
+If Filevero saves you time, you can support its development through GitHub Sponsors or crypto. Support is voluntary and does not change the licence.
+
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-GitHub-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/serdarvaran)
+[![Donate Bitcoin](https://img.shields.io/badge/Bitcoin-BTC-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white)](https://github.com/serdarvaran/serdarvaran#bitcoin)
+[![Donate Ethereum](https://img.shields.io/badge/Ethereum-ETH-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)](https://github.com/serdarvaran/serdarvaran#ethereum)
+[![Donate Solana](https://img.shields.io/badge/Solana-SOL-9945FF?style=for-the-badge&logo=solana&logoColor=white)](https://github.com/serdarvaran/serdarvaran#solana)
+
 ## License
 
 Filevero is released under the [MIT License](LICENSE). Bundled libraries and external tools keep their own licenses; see the [macOS notices](Resources/THIRD-PARTY-NOTICES.txt) and [Windows notices](windows/THIRD-PARTY-NOTICES.txt).
